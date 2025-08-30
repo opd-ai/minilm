@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"math/rand"
 	"strings"
 	"sync"
 	"time"
@@ -13,8 +12,11 @@ import (
 // MockLLMModel provides a mock implementation for testing without actual LLM dependencies
 // In production, this would be replaced with actual llama.cpp or other LLM bindings
 type MockLLMModel struct {
-	responses []string
-	delay     time.Duration
+	responses   []string
+	delay       time.Duration
+	initialized bool
+	contextSize int
+	mu          sync.RWMutex
 }
 
 // NewMockLLMModel creates a mock model with predefined responses
@@ -32,12 +34,29 @@ func NewMockLLMModel() *MockLLMModel {
 			"I'm here whenever you need me!",
 			"That makes me happy! *excited bounce*",
 		},
-		delay: 200 * time.Millisecond, // Simulate processing time
+		delay:       200 * time.Millisecond, // Simulate processing time
+		initialized: false,
+		contextSize: 2048,
 	}
+}
+
+// Initialize initializes the mock model (no-op for compatibility)
+func (m *MockLLMModel) Initialize() error {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	m.initialized = true
+	return nil
 }
 
 // Predict simulates LLM prediction with mock responses
 func (m *MockLLMModel) Predict(prompt string) (string, error) {
+	m.mu.RLock()
+	if !m.initialized {
+		m.mu.RUnlock()
+		return "", fmt.Errorf("mock model not initialized")
+	}
+	m.mu.RUnlock()
+
 	// Simulate processing delay
 	time.Sleep(m.delay)
 
@@ -48,36 +67,94 @@ func (m *MockLLMModel) Predict(prompt string) (string, error) {
 	case strings.Contains(prompt, "hello") || strings.Contains(prompt, "hi"):
 		return "Hi there! How are you doing today? 😊", nil
 	case strings.Contains(prompt, "feed") || strings.Contains(prompt, "food"):
-		return "Yummy! Thanks for the food! *nom nom* 🍎", nil
+		return "Thanks for the meal! *nom nom* 😋", nil
+	case strings.Contains(prompt, "pet") || strings.Contains(prompt, "pat"):
+		return "That feels wonderful! *purrs happily* 😊", nil
+	case strings.Contains(prompt, "talk") || strings.Contains(prompt, "chat"):
+		return "I love chatting with you! What's on your mind? 💭", nil
 	case strings.Contains(prompt, "sad") || strings.Contains(prompt, "down"):
-		return "Aww, I'm here for you. Things will get better! 💙", nil
-	case strings.Contains(prompt, "happy") || strings.Contains(prompt, "good"):
-		return "That's wonderful! I'm so happy to hear that! ✨", nil
-	case strings.Contains(prompt, "play") || strings.Contains(prompt, "game"):
-		return "Let's play! What would you like to do? 🎮", nil
-	case strings.Contains(prompt, "love") || strings.Contains(prompt, "like"):
-		return "Aww, that's so sweet! I care about you too! 💕", nil
+		return "Aww, I'm here for you! *gentle hug* 🤗", nil
+	case strings.Contains(prompt, "happy") || strings.Contains(prompt, "joy"):
+		return "Your happiness makes me happy too! 😄✨", nil
 	default:
-		// Random response for other cases
-		index := rand.Intn(len(m.responses))
-		return m.responses[index], nil
+		// Return a random response for unmatched prompts
+		return m.responses[int(time.Now().UnixNano())%len(m.responses)], nil
 	}
 }
 
-// Free releases resources (no-op for mock)
-func (m *MockLLMModel) Free() {}
+// PredictWithTimeout generates text with a timeout context
+func (m *MockLLMModel) PredictWithTimeout(ctx context.Context, prompt string) (string, error) {
+	resultChan := make(chan string, 1)
+	errorChan := make(chan error, 1)
+
+	go func() {
+		result, err := m.Predict(prompt)
+		if err != nil {
+			errorChan <- err
+			return
+		}
+		resultChan <- result
+	}()
+
+	select {
+	case result := <-resultChan:
+		return result, nil
+	case err := <-errorChan:
+		return "", err
+	case <-ctx.Done():
+		return "", fmt.Errorf("mock prediction timed out: %w", ctx.Err())
+	}
+}
+
+// EstimateTokens provides a rough estimate of token count for a text
+func (m *MockLLMModel) EstimateTokens(text string) int {
+	// Rough approximation: 4 characters per token for English text
+	return len(text) / 4
+}
+
+// GetContextSize returns the maximum context size for this model
+func (m *MockLLMModel) GetContextSize() int {
+	return m.contextSize
+}
+
+// GetModelInfo returns information about the mock model
+func (m *MockLLMModel) GetModelInfo() ModelInfo {
+	m.mu.RLock()
+	defer m.mu.RUnlock()
+
+	return ModelInfo{
+		ModelPath:   "mock://model",
+		ContextSize: m.contextSize,
+		Threads:     1,
+		Temperature: 0.7,
+		TopP:        0.9,
+		Initialized: m.initialized,
+		ModelType:   "mock",
+		Backend:     "CPU",
+	}
+}
+
+// Free releases mock model resources (no-op for compatibility)
+func (m *MockLLMModel) Free() error {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	m.initialized = false
+	return nil
+}
 
 // LLMBackend implements DialogBackend using LLM inference
-// Currently uses a mock implementation - in production this would use actual LLM bindings
+// Supports both mock (for development) and production (llama.cpp) models
 type LLMBackend struct {
 	// Model and inference configuration
-	model       *MockLLMModel // TODO: Replace with actual LLM model interface
-	modelPath   string
-	maxTokens   int
-	temperature float32
-	topP        float32
-	contextSize int
-	threads     int
+	model              ProductionLLMModel // Production model interface (LlamaModel or MockLLMModel)
+	mockModel          *MockLLMModel      // Legacy mock for fallback
+	useProductionModel bool               // Whether to use production or mock model
+	modelPath          string
+	maxTokens          int
+	temperature        float32
+	topP               float32
+	contextSize        int
+	threads            int
 
 	// Markov-based personality configuration (reuses existing character data)
 	markovConfig    MarkovChainConfig
@@ -257,12 +334,57 @@ func (llm *LLMBackend) configureMarkovSettings(cfg LLMConfig) {
 	llm.fallbackEnabled = cfg.FallbackEnabled
 }
 
-// loadModel initializes the mock LLM model
-// TODO: Replace with actual LLM model loading (llama.cpp, transformers, etc.)
+// loadModel initializes either production LLM model or mock model
+// Attempts to load production model first, falls back to mock if needed
 func (llm *LLMBackend) loadModel() error {
-	// For now, use mock model - in production this would load actual model files
-	llm.model = NewMockLLMModel()
+	// Try to load production model if path points to actual GGUF file
+	if strings.HasSuffix(llm.modelPath, ".gguf") {
+		// Check if file exists to determine if we should attempt production loading
+		// In a production environment, this would also check for llama.cpp availability
+		productionModel, err := llm.tryLoadProductionModel()
+		if err == nil {
+			llm.model = productionModel
+			llm.useProductionModel = true
+			return nil
+		}
+
+		// Log the production model failure but continue with mock
+		// In production, you might want to return the error instead
+		fmt.Printf("Production model loading failed (%v), falling back to mock model\n", err)
+	}
+
+	// Use mock model as fallback or if not using production model
+	mockModel := NewMockLLMModel()
+	if err := mockModel.Initialize(); err != nil {
+		return fmt.Errorf("failed to initialize mock model: %w", err)
+	}
+
+	llm.model = mockModel
+	llm.mockModel = mockModel
+	llm.useProductionModel = false
 	return nil
+}
+
+// tryLoadProductionModel attempts to load a production LLM model
+func (llm *LLMBackend) tryLoadProductionModel() (ProductionLLMModel, error) {
+	config := LlamaConfig{
+		ModelPath:   llm.modelPath,
+		ContextSize: llm.contextSize,
+		Threads:     llm.threads,
+		Temperature: llm.temperature,
+		TopP:        llm.topP,
+	}
+
+	model, err := NewLlamaModel(config)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create production model: %w", err)
+	}
+
+	if err := model.Initialize(); err != nil {
+		return nil, fmt.Errorf("failed to initialize production model: %w", err)
+	}
+
+	return model, nil
 }
 
 // GenerateResponse produces a dialog response using the LLM
