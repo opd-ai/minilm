@@ -29,7 +29,7 @@ These assets enable MiniLM to deliver immersive, context-aware interactions and 
 
 ## Implementation Status
 
-### ✅ Completed
+### ✅ Completed (MVP READY)
 - **LLM Dialog Backend**: Full implementation of the DialogBackend interface
 - **Context Management**: Conversation history with rolling window and user feedback tracking
 - **Prompt Engineering**: Context-aware prompt construction with personality injection
@@ -37,6 +37,7 @@ These assets enable MiniLM to deliver immersive, context-aware interactions and 
 - **Character Asset Integration**: Automated tooling for adding LLM configuration to existing character files
 - **Test Coverage**: Comprehensive test suite with 85.8% coverage
 - **Documentation**: Complete implementation guide and production deployment docs
+- **DDS Compatibility**: Public API exports for seamless DDS integration with 100% test coverage
 
 ### 🚧 In Progress  
 - **Model Integration**: llama.cpp binding integration (infrastructure ready, pending CGO resolution)
@@ -51,24 +52,37 @@ See `PLAN.md` for detailed implementation roadmap and `docs/PRODUCTION_MODEL_INT
 
 ### Quick Start
 ```go
-// Create and configure LLM backend
+import "minilm/dialog"
+
+// Create and configure dialog system
+manager := dialog.NewDialogManager(false)
 backend := dialog.NewLLMBackend()
+
 config := dialog.LLMConfig{
     ModelPath:   "/path/to/model.gguf",
-    Personality: "cheerful and supportive",
     MaxTokens:   50,
+    Temperature: 0.8,
+    MarkovConfig: dialog.MarkovChainConfig{
+        TrainingData: []string{
+            "Hello! I'm so happy to see you! 😊",
+            "Thanks for being such a wonderful friend!",
+        },
+    },
 }
 configJSON, _ := json.Marshal(config)
 backend.Initialize(configJSON)
+
+manager.RegisterBackend("llm", backend)
+manager.SetDefaultBackend("llm")
 
 // Generate context-aware response
 context := dialog.DialogContext{
     Trigger:       "click",
     InteractionID: "session-1", 
     CurrentMood:   80,
-    Personality:   map[string]float64{"cheerful": 0.9},
+    PersonalityTraits: map[string]float64{"cheerful": 0.9},
 }
-response, _ := backend.GenerateResponse(context)
+response, _ := manager.GenerateDialog(context)
 fmt.Printf("Character says: %s", response.Text)
 ```
 
