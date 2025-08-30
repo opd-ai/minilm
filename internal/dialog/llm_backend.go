@@ -210,6 +210,13 @@ func (llm *LLMBackend) validateAndSetModelPath(modelPath string) error {
 
 // applyOptionalParameters applies optional configuration parameters with defaults
 func (llm *LLMBackend) applyOptionalParameters(cfg LLMConfig) {
+	llm.applyLLMParameters(cfg)
+	llm.applyContextParameters(cfg)
+	llm.applyTimeoutParameters(cfg)
+}
+
+// applyLLMParameters configures core LLM generation parameters
+func (llm *LLMBackend) applyLLMParameters(cfg LLMConfig) {
 	if cfg.MaxTokens > 0 {
 		llm.maxTokens = cfg.MaxTokens
 	}
@@ -219,6 +226,10 @@ func (llm *LLMBackend) applyOptionalParameters(cfg LLMConfig) {
 	if cfg.TopP > 0 {
 		llm.topP = cfg.TopP
 	}
+}
+
+// applyContextParameters configures context and execution parameters
+func (llm *LLMBackend) applyContextParameters(cfg LLMConfig) {
 	if cfg.ContextSize > 0 {
 		llm.contextSize = cfg.ContextSize
 	}
@@ -229,6 +240,10 @@ func (llm *LLMBackend) applyOptionalParameters(cfg LLMConfig) {
 		llm.maxHistoryLength = cfg.MaxHistoryLength
 		llm.contextManager = NewContextManager(cfg.MaxHistoryLength)
 	}
+}
+
+// applyTimeoutParameters configures timeout-related parameters
+func (llm *LLMBackend) applyTimeoutParameters(cfg LLMConfig) {
 	if cfg.TimeoutMs > 0 {
 		llm.timeout = time.Duration(cfg.TimeoutMs) * time.Millisecond
 	}
