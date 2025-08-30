@@ -14,14 +14,39 @@ func main() {
 	fmt.Println("MiniLM Dialog System Example")
 	fmt.Println("============================")
 
-	// Create a dialog manager
-	manager := dialog.NewDialogManager(true) // Enable debug mode
+	// Initialize and configure the dialog system
+	manager, llmBackend := setupDialogSystem()
 
-	// Create and configure an LLM backend
+	// Run interaction demonstrations
+	runInteractionExamples(manager)
+
+	// Show system information
+	displaySystemInfo(manager)
+
+	// Clean up resources
+	cleanupResources(llmBackend)
+
+	fmt.Println("Example completed successfully!")
+}
+
+// setupDialogSystem initializes and configures the dialog manager and LLM backend
+func setupDialogSystem() (*dialog.DialogManager, *dialog.LLMBackend) {
+	manager := dialog.NewDialogManager(true) // Enable debug mode
 	llmBackend := dialog.NewLLMBackend()
 
-	// Configure the LLM backend
-	config := dialog.LLMConfig{
+	config := createLLMConfig()
+	initializeBackend(llmBackend, config)
+	registerBackend(manager, llmBackend)
+
+	fmt.Println("Backend initialized successfully!")
+	fmt.Printf("Backend info: %+v\n\n", llmBackend.GetBackendInfo())
+
+	return manager, llmBackend
+}
+
+// createLLMConfig creates the LLM configuration with training data and settings
+func createLLMConfig() dialog.LLMConfig {
+	return dialog.LLMConfig{
 		ModelPath:   "/path/to/your/model.gguf", // Replace with actual model path
 		MaxTokens:   50,                         // Short responses for desktop pets
 		Temperature: 0.8,                        // Slightly creative responses
@@ -41,27 +66,49 @@ func main() {
 		TimeoutMs:        2000,
 		FallbackEnabled:  true,
 	}
+}
 
+// initializeBackend initializes the LLM backend with the provided configuration
+func initializeBackend(llmBackend *dialog.LLMBackend, config dialog.LLMConfig) {
 	configJSON, err := json.Marshal(config)
 	if err != nil {
 		log.Fatalf("Failed to marshal config: %v", err)
 	}
 
-	// Initialize the backend
 	err = llmBackend.Initialize(configJSON)
 	if err != nil {
 		log.Fatalf("Failed to initialize LLM backend: %v", err)
 	}
+}
 
-	// Register the backend with the manager
+// registerBackend registers the LLM backend with the dialog manager
+func registerBackend(manager *dialog.DialogManager, llmBackend *dialog.LLMBackend) {
 	manager.RegisterBackend("llm", llmBackend)
 	manager.SetDefaultBackend("llm")
+}
 
-	fmt.Println("Backend initialized successfully!")
-	fmt.Printf("Backend info: %+v\n\n", llmBackend.GetBackendInfo())
+// runInteractionExamples demonstrates various user interactions with the dialog system
+func runInteractionExamples(manager *dialog.DialogManager) {
+	interactions := defineInteractionScenarios()
 
-	// Simulate various user interactions
-	interactions := []struct {
+	for i, interaction := range interactions {
+		fmt.Printf("=== Interaction %d: %s ===\n", i+1, interaction.description)
+
+		context := buildDialogContext(interaction, i)
+		processInteraction(manager, context)
+
+		fmt.Println()
+		time.Sleep(100 * time.Millisecond) // Brief pause between interactions
+	}
+}
+
+// defineInteractionScenarios creates the list of interaction scenarios for demonstration
+func defineInteractionScenarios() []struct {
+	trigger     string
+	description string
+	mood        float64
+} {
+	return []struct {
 		trigger     string
 		description string
 		mood        float64
@@ -72,74 +119,83 @@ func main() {
 		{"talk", "User wants to have a conversation", 80},
 		{"idle", "Pet has been idle for a while", 70},
 	}
+}
 
-	for i, interaction := range interactions {
-		fmt.Printf("=== Interaction %d: %s ===\n", i+1, interaction.description)
+// buildDialogContext creates a dialog context for the given interaction scenario
+func buildDialogContext(interaction struct {
+	trigger     string
+	description string
+	mood        float64
+}, turnIndex int) dialog.DialogContext {
+	return dialog.DialogContext{
+		Trigger:       interaction.trigger,
+		InteractionID: "demo-session",
+		Timestamp:     time.Now(),
+		CurrentStats: map[string]float64{
+			"happiness": interaction.mood,
+			"energy":    75,
+			"trust":     60,
+		},
+		PersonalityTraits: map[string]float64{
+			"cheerful":   0.9,
+			"supportive": 0.8,
+			"playful":    0.7,
+			"energetic":  0.6,
+		},
+		CurrentMood:       interaction.mood,
+		CurrentAnimation:  "idle",
+		TimeOfDay:         "afternoon",
+		RelationshipLevel: "friend",
+		ConversationTurn:  turnIndex + 1,
+		FallbackResponses: []string{
+			"Hello there! 👋",
+			"How are you doing?",
+			"Nice to see you!",
+		},
+		FallbackAnimation: "talking",
+	}
+}
 
-		// Create dialog context
-		context := dialog.DialogContext{
-			Trigger:       interaction.trigger,
-			InteractionID: "demo-session",
-			Timestamp:     time.Now(),
-			CurrentStats: map[string]float64{
-				"happiness": interaction.mood,
-				"energy":    75,
-				"trust":     60,
-			},
-			PersonalityTraits: map[string]float64{
-				"cheerful":   0.9,
-				"supportive": 0.8,
-				"playful":    0.7,
-				"energetic":  0.6,
-			},
-			CurrentMood:       interaction.mood,
-			CurrentAnimation:  "idle",
-			TimeOfDay:         "afternoon",
-			RelationshipLevel: "friend",
-			ConversationTurn:  i + 1,
-			FallbackResponses: []string{
-				"Hello there! 👋",
-				"How are you doing?",
-				"Nice to see you!",
-			},
-			FallbackAnimation: "talking",
-		}
-
-		// Generate response
-		response, err := manager.GenerateDialog(context)
-		if err != nil {
-			log.Printf("Error generating dialog: %v", err)
-			continue
-		}
-
-		// Display results
-		fmt.Printf("Trigger: %s\n", context.Trigger)
-		fmt.Printf("Mood: %.1f/100\n", context.CurrentMood)
-		fmt.Printf("Response: %s\n", response.Text)
-		fmt.Printf("Animation: %s\n", response.Animation)
-		fmt.Printf("Confidence: %.2f\n", response.Confidence)
-		fmt.Printf("Type: %s\n", response.ResponseType)
-		fmt.Printf("Emotional Tone: %s\n", response.EmotionalTone)
-		if len(response.Topics) > 0 {
-			fmt.Printf("Topics: %v\n", response.Topics)
-		}
-
-		// Simulate user feedback (positive for demonstration)
-		feedback := &dialog.UserFeedback{
-			Positive:     true,
-			ResponseTime: time.Duration(2+i) * time.Second,
-			FollowUpType: "positive_reaction",
-			Engagement:   0.8 + float64(i)*0.05, // Increasing engagement
-		}
-
-		// Update backend memory
-		manager.UpdateBackendMemory(context, response, feedback)
-
-		fmt.Println()
-		time.Sleep(100 * time.Millisecond) // Brief pause between interactions
+// processInteraction handles a single interaction with the dialog system
+func processInteraction(manager *dialog.DialogManager, context dialog.DialogContext) {
+	response, err := manager.GenerateDialog(context)
+	if err != nil {
+		log.Printf("Error generating dialog: %v", err)
+		return
 	}
 
-	// Demonstrate configuration and backend info
+	displayInteractionResults(context, response)
+	simulateUserFeedback(manager, context, response)
+}
+
+// displayInteractionResults shows the results of a dialog interaction
+func displayInteractionResults(context dialog.DialogContext, response dialog.DialogResponse) {
+	fmt.Printf("Trigger: %s\n", context.Trigger)
+	fmt.Printf("Mood: %.1f/100\n", context.CurrentMood)
+	fmt.Printf("Response: %s\n", response.Text)
+	fmt.Printf("Animation: %s\n", response.Animation)
+	fmt.Printf("Confidence: %.2f\n", response.Confidence)
+	fmt.Printf("Type: %s\n", response.ResponseType)
+	fmt.Printf("Emotional Tone: %s\n", response.EmotionalTone)
+	if len(response.Topics) > 0 {
+		fmt.Printf("Topics: %v\n", response.Topics)
+	}
+}
+
+// simulateUserFeedback creates and applies user feedback for the interaction
+func simulateUserFeedback(manager *dialog.DialogManager, context dialog.DialogContext, response dialog.DialogResponse) {
+	feedback := &dialog.UserFeedback{
+		Positive:     true,
+		ResponseTime: time.Duration(2+context.ConversationTurn) * time.Second,
+		FollowUpType: "positive_reaction",
+		Engagement:   0.8 + float64(context.ConversationTurn)*0.05, // Increasing engagement
+	}
+
+	manager.UpdateBackendMemory(context, response, feedback)
+}
+
+// displaySystemInfo shows information about the dialog system configuration
+func displaySystemInfo(manager *dialog.DialogManager) {
 	fmt.Println("=== System Information ===")
 	fmt.Printf("Registered backends: %v\n", manager.GetRegisteredBackends())
 
@@ -150,14 +206,14 @@ func main() {
 		fmt.Printf("Author: %s\n", info.Author)
 		fmt.Printf("License: %s\n", info.License)
 	}
+}
 
-	// Clean up
+// cleanupResources performs cleanup operations for the dialog system
+func cleanupResources(llmBackend *dialog.LLMBackend) {
 	fmt.Println("\nCleaning up...")
 	if closer, ok := interface{}(llmBackend).(interface{ Close() error }); ok {
 		closer.Close()
 	}
-
-	fmt.Println("Example completed successfully!")
 }
 
 // ExampleBasicUsage demonstrates the simplest way to use the dialog system
