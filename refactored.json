@@ -1,22 +1,345 @@
 {
   "metadata": {
     "repository": "/home/user/go/src/github.com/opd-ai/minilm",
-    "generated_at": "2025-08-30T19:15:14.151484803-04:00",
-    "analysis_time": 9423872,
+    "generated_at": "2025-08-30T19:20:33.267776862-04:00",
+    "analysis_time": 13373974,
     "files_processed": 9,
     "tool_version": "1.0.0",
     "go_version": ""
   },
   "overview": {
     "total_lines_of_code": 0,
-    "total_functions": 43,
-    "total_methods": 87,
-    "total_structs": 25,
+    "total_functions": 57,
+    "total_methods": 94,
+    "total_structs": 26,
     "total_interfaces": 2,
     "total_packages": 2,
     "total_files": 9
   },
   "functions": [
+    {
+      "name": "NewLlamaModel",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 42,
+      "is_exported": true,
+      "is_method": false,
+      "lines": {
+        "total": 33,
+        "code": 27,
+        "comments": 2,
+        "blank": 4
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 2,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.1
+      },
+      "complexity": {
+        "cyclomatic": 7,
+        "cognitive": 7,
+        "nesting_depth": 1,
+        "overall": 9.6
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 49,
+        "has_example": false,
+        "quality_score": 0.196
+      }
+    },
+    {
+      "name": "Initialize",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 79,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*LlamaModel",
+      "lines": {
+        "total": 34,
+        "code": 13,
+        "comments": 15,
+        "blank": 6
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.3
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 57,
+        "has_example": false,
+        "quality_score": 0.22799999999999998
+      }
+    },
+    {
+      "name": "Predict",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 117,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*LlamaModel",
+      "lines": {
+        "total": 28,
+        "code": 13,
+        "comments": 11,
+        "blank": 4
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 2,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.1
+      },
+      "complexity": {
+        "cyclomatic": 4,
+        "cognitive": 4,
+        "nesting_depth": 1,
+        "overall": 5.7
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 46,
+        "has_example": false,
+        "quality_score": 0.18400000000000002
+      }
+    },
+    {
+      "name": "generateMockResponse",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 150,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*LlamaModel",
+      "lines": {
+        "total": 63,
+        "code": 54,
+        "comments": 2,
+        "blank": 7
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 140,
+        "has_example": false,
+        "quality_score": 0.4
+      }
+    },
+    {
+      "name": "PredictWithTimeout",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 217,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*LlamaModel",
+      "lines": {
+        "total": 20,
+        "code": 18,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 2,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.6
+      },
+      "complexity": {
+        "cyclomatic": 6,
+        "cognitive": 6,
+        "nesting_depth": 1,
+        "overall": 8.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 57,
+        "has_example": false,
+        "quality_score": 0.22799999999999998
+      }
+    },
+    {
+      "name": "EstimateTokens",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 241,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*LlamaModel",
+      "lines": {
+        "total": 2,
+        "code": 1,
+        "comments": 1,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 67,
+        "has_example": false,
+        "quality_score": 0.268
+      }
+    },
+    {
+      "name": "GetContextSize",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 247,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*LlamaModel",
+      "lines": {
+        "total": 1,
+        "code": 1,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.3
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 63,
+        "has_example": false,
+        "quality_score": 0.352
+      }
+    },
+    {
+      "name": "GetModelInfo",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 252,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*LlamaModel",
+      "lines": {
+        "total": 13,
+        "code": 12,
+        "comments": 0,
+        "blank": 1
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.3
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 56,
+        "has_example": false,
+        "quality_score": 0.32400000000000007
+      }
+    },
+    {
+      "name": "Free",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 269,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*LlamaModel",
+      "lines": {
+        "total": 17,
+        "code": 9,
+        "comments": 4,
+        "blank": 4
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.3
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 30,
+        "has_example": false,
+        "quality_score": 0.12
+      }
+    },
     {
       "name": "NewDialogManager",
       "package": "dialog",
@@ -225,706 +548,6 @@
         "comment_length": 116,
         "has_example": false,
         "quality_score": 0.5
-      }
-    },
-    {
-      "name": "main",
-      "package": "main",
-      "file": "main",
-      "line": 13,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 11,
-        "code": 6,
-        "comments": 2,
-        "blank": 3
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 85,
-        "has_example": true,
-        "quality_score": 0.54
-      }
-    },
-    {
-      "name": "setupDialogSystem",
-      "package": "main",
-      "file": "main",
-      "line": 28,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 56,
-        "code": 42,
-        "comments": 6,
-        "blank": 8
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.3
-      },
-      "complexity": {
-        "cyclomatic": 4,
-        "cognitive": 4,
-        "nesting_depth": 1,
-        "overall": 5.7
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 60,
-        "has_example": false,
-        "quality_score": 0.24
-      }
-    },
-    {
-      "name": "simulateDDSInteractions",
-      "package": "main",
-      "file": "main",
-      "line": 88,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 122,
-        "code": 109,
-        "comments": 6,
-        "blank": 7
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.5
-      },
-      "complexity": {
-        "cyclomatic": 4,
-        "cognitive": 4,
-        "nesting_depth": 2,
-        "overall": 6.2
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 67,
-        "has_example": false,
-        "quality_score": 0.268
-      }
-    },
-    {
-      "name": "demonstrateErrorHandling",
-      "package": "main",
-      "file": "main",
-      "line": 214,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 19,
-        "code": 15,
-        "comments": 1,
-        "blank": 3
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 73,
-        "has_example": false,
-        "quality_score": 0.392
-      }
-    },
-    {
-      "name": "showPerformanceMetrics",
-      "package": "main",
-      "file": "main",
-      "line": 237,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 31,
-        "code": 24,
-        "comments": 2,
-        "blank": 5
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.5
-      },
-      "complexity": {
-        "cyclomatic": 3,
-        "cognitive": 3,
-        "nesting_depth": 1,
-        "overall": 4.4
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 67,
-        "has_example": false,
-        "quality_score": 0.268
-      }
-    },
-    {
-      "name": "main",
-      "package": "main",
-      "file": "main",
-      "line": 13,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 16,
-        "code": 7,
-        "comments": 4,
-        "blank": 5
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 62,
-        "has_example": true,
-        "quality_score": 0.448
-      }
-    },
-    {
-      "name": "setupDialogSystem",
-      "package": "main",
-      "file": "main",
-      "line": 33,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 11,
-        "code": 8,
-        "comments": 0,
-        "blank": 3
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 2,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.6
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 80,
-        "has_example": false,
-        "quality_score": 0.32000000000000006
-      }
-    },
-    {
-      "name": "createLLMConfig",
-      "package": "main",
-      "file": "main",
-      "line": 48,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 20,
-        "code": 20,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.3
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 78,
-        "has_example": false,
-        "quality_score": 0.31200000000000006
-      }
-    },
-    {
-      "name": "initializeBackend",
-      "package": "main",
-      "file": "main",
-      "line": 72,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 9,
-        "code": 8,
-        "comments": 0,
-        "blank": 1
-      },
-      "signature": {
-        "parameter_count": 2,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1
-      },
-      "complexity": {
-        "cyclomatic": 3,
-        "cognitive": 3,
-        "nesting_depth": 1,
-        "overall": 4.4
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 78,
-        "has_example": false,
-        "quality_score": 0.31200000000000006
-      }
-    },
-    {
-      "name": "registerBackend",
-      "package": "main",
-      "file": "main",
-      "line": 85,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 2,
-        "code": 2,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 2,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 66,
-        "has_example": false,
-        "quality_score": 0.264
-      }
-    },
-    {
-      "name": "runInteractionExamples",
-      "package": "main",
-      "file": "main",
-      "line": 91,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 11,
-        "code": 8,
-        "comments": 0,
-        "blank": 3
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.5
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 85,
-        "has_example": true,
-        "quality_score": 0.54
-      }
-    },
-    {
-      "name": "defineInteractionScenarios",
-      "package": "main",
-      "file": "main",
-      "line": 106,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 11,
-        "code": 11,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.3
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 87,
-        "has_example": false,
-        "quality_score": 0.34800000000000003
-      }
-    },
-    {
-      "name": "buildDialogContext",
-      "package": "main",
-      "file": "main",
-      "line": 125,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 27,
-        "code": 27,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 2,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1.3
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 79,
-        "has_example": false,
-        "quality_score": 0.31600000000000006
-      }
-    },
-    {
-      "name": "processInteraction",
-      "package": "main",
-      "file": "main",
-      "line": 160,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 8,
-        "code": 7,
-        "comments": 0,
-        "blank": 1
-      },
-      "signature": {
-        "parameter_count": 2,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 71,
-        "has_example": false,
-        "quality_score": 0.284
-      }
-    },
-    {
-      "name": "displayInteractionResults",
-      "package": "main",
-      "file": "main",
-      "line": 172,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 10,
-        "code": 10,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 2,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 68,
-        "has_example": false,
-        "quality_score": 0.272
-      }
-    },
-    {
-      "name": "simulateUserFeedback",
-      "package": "main",
-      "file": "main",
-      "line": 186,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 8,
-        "code": 7,
-        "comments": 0,
-        "blank": 1
-      },
-      "signature": {
-        "parameter_count": 3,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1.5
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 75,
-        "has_example": false,
-        "quality_score": 0.30000000000000004
-      }
-    },
-    {
-      "name": "displaySystemInfo",
-      "package": "main",
-      "file": "main",
-      "line": 198,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 10,
-        "code": 9,
-        "comments": 0,
-        "blank": 1
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.5
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 74,
-        "has_example": false,
-        "quality_score": 0.296
-      }
-    },
-    {
-      "name": "cleanupResources",
-      "package": "main",
-      "file": "main",
-      "line": 212,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 4,
-        "code": 4,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.5
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 67,
-        "has_example": false,
-        "quality_score": 0.268
-      }
-    },
-    {
-      "name": "ExampleBasicUsage",
-      "package": "main",
-      "file": "main",
-      "line": 220,
-      "is_exported": true,
-      "is_method": false,
-      "lines": {
-        "total": 33,
-        "code": 27,
-        "comments": 3,
-        "blank": 3
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 73,
-        "has_example": true,
-        "quality_score": 0.492
-      }
-    },
-    {
-      "name": "ExampleWithCharacterJSON",
-      "package": "main",
-      "file": "main",
-      "line": 257,
-      "is_exported": true,
-      "is_method": false,
-      "lines": {
-        "total": 37,
-        "code": 33,
-        "comments": 1,
-        "blank": 3
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 80,
-        "has_example": true,
-        "quality_score": 0.52
       }
     },
     {
@@ -1755,401 +1378,6 @@
       }
     },
     {
-      "name": "NewContextManager",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 35,
-      "is_exported": true,
-      "is_method": false,
-      "lines": {
-        "total": 14,
-        "code": 10,
-        "comments": 1,
-        "blank": 3
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 78,
-        "has_example": false,
-        "quality_score": 0.31200000000000006
-      }
-    },
-    {
-      "name": "AddExchange",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 53,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 28,
-        "code": 21,
-        "comments": 3,
-        "blank": 4
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.5
-      },
-      "complexity": {
-        "cyclomatic": 3,
-        "cognitive": 3,
-        "nesting_depth": 1,
-        "overall": 4.4
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 48,
-        "has_example": false,
-        "quality_score": 0.192
-      }
-    },
-    {
-      "name": "GetHistory",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 85,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 20,
-        "code": 14,
-        "comments": 2,
-        "blank": 4
-      },
-      "signature": {
-        "parameter_count": 2,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1.3
-      },
-      "complexity": {
-        "cyclomatic": 3,
-        "cognitive": 3,
-        "nesting_depth": 1,
-        "overall": 4.4
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 70,
-        "has_example": false,
-        "quality_score": 0.27999999999999997
-      }
-    },
-    {
-      "name": "UpdateFeedback",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 109,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 13,
-        "code": 10,
-        "comments": 1,
-        "blank": 2
-      },
-      "signature": {
-        "parameter_count": 3,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1.5
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 66,
-        "has_example": false,
-        "quality_score": 0.264
-      }
-    },
-    {
-      "name": "GetConversationSummary",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 126,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 16,
-        "code": 14,
-        "comments": 0,
-        "blank": 2
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 82,
-        "has_example": false,
-        "quality_score": 0.328
-      }
-    },
-    {
-      "name": "calculateSummary",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 156,
-      "is_exported": false,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 36,
-        "code": 29,
-        "comments": 2,
-        "blank": 5
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 6,
-        "cognitive": 6,
-        "nesting_depth": 2,
-        "overall": 8.8
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 50,
-        "has_example": false,
-        "quality_score": 0.2
-      }
-    },
-    {
-      "name": "ClearHistory",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 196,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 3,
-        "code": 3,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.5
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 73,
-        "has_example": false,
-        "quality_score": 0.292
-      }
-    },
-    {
-      "name": "GetActiveConversations",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 203,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 3,
-        "code": 3,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.3
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 80,
-        "has_example": false,
-        "quality_score": 0.42000000000000004
-      }
-    },
-    {
-      "name": "cleanupRoutine",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 210,
-      "is_exported": false,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 3,
-        "code": 3,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 78,
-        "has_example": false,
-        "quality_score": 0.31200000000000006
-      }
-    },
-    {
-      "name": "cleanupOldConversations",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 217,
-      "is_exported": false,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 10,
-        "code": 8,
-        "comments": 0,
-        "blank": 2
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0
-      },
-      "complexity": {
-        "cyclomatic": 3,
-        "cognitive": 3,
-        "nesting_depth": 2,
-        "overall": 4.9
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 80,
-        "has_example": false,
-        "quality_score": 0.32000000000000006
-      }
-    },
-    {
-      "name": "Close",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 231,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*ContextManager",
-      "lines": {
-        "total": 7,
-        "code": 6,
-        "comments": 0,
-        "blank": 1
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 55,
-        "has_example": false,
-        "quality_score": 0.22000000000000003
-      }
-    },
-    {
       "name": "NewDialogManager",
       "package": "dialog",
       "file": "dialog",
@@ -2687,62 +1915,26 @@
       }
     },
     {
-      "name": "NewCharacterAssetIntegrator",
+      "name": "main",
       "package": "main",
       "file": "main",
-      "line": 76,
-      "is_exported": true,
+      "line": 13,
+      "is_exported": false,
       "is_method": false,
       "lines": {
-        "total": 5,
-        "code": 5,
-        "comments": 0,
-        "blank": 0
+        "total": 11,
+        "code": 6,
+        "comments": 2,
+        "blank": 3
       },
       "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 62,
-        "has_example": false,
-        "quality_score": 0.248
-      }
-    },
-    {
-      "name": "SetDryRun",
-      "package": "main",
-      "file": "main",
-      "line": 85,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*CharacterAssetIntegrator",
-      "lines": {
-        "total": 1,
-        "code": 1,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 1,
+        "parameter_count": 0,
         "return_count": 0,
         "has_variadic": false,
         "returns_error": false,
         "interface_parameters": 0,
         "generic_parameters": null,
-        "signature_complexity": 0.5
+        "signature_complexity": 0
       },
       "complexity": {
         "cyclomatic": 1,
@@ -2752,111 +1944,38 @@
       },
       "documentation": {
         "has_comment": true,
-        "comment_length": 43,
-        "has_example": false,
-        "quality_score": 0.17200000000000001
+        "comment_length": 85,
+        "has_example": true,
+        "quality_score": 0.54
       }
     },
     {
-      "name": "SetBackupEnabled",
+      "name": "setupDialogSystem",
       "package": "main",
       "file": "main",
-      "line": 90,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*CharacterAssetIntegrator",
+      "line": 28,
+      "is_exported": false,
+      "is_method": false,
       "lines": {
-        "total": 1,
-        "code": 1,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 0,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.5
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 53,
-        "has_example": false,
-        "quality_score": 0.21200000000000002
-      }
-    },
-    {
-      "name": "IntegrateAll",
-      "package": "main",
-      "file": "main",
-      "line": 95,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*CharacterAssetIntegrator",
-      "lines": {
-        "total": 50,
-        "code": 38,
-        "comments": 1,
-        "blank": 11
+        "total": 56,
+        "code": 42,
+        "comments": 6,
+        "blank": 8
       },
       "signature": {
         "parameter_count": 0,
         "return_count": 1,
         "has_variadic": false,
-        "returns_error": true,
+        "returns_error": false,
         "interface_parameters": 0,
         "generic_parameters": null,
         "signature_complexity": 0.3
       },
       "complexity": {
-        "cyclomatic": 8,
-        "cognitive": 8,
-        "nesting_depth": 2,
-        "overall": 11.4
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 72,
-        "has_example": false,
-        "quality_score": 0.288
-      }
-    },
-    {
-      "name": "processCharacterFile",
-      "package": "main",
-      "file": "main",
-      "line": 149,
-      "is_exported": false,
-      "is_method": true,
-      "receiver_type": "*CharacterAssetIntegrator",
-      "lines": {
-        "total": 50,
-        "code": 34,
-        "comments": 7,
-        "blank": 9
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": true,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 9,
-        "cognitive": 9,
-        "nesting_depth": 2,
-        "overall": 12.7
+        "cyclomatic": 4,
+        "cognitive": 4,
+        "nesting_depth": 1,
+        "overall": 5.7
       },
       "documentation": {
         "has_comment": true,
@@ -2866,15 +1985,264 @@
       }
     },
     {
-      "name": "hasLLMConfig",
+      "name": "simulateDDSInteractions",
       "package": "main",
       "file": "main",
-      "line": 203,
+      "line": 88,
       "is_exported": false,
       "is_method": false,
       "lines": {
-        "total": 15,
-        "code": 13,
+        "total": 122,
+        "code": 109,
+        "comments": 6,
+        "blank": 7
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 4,
+        "cognitive": 4,
+        "nesting_depth": 2,
+        "overall": 6.2
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 67,
+        "has_example": false,
+        "quality_score": 0.268
+      }
+    },
+    {
+      "name": "demonstrateErrorHandling",
+      "package": "main",
+      "file": "main",
+      "line": 214,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 19,
+        "code": 15,
+        "comments": 1,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 73,
+        "has_example": false,
+        "quality_score": 0.392
+      }
+    },
+    {
+      "name": "showPerformanceMetrics",
+      "package": "main",
+      "file": "main",
+      "line": 237,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 31,
+        "code": 24,
+        "comments": 2,
+        "blank": 5
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 67,
+        "has_example": false,
+        "quality_score": 0.268
+      }
+    },
+    {
+      "name": "NewContextManager",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 35,
+      "is_exported": true,
+      "is_method": false,
+      "lines": {
+        "total": 14,
+        "code": 10,
+        "comments": 1,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 78,
+        "has_example": false,
+        "quality_score": 0.31200000000000006
+      }
+    },
+    {
+      "name": "AddExchange",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 53,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 28,
+        "code": 21,
+        "comments": 3,
+        "blank": 4
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 48,
+        "has_example": false,
+        "quality_score": 0.192
+      }
+    },
+    {
+      "name": "GetHistory",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 85,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 20,
+        "code": 14,
+        "comments": 2,
+        "blank": 4
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.3
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 70,
+        "has_example": false,
+        "quality_score": 0.27999999999999997
+      }
+    },
+    {
+      "name": "UpdateFeedback",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 109,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 13,
+        "code": 10,
+        "comments": 1,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 3,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.5
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 66,
+        "has_example": false,
+        "quality_score": 0.264
+      }
+    },
+    {
+      "name": "GetConversationSummary",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 126,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 16,
+        "code": 14,
         "comments": 0,
         "blank": 2
       },
@@ -2888,115 +2256,10 @@
         "signature_complexity": 0.8
       },
       "complexity": {
-        "cyclomatic": 5,
-        "cognitive": 5,
-        "nesting_depth": 3,
-        "overall": 8
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 67,
-        "has_example": false,
-        "quality_score": 0.268
-      }
-    },
-    {
-      "name": "extractDialogResponses",
-      "package": "main",
-      "file": "main",
-      "line": 222,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 37,
-        "code": 30,
-        "comments": 0,
-        "blank": 7
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 9,
-        "cognitive": 9,
-        "nesting_depth": 3,
-        "overall": 13.2
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 77,
-        "has_example": false,
-        "quality_score": 0.30800000000000005
-      }
-    },
-    {
-      "name": "extractMarkovTrainingData",
-      "package": "main",
-      "file": "main",
-      "line": 263,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 50,
-        "code": 40,
-        "comments": 0,
-        "blank": 10
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 11,
-        "cognitive": 11,
-        "nesting_depth": 2,
-        "overall": 15.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 85,
-        "has_example": false,
-        "quality_score": 0.34
-      }
-    },
-    {
-      "name": "generateDefaultTrainingData",
-      "package": "main",
-      "file": "main",
-      "line": 317,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 14,
-        "code": 13,
-        "comments": 0,
-        "blank": 1
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 3,
-        "cognitive": 3,
-        "nesting_depth": 2,
-        "overall": 4.9
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
       },
       "documentation": {
         "has_comment": true,
@@ -3006,15 +2269,476 @@
       }
     },
     {
-      "name": "limitTrainingDataSize",
+      "name": "calculateSummary",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 156,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 36,
+        "code": 29,
+        "comments": 2,
+        "blank": 5
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 6,
+        "cognitive": 6,
+        "nesting_depth": 2,
+        "overall": 8.8
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 50,
+        "has_example": false,
+        "quality_score": 0.2
+      }
+    },
+    {
+      "name": "ClearHistory",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 196,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 3,
+        "code": 3,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 73,
+        "has_example": false,
+        "quality_score": 0.292
+      }
+    },
+    {
+      "name": "GetActiveConversations",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 203,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 3,
+        "code": 3,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.3
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 80,
+        "has_example": false,
+        "quality_score": 0.42000000000000004
+      }
+    },
+    {
+      "name": "cleanupRoutine",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 210,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 3,
+        "code": 3,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 78,
+        "has_example": false,
+        "quality_score": 0.31200000000000006
+      }
+    },
+    {
+      "name": "cleanupOldConversations",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 217,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 10,
+        "code": 8,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 2,
+        "overall": 4.9
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 80,
+        "has_example": false,
+        "quality_score": 0.32000000000000006
+      }
+    },
+    {
+      "name": "Close",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 231,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*ContextManager",
+      "lines": {
+        "total": 7,
+        "code": 6,
+        "comments": 0,
+        "blank": 1
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 55,
+        "has_example": false,
+        "quality_score": 0.22000000000000003
+      }
+    },
+    {
+      "name": "main",
       "package": "main",
       "file": "main",
-      "line": 335,
+      "line": 13,
       "is_exported": false,
       "is_method": false,
       "lines": {
-        "total": 4,
-        "code": 4,
+        "total": 16,
+        "code": 7,
+        "comments": 4,
+        "blank": 5
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 62,
+        "has_example": true,
+        "quality_score": 0.448
+      }
+    },
+    {
+      "name": "setupDialogSystem",
+      "package": "main",
+      "file": "main",
+      "line": 33,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 8,
+        "comments": 0,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 2,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.6
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 80,
+        "has_example": false,
+        "quality_score": 0.32000000000000006
+      }
+    },
+    {
+      "name": "createLLMConfig",
+      "package": "main",
+      "file": "main",
+      "line": 48,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 20,
+        "code": 20,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.3
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 78,
+        "has_example": false,
+        "quality_score": 0.31200000000000006
+      }
+    },
+    {
+      "name": "initializeBackend",
+      "package": "main",
+      "file": "main",
+      "line": 72,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 9,
+        "code": 8,
+        "comments": 0,
+        "blank": 1
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 78,
+        "has_example": false,
+        "quality_score": 0.31200000000000006
+      }
+    },
+    {
+      "name": "registerBackend",
+      "package": "main",
+      "file": "main",
+      "line": 85,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 2,
+        "code": 2,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 66,
+        "has_example": false,
+        "quality_score": 0.264
+      }
+    },
+    {
+      "name": "runInteractionExamples",
+      "package": "main",
+      "file": "main",
+      "line": 91,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 8,
+        "comments": 0,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 85,
+        "has_example": true,
+        "quality_score": 0.54
+      }
+    },
+    {
+      "name": "defineInteractionScenarios",
+      "package": "main",
+      "file": "main",
+      "line": 106,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 11,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.3
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 87,
+        "has_example": false,
+        "quality_score": 0.34800000000000003
+      }
+    },
+    {
+      "name": "buildDialogContext",
+      "package": "main",
+      "file": "main",
+      "line": 125,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 27,
+        "code": 27,
         "comments": 0,
         "blank": 0
       },
@@ -3028,10 +2752,10 @@
         "signature_complexity": 1.3
       },
       "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
       },
       "documentation": {
         "has_comment": true,
@@ -3041,52 +2765,17 @@
       }
     },
     {
-      "name": "extractPersonalityData",
+      "name": "processInteraction",
       "package": "main",
       "file": "main",
-      "line": 343,
+      "line": 160,
       "is_exported": false,
       "is_method": false,
       "lines": {
-        "total": 15,
-        "code": 8,
-        "comments": 4,
-        "blank": 3
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 3,
-        "cognitive": 3,
-        "nesting_depth": 1,
-        "overall": 4.4
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 81,
-        "has_example": false,
-        "quality_score": 0.32400000000000007
-      }
-    },
-    {
-      "name": "addLLMConfiguration",
-      "package": "main",
-      "file": "main",
-      "line": 362,
-      "is_exported": false,
-      "is_method": false,
-      "lines": {
-        "total": 81,
-        "code": 69,
-        "comments": 6,
-        "blank": 6
+        "total": 8,
+        "code": 7,
+        "comments": 0,
+        "blank": 1
       },
       "signature": {
         "parameter_count": 2,
@@ -3098,30 +2787,170 @@
         "signature_complexity": 1
       },
       "complexity": {
-        "cyclomatic": 11,
-        "cognitive": 11,
-        "nesting_depth": 2,
-        "overall": 15.3
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
       },
       "documentation": {
         "has_comment": true,
-        "comment_length": 73,
+        "comment_length": 71,
         "has_example": false,
-        "quality_score": 0.292
+        "quality_score": 0.284
       }
     },
     {
-      "name": "main",
+      "name": "displayInteractionResults",
       "package": "main",
       "file": "main",
-      "line": 446,
+      "line": 172,
       "is_exported": false,
       "is_method": false,
       "lines": {
-        "total": 43,
-        "code": 36,
-        "comments": 1,
-        "blank": 6
+        "total": 10,
+        "code": 10,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 68,
+        "has_example": false,
+        "quality_score": 0.272
+      }
+    },
+    {
+      "name": "simulateUserFeedback",
+      "package": "main",
+      "file": "main",
+      "line": 186,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 8,
+        "code": 7,
+        "comments": 0,
+        "blank": 1
+      },
+      "signature": {
+        "parameter_count": 3,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.5
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 75,
+        "has_example": false,
+        "quality_score": 0.30000000000000004
+      }
+    },
+    {
+      "name": "displaySystemInfo",
+      "package": "main",
+      "file": "main",
+      "line": 198,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 10,
+        "code": 9,
+        "comments": 0,
+        "blank": 1
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 74,
+        "has_example": false,
+        "quality_score": 0.296
+      }
+    },
+    {
+      "name": "cleanupResources",
+      "package": "main",
+      "file": "main",
+      "line": 212,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 4,
+        "code": 4,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 67,
+        "has_example": false,
+        "quality_score": 0.268
+      }
+    },
+    {
+      "name": "ExampleBasicUsage",
+      "package": "main",
+      "file": "main",
+      "line": 220,
+      "is_exported": true,
+      "is_method": false,
+      "lines": {
+        "total": 33,
+        "code": 27,
+        "comments": 3,
+        "blank": 3
       },
       "signature": {
         "parameter_count": 0,
@@ -3133,327 +2962,39 @@
         "signature_complexity": 0
       },
       "complexity": {
-        "cyclomatic": 6,
-        "cognitive": 6,
-        "nesting_depth": 2,
-        "overall": 8.8
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
       },
       "documentation": {
-        "has_comment": false,
-        "comment_length": 0,
-        "has_example": false,
-        "quality_score": 0
+        "has_comment": true,
+        "comment_length": 73,
+        "has_example": true,
+        "quality_score": 0.492
       }
     },
     {
-      "name": "NewLlamaModel",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 42,
+      "name": "ExampleWithCharacterJSON",
+      "package": "main",
+      "file": "main",
+      "line": 257,
       "is_exported": true,
       "is_method": false,
       "lines": {
-        "total": 33,
-        "code": 27,
-        "comments": 2,
-        "blank": 4
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 2,
-        "has_variadic": false,
-        "returns_error": true,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1.1
-      },
-      "complexity": {
-        "cyclomatic": 7,
-        "cognitive": 7,
-        "nesting_depth": 1,
-        "overall": 9.6
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 49,
-        "has_example": false,
-        "quality_score": 0.196
-      }
-    },
-    {
-      "name": "Initialize",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 79,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*LlamaModel",
-      "lines": {
-        "total": 34,
-        "code": 13,
-        "comments": 15,
-        "blank": 6
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": true,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.3
-      },
-      "complexity": {
-        "cyclomatic": 3,
-        "cognitive": 3,
-        "nesting_depth": 1,
-        "overall": 4.4
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 57,
-        "has_example": false,
-        "quality_score": 0.22799999999999998
-      }
-    },
-    {
-      "name": "Predict",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 117,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*LlamaModel",
-      "lines": {
-        "total": 28,
-        "code": 13,
-        "comments": 11,
-        "blank": 4
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 2,
-        "has_variadic": false,
-        "returns_error": true,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1.1
-      },
-      "complexity": {
-        "cyclomatic": 4,
-        "cognitive": 4,
-        "nesting_depth": 1,
-        "overall": 5.7
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 46,
-        "has_example": false,
-        "quality_score": 0.18400000000000002
-      }
-    },
-    {
-      "name": "generateMockResponse",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 150,
-      "is_exported": false,
-      "is_method": true,
-      "receiver_type": "*LlamaModel",
-      "lines": {
-        "total": 63,
-        "code": 54,
-        "comments": 2,
-        "blank": 7
-      },
-      "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 2,
-        "cognitive": 2,
-        "nesting_depth": 1,
-        "overall": 3.1
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 140,
-        "has_example": false,
-        "quality_score": 0.4
-      }
-    },
-    {
-      "name": "PredictWithTimeout",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 217,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*LlamaModel",
-      "lines": {
-        "total": 20,
-        "code": 18,
-        "comments": 0,
-        "blank": 2
-      },
-      "signature": {
-        "parameter_count": 2,
-        "return_count": 2,
-        "has_variadic": false,
-        "returns_error": true,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 1.6
-      },
-      "complexity": {
-        "cyclomatic": 6,
-        "cognitive": 6,
-        "nesting_depth": 1,
-        "overall": 8.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 57,
-        "has_example": false,
-        "quality_score": 0.22799999999999998
-      }
-    },
-    {
-      "name": "EstimateTokens",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 241,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*LlamaModel",
-      "lines": {
-        "total": 2,
-        "code": 1,
+        "total": 37,
+        "code": 33,
         "comments": 1,
-        "blank": 0
+        "blank": 3
       },
       "signature": {
-        "parameter_count": 1,
-        "return_count": 1,
+        "parameter_count": 0,
+        "return_count": 0,
         "has_variadic": false,
         "returns_error": false,
         "interface_parameters": 0,
         "generic_parameters": null,
-        "signature_complexity": 0.8
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 67,
-        "has_example": false,
-        "quality_score": 0.268
-      }
-    },
-    {
-      "name": "GetContextSize",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 247,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*LlamaModel",
-      "lines": {
-        "total": 1,
-        "code": 1,
-        "comments": 0,
-        "blank": 0
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.3
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 63,
-        "has_example": false,
-        "quality_score": 0.352
-      }
-    },
-    {
-      "name": "GetModelInfo",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 252,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*LlamaModel",
-      "lines": {
-        "total": 13,
-        "code": 12,
-        "comments": 0,
-        "blank": 1
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": false,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.3
-      },
-      "complexity": {
-        "cyclomatic": 1,
-        "cognitive": 1,
-        "nesting_depth": 0,
-        "overall": 1.3
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 56,
-        "has_example": false,
-        "quality_score": 0.32400000000000007
-      }
-    },
-    {
-      "name": "Free",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 269,
-      "is_exported": true,
-      "is_method": true,
-      "receiver_type": "*LlamaModel",
-      "lines": {
-        "total": 17,
-        "code": 9,
-        "comments": 4,
-        "blank": 4
-      },
-      "signature": {
-        "parameter_count": 0,
-        "return_count": 1,
-        "has_variadic": false,
-        "returns_error": true,
-        "interface_parameters": 0,
-        "generic_parameters": null,
-        "signature_complexity": 0.3
+        "signature_complexity": 0
       },
       "complexity": {
         "cyclomatic": 2,
@@ -3463,9 +3004,9 @@
       },
       "documentation": {
         "has_comment": true,
-        "comment_length": 30,
-        "has_example": false,
-        "quality_score": 0.12
+        "comment_length": 80,
+        "has_example": true,
+        "quality_score": 0.52
       }
     },
     {
@@ -4653,9 +4194,1551 @@
         "has_example": false,
         "quality_score": 0.248
       }
+    },
+    {
+      "name": "NewCharacterAssetIntegrator",
+      "package": "main",
+      "file": "main",
+      "line": 76,
+      "is_exported": true,
+      "is_method": false,
+      "lines": {
+        "total": 5,
+        "code": 5,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 62,
+        "has_example": false,
+        "quality_score": 0.248
+      }
+    },
+    {
+      "name": "SetDryRun",
+      "package": "main",
+      "file": "main",
+      "line": 85,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 1,
+        "code": 1,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 43,
+        "has_example": false,
+        "quality_score": 0.17200000000000001
+      }
+    },
+    {
+      "name": "SetBackupEnabled",
+      "package": "main",
+      "file": "main",
+      "line": 90,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 1,
+        "code": 1,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 53,
+        "has_example": false,
+        "quality_score": 0.21200000000000002
+      }
+    },
+    {
+      "name": "IntegrateAll",
+      "package": "main",
+      "file": "main",
+      "line": 95,
+      "is_exported": true,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 10,
+        "code": 7,
+        "comments": 0,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.3
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 72,
+        "has_example": false,
+        "quality_score": 0.288
+      }
+    },
+    {
+      "name": "processAllCharacterFiles",
+      "package": "main",
+      "file": "main",
+      "line": 109,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 20,
+        "code": 16,
+        "comments": 0,
+        "blank": 4
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 78,
+        "has_example": false,
+        "quality_score": 0.31200000000000006
+      }
+    },
+    {
+      "name": "processFileAndTrackResults",
+      "package": "main",
+      "file": "main",
+      "line": 140,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 9,
+        "code": 8,
+        "comments": 0,
+        "blank": 1
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 73,
+        "has_example": false,
+        "quality_score": 0.292
+      }
+    },
+    {
+      "name": "printIntegrationSummary",
+      "package": "main",
+      "file": "main",
+      "line": 153,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 11,
+        "code": 10,
+        "comments": 0,
+        "blank": 1
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 2,
+        "overall": 4.9
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 68,
+        "has_example": false,
+        "quality_score": 0.272
+      }
+    },
+    {
+      "name": "processCharacterFile",
+      "package": "main",
+      "file": "main",
+      "line": 168,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 16,
+        "code": 13,
+        "comments": 0,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 4,
+        "cognitive": 4,
+        "nesting_depth": 1,
+        "overall": 5.7
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 60,
+        "has_example": false,
+        "quality_score": 0.24
+      }
+    },
+    {
+      "name": "readAndParseCharacterFile",
+      "package": "main",
+      "file": "main",
+      "line": 188,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 11,
+        "code": 9,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 3,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.4
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 65,
+        "has_example": false,
+        "quality_score": 0.26
+      }
+    },
+    {
+      "name": "updateCharacterWithLLMConfig",
+      "package": "main",
+      "file": "main",
+      "line": 203,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 9,
+        "code": 7,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 3,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.8
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 73,
+        "has_example": false,
+        "quality_score": 0.292
+      }
+    },
+    {
+      "name": "createBackupIfEnabled",
+      "package": "main",
+      "file": "main",
+      "line": 216,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 8,
+        "code": 8,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.3
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 2,
+        "overall": 4.9
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 65,
+        "has_example": false,
+        "quality_score": 0.26
+      }
+    },
+    {
+      "name": "writeUpdatedCharacterFile",
+      "package": "main",
+      "file": "main",
+      "line": 228,
+      "is_exported": false,
+      "is_method": true,
+      "receiver_type": "*CharacterAssetIntegrator",
+      "lines": {
+        "total": 16,
+        "code": 13,
+        "comments": 0,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": true,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.3
+      },
+      "complexity": {
+        "cyclomatic": 4,
+        "cognitive": 4,
+        "nesting_depth": 2,
+        "overall": 6.2
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 68,
+        "has_example": false,
+        "quality_score": 0.272
+      }
+    },
+    {
+      "name": "hasLLMConfig",
+      "package": "main",
+      "file": "main",
+      "line": 248,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 15,
+        "code": 13,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 5,
+        "cognitive": 5,
+        "nesting_depth": 3,
+        "overall": 8
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 67,
+        "has_example": false,
+        "quality_score": 0.268
+      }
+    },
+    {
+      "name": "extractDialogResponses",
+      "package": "main",
+      "file": "main",
+      "line": 267,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 8,
+        "code": 6,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 77,
+        "has_example": false,
+        "quality_score": 0.30800000000000005
+      }
+    },
+    {
+      "name": "getDialogList",
+      "package": "main",
+      "file": "main",
+      "line": 279,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 9,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 76,
+        "has_example": false,
+        "quality_score": 0.30400000000000005
+      }
+    },
+    {
+      "name": "extractResponsesFromDialogs",
+      "package": "main",
+      "file": "main",
+      "line": 294,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 8,
+        "code": 6,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 74,
+        "has_example": false,
+        "quality_score": 0.296
+      }
+    },
+    {
+      "name": "extractResponsesFromDialog",
+      "package": "main",
+      "file": "main",
+      "line": 306,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 13,
+        "code": 10,
+        "comments": 0,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 1,
+        "generic_parameters": null,
+        "signature_complexity": 1.6
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 81,
+        "has_example": false,
+        "quality_score": 0.32400000000000007
+      }
+    },
+    {
+      "name": "getResponseList",
+      "package": "main",
+      "file": "main",
+      "line": 323,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 9,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 72,
+        "has_example": false,
+        "quality_score": 0.288
+      }
+    },
+    {
+      "name": "convertResponsesToStrings",
+      "package": "main",
+      "file": "main",
+      "line": 338,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 10,
+        "code": 8,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 2,
+        "overall": 4.9
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 81,
+        "has_example": false,
+        "quality_score": 0.32400000000000007
+      }
+    },
+    {
+      "name": "extractMarkovTrainingData",
+      "package": "main",
+      "file": "main",
+      "line": 352,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 8,
+        "code": 6,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 85,
+        "has_example": false,
+        "quality_score": 0.34
+      }
+    },
+    {
+      "name": "extractMarkovConfig",
+      "package": "main",
+      "file": "main",
+      "line": 364,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 21,
+        "code": 17,
+        "comments": 0,
+        "blank": 4
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 5,
+        "cognitive": 5,
+        "nesting_depth": 1,
+        "overall": 7
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 80,
+        "has_example": false,
+        "quality_score": 0.32000000000000006
+      }
+    },
+    {
+      "name": "getDialogBackend",
+      "package": "main",
+      "file": "main",
+      "line": 389,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 9,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 73,
+        "has_example": false,
+        "quality_score": 0.292
+      }
+    },
+    {
+      "name": "getBackendsConfig",
+      "package": "main",
+      "file": "main",
+      "line": 404,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 9,
+        "comments": 0,
+        "blank": 2
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 68,
+        "has_example": false,
+        "quality_score": 0.272
+      }
+    },
+    {
+      "name": "extractTrainingDataFromMarkovConfig",
+      "package": "main",
+      "file": "main",
+      "line": 419,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 20,
+        "code": 16,
+        "comments": 0,
+        "blank": 4
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 5,
+        "cognitive": 5,
+        "nesting_depth": 2,
+        "overall": 7.5
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 86,
+        "has_example": false,
+        "quality_score": 0.34400000000000003
+      }
+    },
+    {
+      "name": "generateDefaultTrainingData",
+      "package": "main",
+      "file": "main",
+      "line": 443,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 14,
+        "code": 13,
+        "comments": 0,
+        "blank": 1
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 2,
+        "overall": 4.9
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 82,
+        "has_example": false,
+        "quality_score": 0.328
+      }
+    },
+    {
+      "name": "limitTrainingDataSize",
+      "package": "main",
+      "file": "main",
+      "line": 461,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 4,
+        "code": 4,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1.3
+      },
+      "complexity": {
+        "cyclomatic": 2,
+        "cognitive": 2,
+        "nesting_depth": 1,
+        "overall": 3.1
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 79,
+        "has_example": false,
+        "quality_score": 0.31600000000000006
+      }
+    },
+    {
+      "name": "extractPersonalityData",
+      "package": "main",
+      "file": "main",
+      "line": 469,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 15,
+        "code": 8,
+        "comments": 4,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 1,
+        "overall": 4.4
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 81,
+        "has_example": false,
+        "quality_score": 0.32400000000000007
+      }
+    },
+    {
+      "name": "addLLMConfiguration",
+      "package": "main",
+      "file": "main",
+      "line": 488,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 8,
+        "comments": 0,
+        "blank": 3
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 73,
+        "has_example": false,
+        "quality_score": 0.292
+      }
+    },
+    {
+      "name": "createLLMBackendConfig",
+      "package": "main",
+      "file": "main",
+      "line": 503,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 25,
+        "code": 25,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 85,
+        "has_example": false,
+        "quality_score": 0.34
+      }
+    },
+    {
+      "name": "getOrCreateDialogBackend",
+      "package": "main",
+      "file": "main",
+      "line": 532,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 11,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 2,
+        "overall": 4.9
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 79,
+        "has_example": false,
+        "quality_score": 0.31600000000000006
+      }
+    },
+    {
+      "name": "setDialogBackendDefaults",
+      "package": "main",
+      "file": "main",
+      "line": 547,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 18,
+        "code": 18,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.5
+      },
+      "complexity": {
+        "cyclomatic": 7,
+        "cognitive": 7,
+        "nesting_depth": 1,
+        "overall": 9.6
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 78,
+        "has_example": false,
+        "quality_score": 0.31200000000000006
+      }
+    },
+    {
+      "name": "getOrCreateBackends",
+      "package": "main",
+      "file": "main",
+      "line": 569,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 11,
+        "code": 11,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 1,
+        "return_count": 1,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0.8
+      },
+      "complexity": {
+        "cyclomatic": 3,
+        "cognitive": 3,
+        "nesting_depth": 2,
+        "overall": 4.9
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 68,
+        "has_example": false,
+        "quality_score": 0.272
+      }
+    },
+    {
+      "name": "addLLMBackendToConfig",
+      "package": "main",
+      "file": "main",
+      "line": 584,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 3,
+        "code": 3,
+        "comments": 0,
+        "blank": 0
+      },
+      "signature": {
+        "parameter_count": 2,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 1
+      },
+      "complexity": {
+        "cyclomatic": 1,
+        "cognitive": 1,
+        "nesting_depth": 0,
+        "overall": 1.3
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 77,
+        "has_example": false,
+        "quality_score": 0.30800000000000005
+      }
+    },
+    {
+      "name": "main",
+      "package": "main",
+      "file": "main",
+      "line": 590,
+      "is_exported": false,
+      "is_method": false,
+      "lines": {
+        "total": 43,
+        "code": 36,
+        "comments": 1,
+        "blank": 6
+      },
+      "signature": {
+        "parameter_count": 0,
+        "return_count": 0,
+        "has_variadic": false,
+        "returns_error": false,
+        "interface_parameters": 0,
+        "generic_parameters": null,
+        "signature_complexity": 0
+      },
+      "complexity": {
+        "cyclomatic": 6,
+        "cognitive": 6,
+        "nesting_depth": 2,
+        "overall": 8.8
+      },
+      "documentation": {
+        "has_comment": false,
+        "comment_length": 0,
+        "has_example": false,
+        "quality_score": 0
+      }
     }
   ],
   "structs": [
+    {
+      "name": "LlamaModel",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 14,
+      "is_exported": true,
+      "total_fields": 9,
+      "fields_by_type": {
+        "interface": 2,
+        "primitive": 6,
+        "struct": 1
+      },
+      "embedded_types": null,
+      "methods": [
+        {
+          "name": "Initialize",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 0,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.3
+          },
+          "lines": {
+            "total": 34,
+            "code": 23,
+            "comments": 6,
+            "blank": 5
+          },
+          "complexity": {
+            "cyclomatic": 3,
+            "cognitive": 0,
+            "nesting_depth": 2,
+            "overall": 4
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 60,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "Predict",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 2,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.1
+          },
+          "lines": {
+            "total": 28,
+            "code": 19,
+            "comments": 5,
+            "blank": 4
+          },
+          "complexity": {
+            "cyclomatic": 4,
+            "cognitive": 0,
+            "nesting_depth": 3,
+            "overall": 5.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 49,
+            "has_example": true,
+            "quality_score": 0.3
+          }
+        },
+        {
+          "name": "generateMockResponse",
+          "is_exported": false,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.8
+          },
+          "lines": {
+            "total": 63,
+            "code": 44,
+            "comments": 12,
+            "blank": 7
+          },
+          "complexity": {
+            "cyclomatic": 9,
+            "cognitive": 0,
+            "nesting_depth": 1,
+            "overall": 9.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 146,
+            "has_example": true,
+            "quality_score": 0.8999999999999999
+          }
+        },
+        {
+          "name": "PredictWithTimeout",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 2,
+            "return_count": 2,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.6
+          },
+          "lines": {
+            "total": 20,
+            "code": 14,
+            "comments": 4,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 2,
+            "cognitive": 0,
+            "nesting_depth": 1,
+            "overall": 2.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 60,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "EstimateTokens",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.8
+          },
+          "lines": {
+            "total": 2,
+            "code": 1,
+            "comments": 0,
+            "blank": 1
+          },
+          "complexity": {
+            "cyclomatic": 1,
+            "cognitive": 0,
+            "nesting_depth": 0,
+            "overall": 1
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 70,
+            "has_example": true,
+            "quality_score": 0.7
+          }
+        },
+        {
+          "name": "GetContextSize",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 0,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.3
+          },
+          "lines": {
+            "total": 1,
+            "code": 0,
+            "comments": 0,
+            "blank": 1
+          },
+          "complexity": {
+            "cyclomatic": 1,
+            "cognitive": 0,
+            "nesting_depth": 0,
+            "overall": 1
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 66,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "GetModelInfo",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 0,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.3
+          },
+          "lines": {
+            "total": 13,
+            "code": 9,
+            "comments": 2,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 1,
+            "cognitive": 0,
+            "nesting_depth": 0,
+            "overall": 1
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 59,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "Free",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 0,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.3
+          },
+          "lines": {
+            "total": 17,
+            "code": 11,
+            "comments": 3,
+            "blank": 3
+          },
+          "complexity": {
+            "cyclomatic": 2,
+            "cognitive": 0,
+            "nesting_depth": 1,
+            "overall": 2.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 33,
+            "has_example": true,
+            "quality_score": 0.3
+          }
+        }
+      ],
+      "tag_usage": {},
+      "complexity": {
+        "cyclomatic": 20,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 20
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 132,
+        "has_example": true,
+        "quality_score": 0.8999999999999999
+      }
+    },
+    {
+      "name": "LlamaConfig",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 29,
+      "is_exported": true,
+      "total_fields": 9,
+      "fields_by_type": {
+        "primitive": 9
+      },
+      "embedded_types": null,
+      "methods": null,
+      "tag_usage": {
+        "json": 9
+      },
+      "complexity": {
+        "cyclomatic": 18,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 18
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 60,
+        "has_example": true,
+        "quality_score": 0.7
+      }
+    },
+    {
+      "name": "ModelInfo",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 290,
+      "is_exported": true,
+      "total_fields": 8,
+      "fields_by_type": {
+        "primitive": 8
+      },
+      "embedded_types": null,
+      "methods": null,
+      "tag_usage": {
+        "json": 8
+      },
+      "complexity": {
+        "cyclomatic": 16,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 16
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 55,
+        "has_example": true,
+        "quality_score": 0.7
+      }
+    },
     {
       "name": "PromptBuilder",
       "package": "dialog",
@@ -5390,445 +6473,6 @@
       }
     },
     {
-      "name": "ConversationExchange",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 9,
-      "is_exported": true,
-      "total_fields": 5,
-      "fields_by_type": {
-        "primitive": 4,
-        "struct": 1
-      },
-      "embedded_types": null,
-      "methods": null,
-      "tag_usage": {
-        "json": 5
-      },
-      "complexity": {
-        "cyclomatic": 10,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 10
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 67,
-        "has_example": true,
-        "quality_score": 0.7
-      }
-    },
-    {
-      "name": "ConversationHistory",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 18,
-      "is_exported": true,
-      "total_fields": 4,
-      "fields_by_type": {
-        "primitive": 2,
-        "slice": 1,
-        "struct": 1
-      },
-      "embedded_types": null,
-      "methods": null,
-      "tag_usage": {
-        "json": 4
-      },
-      "complexity": {
-        "cyclomatic": 8,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 8
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 80,
-        "has_example": true,
-        "quality_score": 0.5
-      }
-    },
-    {
-      "name": "ContextManager",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 27,
-      "is_exported": true,
-      "total_fields": 4,
-      "fields_by_type": {
-        "map": 1,
-        "pointer": 1,
-        "primitive": 1,
-        "struct": 1
-      },
-      "embedded_types": null,
-      "methods": [
-        {
-          "name": "AddExchange",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 3,
-            "return_count": 0,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 1.5
-          },
-          "lines": {
-            "total": 28,
-            "code": 19,
-            "comments": 5,
-            "blank": 4
-          },
-          "complexity": {
-            "cyclomatic": 3,
-            "cognitive": 0,
-            "nesting_depth": 2,
-            "overall": 4
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 51,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "GetHistory",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 2,
-            "return_count": 1,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 1.3
-          },
-          "lines": {
-            "total": 20,
-            "code": 14,
-            "comments": 4,
-            "blank": 2
-          },
-          "complexity": {
-            "cyclomatic": 3,
-            "cognitive": 0,
-            "nesting_depth": 2,
-            "overall": 4
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 73,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "UpdateFeedback",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 3,
-            "return_count": 0,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 1.5
-          },
-          "lines": {
-            "total": 13,
-            "code": 9,
-            "comments": 2,
-            "blank": 2
-          },
-          "complexity": {
-            "cyclomatic": 2,
-            "cognitive": 0,
-            "nesting_depth": 1,
-            "overall": 2.5
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 69,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "GetConversationSummary",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 1,
-            "return_count": 1,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.8
-          },
-          "lines": {
-            "total": 16,
-            "code": 11,
-            "comments": 3,
-            "blank": 2
-          },
-          "complexity": {
-            "cyclomatic": 2,
-            "cognitive": 0,
-            "nesting_depth": 1,
-            "overall": 2.5
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 85,
-            "has_example": true,
-            "quality_score": 0.7
-          }
-        },
-        {
-          "name": "calculateSummary",
-          "is_exported": false,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 1,
-            "return_count": 1,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.8
-          },
-          "lines": {
-            "total": 36,
-            "code": 25,
-            "comments": 7,
-            "blank": 4
-          },
-          "complexity": {
-            "cyclomatic": 6,
-            "cognitive": 0,
-            "nesting_depth": 5,
-            "overall": 8.5
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 53,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "ClearHistory",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 1,
-            "return_count": 0,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.5
-          },
-          "lines": {
-            "total": 3,
-            "code": 2,
-            "comments": 0,
-            "blank": 1
-          },
-          "complexity": {
-            "cyclomatic": 1,
-            "cognitive": 0,
-            "nesting_depth": 0,
-            "overall": 1
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 76,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "GetActiveConversations",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 0,
-            "return_count": 1,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.3
-          },
-          "lines": {
-            "total": 3,
-            "code": 2,
-            "comments": 0,
-            "blank": 1
-          },
-          "complexity": {
-            "cyclomatic": 1,
-            "cognitive": 0,
-            "nesting_depth": 0,
-            "overall": 1
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 83,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "cleanupRoutine",
-          "is_exported": false,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 0,
-            "return_count": 0,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0
-          },
-          "lines": {
-            "total": 3,
-            "code": 2,
-            "comments": 0,
-            "blank": 1
-          },
-          "complexity": {
-            "cyclomatic": 2,
-            "cognitive": 0,
-            "nesting_depth": 1,
-            "overall": 2.5
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 81,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "cleanupOldConversations",
-          "is_exported": false,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 0,
-            "return_count": 0,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0
-          },
-          "lines": {
-            "total": 10,
-            "code": 7,
-            "comments": 2,
-            "blank": 1
-          },
-          "complexity": {
-            "cyclomatic": 3,
-            "cognitive": 0,
-            "nesting_depth": 2,
-            "overall": 4
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 83,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "Close",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 0,
-            "return_count": 0,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0
-          },
-          "lines": {
-            "total": 7,
-            "code": 4,
-            "comments": 1,
-            "blank": 2
-          },
-          "complexity": {
-            "cyclomatic": 2,
-            "cognitive": 0,
-            "nesting_depth": 1,
-            "overall": 2.5
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 58,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        }
-      ],
-      "tag_usage": {},
-      "complexity": {
-        "cyclomatic": 9,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 9
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 166,
-        "has_example": true,
-        "quality_score": 0.7
-      }
-    },
-    {
-      "name": "ConversationSummary",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 146,
-      "is_exported": true,
-      "total_fields": 6,
-      "fields_by_type": {
-        "primitive": 3,
-        "slice": 2,
-        "struct": 1
-      },
-      "embedded_types": null,
-      "methods": null,
-      "tag_usage": {
-        "json": 6
-      },
-      "complexity": {
-        "cyclomatic": 12,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 12
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 75,
-        "has_example": true,
-        "quality_score": 0.7
-      }
-    },
-    {
       "name": "DialogContext",
       "package": "dialog",
       "file": "dialog",
@@ -6422,172 +7066,15 @@
       }
     },
     {
-      "name": "CharacterAssetIntegrator",
-      "package": "main",
-      "file": "main",
-      "line": 13,
-      "is_exported": true,
-      "total_fields": 3,
-      "fields_by_type": {
-        "primitive": 3
-      },
-      "embedded_types": null,
-      "methods": [
-        {
-          "name": "SetDryRun",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 1,
-            "return_count": 0,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.5
-          },
-          "lines": {
-            "total": 1,
-            "code": 0,
-            "comments": 0,
-            "blank": 1
-          },
-          "complexity": {
-            "cyclomatic": 1,
-            "cognitive": 0,
-            "nesting_depth": 0,
-            "overall": 1
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 46,
-            "has_example": true,
-            "quality_score": 0.3
-          }
-        },
-        {
-          "name": "SetBackupEnabled",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 1,
-            "return_count": 0,
-            "has_variadic": false,
-            "returns_error": false,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.5
-          },
-          "lines": {
-            "total": 1,
-            "code": 0,
-            "comments": 0,
-            "blank": 1
-          },
-          "complexity": {
-            "cyclomatic": 1,
-            "cognitive": 0,
-            "nesting_depth": 0,
-            "overall": 1
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 56,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "IntegrateAll",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 0,
-            "return_count": 1,
-            "has_variadic": false,
-            "returns_error": true,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.3
-          },
-          "lines": {
-            "total": 50,
-            "code": 35,
-            "comments": 10,
-            "blank": 5
-          },
-          "complexity": {
-            "cyclomatic": 8,
-            "cognitive": 0,
-            "nesting_depth": 7,
-            "overall": 11.5
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 75,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "processCharacterFile",
-          "is_exported": false,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 1,
-            "return_count": 1,
-            "has_variadic": false,
-            "returns_error": true,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.8
-          },
-          "lines": {
-            "total": 50,
-            "code": 35,
-            "comments": 10,
-            "blank": 5
-          },
-          "complexity": {
-            "cyclomatic": 9,
-            "cognitive": 0,
-            "nesting_depth": 8,
-            "overall": 13
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 63,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        }
-      ],
-      "tag_usage": {},
-      "complexity": {
-        "cyclomatic": 6,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 6
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 93,
-        "has_example": true,
-        "quality_score": 0.5
-      }
-    },
-    {
-      "name": "CharacterJSON",
-      "package": "main",
-      "file": "main",
-      "line": 20,
+      "name": "ConversationExchange",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 9,
       "is_exported": true,
       "total_fields": 5,
       "fields_by_type": {
-        "map": 1,
-        "pointer": 1,
-        "primitive": 2,
-        "slice": 1
+        "primitive": 4,
+        "struct": 1
       },
       "embedded_types": null,
       "methods": null,
@@ -6595,28 +7082,29 @@
         "json": 5
       },
       "complexity": {
-        "cyclomatic": 11,
+        "cyclomatic": 10,
         "cognitive": 0,
         "nesting_depth": 0,
-        "overall": 11
+        "overall": 10
       },
       "documentation": {
         "has_comment": true,
-        "comment_length": 75,
+        "comment_length": 67,
         "has_example": true,
         "quality_score": 0.7
       }
     },
     {
-      "name": "Dialog",
-      "package": "main",
-      "file": "main",
-      "line": 30,
+      "name": "ConversationHistory",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 18,
       "is_exported": true,
       "total_fields": 4,
       "fields_by_type": {
-        "primitive": 3,
-        "slice": 1
+        "primitive": 2,
+        "slice": 1,
+        "struct": 1
       },
       "embedded_types": null,
       "methods": null,
@@ -6631,131 +7119,44 @@
       },
       "documentation": {
         "has_comment": true,
-        "comment_length": 44,
+        "comment_length": 80,
         "has_example": true,
         "quality_score": 0.5
       }
     },
     {
-      "name": "DialogBackendConfig",
-      "package": "main",
-      "file": "main",
-      "line": 38,
-      "is_exported": true,
-      "total_fields": 8,
-      "fields_by_type": {
-        "map": 1,
-        "primitive": 6,
-        "slice": 1
-      },
-      "embedded_types": null,
-      "methods": null,
-      "tag_usage": {
-        "json": 8
-      },
-      "complexity": {
-        "cyclomatic": 17,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 17
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 67,
-        "has_example": true,
-        "quality_score": 0.7
-      }
-    },
-    {
-      "name": "LLMBackendConfig",
-      "package": "main",
-      "file": "main",
-      "line": 50,
-      "is_exported": true,
-      "total_fields": 10,
-      "fields_by_type": {
-        "primitive": 9,
-        "struct": 1
-      },
-      "embedded_types": null,
-      "methods": null,
-      "tag_usage": {
-        "json": 10
-      },
-      "complexity": {
-        "cyclomatic": 20,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 20
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 66,
-        "has_example": true,
-        "quality_score": 0.7
-      }
-    },
-    {
-      "name": "MarkovChainConfig",
-      "package": "main",
-      "file": "main",
-      "line": 64,
-      "is_exported": true,
-      "total_fields": 8,
-      "fields_by_type": {
-        "primitive": 6,
-        "slice": 2
-      },
-      "embedded_types": null,
-      "methods": null,
-      "tag_usage": {
-        "json": 8
-      },
-      "complexity": {
-        "cyclomatic": 16,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 16
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 75,
-        "has_example": true,
-        "quality_score": 0.7
-      }
-    },
-    {
-      "name": "LlamaModel",
+      "name": "ContextManager",
       "package": "dialog",
       "file": "dialog",
-      "line": 14,
+      "line": 27,
       "is_exported": true,
-      "total_fields": 9,
+      "total_fields": 4,
       "fields_by_type": {
-        "interface": 2,
-        "primitive": 6,
+        "map": 1,
+        "pointer": 1,
+        "primitive": 1,
         "struct": 1
       },
       "embedded_types": null,
       "methods": [
         {
-          "name": "Initialize",
+          "name": "AddExchange",
           "is_exported": true,
           "is_pointer_receiver": true,
           "signature": {
-            "parameter_count": 0,
-            "return_count": 1,
+            "parameter_count": 3,
+            "return_count": 0,
             "has_variadic": false,
-            "returns_error": true,
+            "returns_error": false,
             "interface_parameters": 0,
             "generic_parameters": null,
-            "signature_complexity": 0.3
+            "signature_complexity": 1.5
           },
           "lines": {
-            "total": 34,
-            "code": 23,
-            "comments": 6,
-            "blank": 5
+            "total": 28,
+            "code": 19,
+            "comments": 5,
+            "blank": 4
           },
           "complexity": {
             "cyclomatic": 3,
@@ -6765,45 +7166,109 @@
           },
           "documentation": {
             "has_comment": true,
-            "comment_length": 60,
+            "comment_length": 51,
             "has_example": true,
             "quality_score": 0.5
           }
         },
         {
-          "name": "Predict",
+          "name": "GetHistory",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 2,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.3
+          },
+          "lines": {
+            "total": 20,
+            "code": 14,
+            "comments": 4,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 3,
+            "cognitive": 0,
+            "nesting_depth": 2,
+            "overall": 4
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 73,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "UpdateFeedback",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 3,
+            "return_count": 0,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.5
+          },
+          "lines": {
+            "total": 13,
+            "code": 9,
+            "comments": 2,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 2,
+            "cognitive": 0,
+            "nesting_depth": 1,
+            "overall": 2.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 69,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "GetConversationSummary",
           "is_exported": true,
           "is_pointer_receiver": true,
           "signature": {
             "parameter_count": 1,
-            "return_count": 2,
+            "return_count": 1,
             "has_variadic": false,
-            "returns_error": true,
+            "returns_error": false,
             "interface_parameters": 0,
             "generic_parameters": null,
-            "signature_complexity": 1.1
+            "signature_complexity": 0.8
           },
           "lines": {
-            "total": 28,
-            "code": 19,
-            "comments": 5,
-            "blank": 4
+            "total": 16,
+            "code": 11,
+            "comments": 3,
+            "blank": 2
           },
           "complexity": {
-            "cyclomatic": 4,
+            "cyclomatic": 2,
             "cognitive": 0,
-            "nesting_depth": 3,
-            "overall": 5.5
+            "nesting_depth": 1,
+            "overall": 2.5
           },
           "documentation": {
             "has_comment": true,
-            "comment_length": 49,
+            "comment_length": 85,
             "has_example": true,
-            "quality_score": 0.3
+            "quality_score": 0.7
           }
         },
         {
-          "name": "generateMockResponse",
+          "name": "calculateSummary",
           "is_exported": false,
           "is_pointer_receiver": true,
           "signature": {
@@ -6816,72 +7281,40 @@
             "signature_complexity": 0.8
           },
           "lines": {
-            "total": 63,
-            "code": 44,
-            "comments": 12,
-            "blank": 7
+            "total": 36,
+            "code": 25,
+            "comments": 7,
+            "blank": 4
           },
           "complexity": {
-            "cyclomatic": 9,
+            "cyclomatic": 6,
             "cognitive": 0,
-            "nesting_depth": 1,
-            "overall": 9.5
+            "nesting_depth": 5,
+            "overall": 8.5
           },
           "documentation": {
             "has_comment": true,
-            "comment_length": 146,
-            "has_example": true,
-            "quality_score": 0.8999999999999999
-          }
-        },
-        {
-          "name": "PredictWithTimeout",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 2,
-            "return_count": 2,
-            "has_variadic": false,
-            "returns_error": true,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 1.6
-          },
-          "lines": {
-            "total": 20,
-            "code": 14,
-            "comments": 4,
-            "blank": 2
-          },
-          "complexity": {
-            "cyclomatic": 2,
-            "cognitive": 0,
-            "nesting_depth": 1,
-            "overall": 2.5
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 60,
+            "comment_length": 53,
             "has_example": true,
             "quality_score": 0.5
           }
         },
         {
-          "name": "EstimateTokens",
+          "name": "ClearHistory",
           "is_exported": true,
           "is_pointer_receiver": true,
           "signature": {
             "parameter_count": 1,
-            "return_count": 1,
+            "return_count": 0,
             "has_variadic": false,
             "returns_error": false,
             "interface_parameters": 0,
             "generic_parameters": null,
-            "signature_complexity": 0.8
+            "signature_complexity": 0.5
           },
           "lines": {
-            "total": 2,
-            "code": 1,
+            "total": 3,
+            "code": 2,
             "comments": 0,
             "blank": 1
           },
@@ -6893,13 +7326,13 @@
           },
           "documentation": {
             "has_comment": true,
-            "comment_length": 70,
+            "comment_length": 76,
             "has_example": true,
-            "quality_score": 0.7
+            "quality_score": 0.5
           }
         },
         {
-          "name": "GetContextSize",
+          "name": "GetActiveConversations",
           "is_exported": true,
           "is_pointer_receiver": true,
           "signature": {
@@ -6912,8 +7345,8 @@
             "signature_complexity": 0.3
           },
           "lines": {
-            "total": 1,
-            "code": 0,
+            "total": 3,
+            "code": 2,
             "comments": 0,
             "blank": 1
           },
@@ -6925,61 +7358,29 @@
           },
           "documentation": {
             "has_comment": true,
-            "comment_length": 66,
+            "comment_length": 83,
             "has_example": true,
             "quality_score": 0.5
           }
         },
         {
-          "name": "GetModelInfo",
-          "is_exported": true,
+          "name": "cleanupRoutine",
+          "is_exported": false,
           "is_pointer_receiver": true,
           "signature": {
             "parameter_count": 0,
-            "return_count": 1,
+            "return_count": 0,
             "has_variadic": false,
             "returns_error": false,
             "interface_parameters": 0,
             "generic_parameters": null,
-            "signature_complexity": 0.3
+            "signature_complexity": 0
           },
           "lines": {
-            "total": 13,
-            "code": 9,
-            "comments": 2,
-            "blank": 2
-          },
-          "complexity": {
-            "cyclomatic": 1,
-            "cognitive": 0,
-            "nesting_depth": 0,
-            "overall": 1
-          },
-          "documentation": {
-            "has_comment": true,
-            "comment_length": 59,
-            "has_example": true,
-            "quality_score": 0.5
-          }
-        },
-        {
-          "name": "Free",
-          "is_exported": true,
-          "is_pointer_receiver": true,
-          "signature": {
-            "parameter_count": 0,
-            "return_count": 1,
-            "has_variadic": false,
-            "returns_error": true,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 0.3
-          },
-          "lines": {
-            "total": 17,
-            "code": 11,
-            "comments": 3,
-            "blank": 3
+            "total": 3,
+            "code": 2,
+            "comments": 0,
+            "blank": 1
           },
           "complexity": {
             "cyclomatic": 2,
@@ -6989,78 +7390,116 @@
           },
           "documentation": {
             "has_comment": true,
-            "comment_length": 33,
+            "comment_length": 81,
             "has_example": true,
-            "quality_score": 0.3
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "cleanupOldConversations",
+          "is_exported": false,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 0,
+            "return_count": 0,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0
+          },
+          "lines": {
+            "total": 10,
+            "code": 7,
+            "comments": 2,
+            "blank": 1
+          },
+          "complexity": {
+            "cyclomatic": 3,
+            "cognitive": 0,
+            "nesting_depth": 2,
+            "overall": 4
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 83,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "Close",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 0,
+            "return_count": 0,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0
+          },
+          "lines": {
+            "total": 7,
+            "code": 4,
+            "comments": 1,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 2,
+            "cognitive": 0,
+            "nesting_depth": 1,
+            "overall": 2.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 58,
+            "has_example": true,
+            "quality_score": 0.5
           }
         }
       ],
       "tag_usage": {},
       "complexity": {
-        "cyclomatic": 20,
+        "cyclomatic": 9,
         "cognitive": 0,
         "nesting_depth": 0,
-        "overall": 20
+        "overall": 9
       },
       "documentation": {
         "has_comment": true,
-        "comment_length": 132,
-        "has_example": true,
-        "quality_score": 0.8999999999999999
-      }
-    },
-    {
-      "name": "LlamaConfig",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 29,
-      "is_exported": true,
-      "total_fields": 9,
-      "fields_by_type": {
-        "primitive": 9
-      },
-      "embedded_types": null,
-      "methods": null,
-      "tag_usage": {
-        "json": 9
-      },
-      "complexity": {
-        "cyclomatic": 18,
-        "cognitive": 0,
-        "nesting_depth": 0,
-        "overall": 18
-      },
-      "documentation": {
-        "has_comment": true,
-        "comment_length": 60,
+        "comment_length": 166,
         "has_example": true,
         "quality_score": 0.7
       }
     },
     {
-      "name": "ModelInfo",
+      "name": "ConversationSummary",
       "package": "dialog",
       "file": "dialog",
-      "line": 290,
+      "line": 146,
       "is_exported": true,
-      "total_fields": 8,
+      "total_fields": 6,
       "fields_by_type": {
-        "primitive": 8
+        "primitive": 3,
+        "slice": 2,
+        "struct": 1
       },
       "embedded_types": null,
       "methods": null,
       "tag_usage": {
-        "json": 8
+        "json": 6
       },
       "complexity": {
-        "cyclomatic": 16,
+        "cyclomatic": 12,
         "cognitive": 0,
         "nesting_depth": 0,
-        "overall": 16
+        "overall": 12
       },
       "documentation": {
         "has_comment": true,
-        "comment_length": 55,
+        "comment_length": 75,
         "has_example": true,
         "quality_score": 0.7
       }
@@ -8173,55 +8612,119 @@
         "has_example": true,
         "quality_score": 0.8999999999999999
       }
-    }
-  ],
-  "interfaces": [
+    },
     {
-      "name": "DialogBackend",
-      "package": "dialog",
-      "file": "dialog",
-      "line": 11,
+      "name": "CharacterAssetIntegrator",
+      "package": "main",
+      "file": "main",
+      "line": 13,
       "is_exported": true,
-      "method_count": 5,
+      "total_fields": 3,
+      "fields_by_type": {
+        "primitive": 3
+      },
+      "embedded_types": null,
       "methods": [
         {
-          "name": "Initialize",
+          "name": "SetDryRun",
+          "is_exported": true,
+          "is_pointer_receiver": true,
           "signature": {
             "parameter_count": 1,
-            "return_count": 1,
-            "has_variadic": false,
-            "returns_error": true,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 1.1
-          }
-        },
-        {
-          "name": "GenerateResponse",
-          "signature": {
-            "parameter_count": 1,
-            "return_count": 2,
-            "has_variadic": false,
-            "returns_error": true,
-            "interface_parameters": 0,
-            "generic_parameters": null,
-            "signature_complexity": 1.4000000000000001
-          }
-        },
-        {
-          "name": "GetBackendInfo",
-          "signature": {
-            "parameter_count": 0,
-            "return_count": 1,
+            "return_count": 0,
             "has_variadic": false,
             "returns_error": false,
             "interface_parameters": 0,
             "generic_parameters": null,
-            "signature_complexity": 0.6
+            "signature_complexity": 0.5
+          },
+          "lines": {
+            "total": 1,
+            "code": 0,
+            "comments": 0,
+            "blank": 1
+          },
+          "complexity": {
+            "cyclomatic": 1,
+            "cognitive": 0,
+            "nesting_depth": 0,
+            "overall": 1
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 46,
+            "has_example": true,
+            "quality_score": 0.3
           }
         },
         {
-          "name": "CanHandle",
+          "name": "SetBackupEnabled",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 0,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.5
+          },
+          "lines": {
+            "total": 1,
+            "code": 0,
+            "comments": 0,
+            "blank": 1
+          },
+          "complexity": {
+            "cyclomatic": 1,
+            "cognitive": 0,
+            "nesting_depth": 0,
+            "overall": 1
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 56,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "IntegrateAll",
+          "is_exported": true,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 0,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.3
+          },
+          "lines": {
+            "total": 10,
+            "code": 7,
+            "comments": 2,
+            "blank": 1
+          },
+          "complexity": {
+            "cyclomatic": 2,
+            "cognitive": 0,
+            "nesting_depth": 1,
+            "overall": 2.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 75,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "processAllCharacterFiles",
+          "is_exported": false,
+          "is_pointer_receiver": true,
           "signature": {
             "parameter_count": 1,
             "return_count": 1,
@@ -8230,10 +8733,158 @@
             "interface_parameters": 0,
             "generic_parameters": null,
             "signature_complexity": 0.8
+          },
+          "lines": {
+            "total": 20,
+            "code": 14,
+            "comments": 4,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 3,
+            "cognitive": 0,
+            "nesting_depth": 2,
+            "overall": 4
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 81,
+            "has_example": true,
+            "quality_score": 0.5
           }
         },
         {
-          "name": "UpdateMemory",
+          "name": "processFileAndTrackResults",
+          "is_exported": false,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 2,
+            "return_count": 0,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1
+          },
+          "lines": {
+            "total": 9,
+            "code": 6,
+            "comments": 1,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 2,
+            "cognitive": 0,
+            "nesting_depth": 1,
+            "overall": 2.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 76,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "printIntegrationSummary",
+          "is_exported": false,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 0,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.5
+          },
+          "lines": {
+            "total": 11,
+            "code": 7,
+            "comments": 2,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 3,
+            "cognitive": 0,
+            "nesting_depth": 2,
+            "overall": 4
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 71,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "processCharacterFile",
+          "is_exported": false,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.8
+          },
+          "lines": {
+            "total": 16,
+            "code": 11,
+            "comments": 3,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 4,
+            "cognitive": 0,
+            "nesting_depth": 3,
+            "overall": 5.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 63,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "readAndParseCharacterFile",
+          "is_exported": false,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 3,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.4
+          },
+          "lines": {
+            "total": 11,
+            "code": 7,
+            "comments": 2,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 3,
+            "cognitive": 0,
+            "nesting_depth": 2,
+            "overall": 4
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 68,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "updateCharacterWithLLMConfig",
+          "is_exported": false,
+          "is_pointer_receiver": true,
           "signature": {
             "parameter_count": 3,
             "return_count": 1,
@@ -8241,23 +8892,282 @@
             "returns_error": true,
             "interface_parameters": 0,
             "generic_parameters": null,
-            "signature_complexity": 1.5000000000000002
+            "signature_complexity": 1.8
+          },
+          "lines": {
+            "total": 9,
+            "code": 6,
+            "comments": 1,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 2,
+            "cognitive": 0,
+            "nesting_depth": 1,
+            "overall": 2.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 76,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "createBackupIfEnabled",
+          "is_exported": false,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 2,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.3
+          },
+          "lines": {
+            "total": 8,
+            "code": 5,
+            "comments": 1,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 3,
+            "cognitive": 0,
+            "nesting_depth": 2,
+            "overall": 4
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 68,
+            "has_example": true,
+            "quality_score": 0.5
+          }
+        },
+        {
+          "name": "writeUpdatedCharacterFile",
+          "is_exported": false,
+          "is_pointer_receiver": true,
+          "signature": {
+            "parameter_count": 2,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.3
+          },
+          "lines": {
+            "total": 16,
+            "code": 11,
+            "comments": 3,
+            "blank": 2
+          },
+          "complexity": {
+            "cyclomatic": 4,
+            "cognitive": 0,
+            "nesting_depth": 3,
+            "overall": 5.5
+          },
+          "documentation": {
+            "has_comment": true,
+            "comment_length": 71,
+            "has_example": true,
+            "quality_score": 0.5
           }
         }
       ],
-      "embedded_interfaces": [],
-      "implementations": null,
-      "implementation_count": 0,
-      "implementation_ratio": 0,
-      "embedding_depth": 0,
-      "complexity_score": 2.54,
+      "tag_usage": {},
+      "complexity": {
+        "cyclomatic": 6,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 6
+      },
       "documentation": {
         "has_comment": true,
-        "comment_length": 165,
+        "comment_length": 93,
         "has_example": true,
-        "quality_score": 0.8999999999999999
+        "quality_score": 0.5
       }
     },
+    {
+      "name": "CharacterJSON",
+      "package": "main",
+      "file": "main",
+      "line": 20,
+      "is_exported": true,
+      "total_fields": 5,
+      "fields_by_type": {
+        "map": 1,
+        "pointer": 1,
+        "primitive": 2,
+        "slice": 1
+      },
+      "embedded_types": null,
+      "methods": null,
+      "tag_usage": {
+        "json": 5
+      },
+      "complexity": {
+        "cyclomatic": 11,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 11
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 75,
+        "has_example": true,
+        "quality_score": 0.7
+      }
+    },
+    {
+      "name": "Dialog",
+      "package": "main",
+      "file": "main",
+      "line": 30,
+      "is_exported": true,
+      "total_fields": 4,
+      "fields_by_type": {
+        "primitive": 3,
+        "slice": 1
+      },
+      "embedded_types": null,
+      "methods": null,
+      "tag_usage": {
+        "json": 4
+      },
+      "complexity": {
+        "cyclomatic": 8,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 8
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 44,
+        "has_example": true,
+        "quality_score": 0.5
+      }
+    },
+    {
+      "name": "DialogBackendConfig",
+      "package": "main",
+      "file": "main",
+      "line": 38,
+      "is_exported": true,
+      "total_fields": 8,
+      "fields_by_type": {
+        "map": 1,
+        "primitive": 6,
+        "slice": 1
+      },
+      "embedded_types": null,
+      "methods": null,
+      "tag_usage": {
+        "json": 8
+      },
+      "complexity": {
+        "cyclomatic": 17,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 17
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 67,
+        "has_example": true,
+        "quality_score": 0.7
+      }
+    },
+    {
+      "name": "LLMBackendConfig",
+      "package": "main",
+      "file": "main",
+      "line": 50,
+      "is_exported": true,
+      "total_fields": 10,
+      "fields_by_type": {
+        "primitive": 9,
+        "struct": 1
+      },
+      "embedded_types": null,
+      "methods": null,
+      "tag_usage": {
+        "json": 10
+      },
+      "complexity": {
+        "cyclomatic": 20,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 20
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 66,
+        "has_example": true,
+        "quality_score": 0.7
+      }
+    },
+    {
+      "name": "MarkovChainConfig",
+      "package": "main",
+      "file": "main",
+      "line": 64,
+      "is_exported": true,
+      "total_fields": 8,
+      "fields_by_type": {
+        "primitive": 6,
+        "slice": 2
+      },
+      "embedded_types": null,
+      "methods": null,
+      "tag_usage": {
+        "json": 8
+      },
+      "complexity": {
+        "cyclomatic": 16,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 16
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 75,
+        "has_example": true,
+        "quality_score": 0.7
+      }
+    },
+    {
+      "name": "integrationResults",
+      "package": "main",
+      "file": "main",
+      "line": 133,
+      "is_exported": false,
+      "total_fields": 3,
+      "fields_by_type": {
+        "slice": 3
+      },
+      "embedded_types": null,
+      "methods": null,
+      "tag_usage": {},
+      "complexity": {
+        "cyclomatic": 6,
+        "cognitive": 0,
+        "nesting_depth": 0,
+        "overall": 6
+      },
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 71,
+        "has_example": true,
+        "quality_score": 0.5
+      }
+    }
+  ],
+  "interfaces": [
     {
       "name": "ProductionLLMModel",
       "package": "dialog",
@@ -8365,6 +9275,88 @@
         "has_example": true,
         "quality_score": 0.7
       }
+    },
+    {
+      "name": "DialogBackend",
+      "package": "dialog",
+      "file": "dialog",
+      "line": 11,
+      "is_exported": true,
+      "method_count": 5,
+      "methods": [
+        {
+          "name": "Initialize",
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.1
+          }
+        },
+        {
+          "name": "GenerateResponse",
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 2,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.4000000000000001
+          }
+        },
+        {
+          "name": "GetBackendInfo",
+          "signature": {
+            "parameter_count": 0,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.6
+          }
+        },
+        {
+          "name": "CanHandle",
+          "signature": {
+            "parameter_count": 1,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": false,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 0.8
+          }
+        },
+        {
+          "name": "UpdateMemory",
+          "signature": {
+            "parameter_count": 3,
+            "return_count": 1,
+            "has_variadic": false,
+            "returns_error": true,
+            "interface_parameters": 0,
+            "generic_parameters": null,
+            "signature_complexity": 1.5000000000000002
+          }
+        }
+      ],
+      "embedded_interfaces": [],
+      "implementations": null,
+      "implementation_count": 0,
+      "implementation_ratio": 0,
+      "embedding_depth": 0,
+      "complexity_score": 2.54,
+      "documentation": {
+        "has_comment": true,
+        "comment_length": 165,
+        "has_example": true,
+        "quality_score": 0.8999999999999999
+      }
     }
   ],
   "packages": [
@@ -8372,11 +9364,11 @@
       "name": "dialog",
       "path": "dialog",
       "files": [
+        "/home/user/go/src/github.com/opd-ai/minilm/internal/dialog/llama_model.go",
         "/home/user/go/src/github.com/opd-ai/minilm/dialog/dialog.go",
         "/home/user/go/src/github.com/opd-ai/minilm/internal/dialog/prompt_builder.go",
-        "/home/user/go/src/github.com/opd-ai/minilm/internal/dialog/context_manager.go",
         "/home/user/go/src/github.com/opd-ai/minilm/internal/dialog/types.go",
-        "/home/user/go/src/github.com/opd-ai/minilm/internal/dialog/llama_model.go",
+        "/home/user/go/src/github.com/opd-ai/minilm/internal/dialog/context_manager.go",
         "/home/user/go/src/github.com/opd-ai/minilm/internal/dialog/llm_backend.go"
       ],
       "lines": {
@@ -8408,17 +9400,17 @@
         "/home/user/go/src/github.com/opd-ai/minilm/cmd/character-integrator/main.go"
       ],
       "lines": {
-        "total": 1054,
-        "code": 1054,
+        "total": 1198,
+        "code": 1198,
         "comments": 0,
         "blank": 0
       },
-      "functions": 33,
-      "structs": 6,
+      "functions": 54,
+      "structs": 7,
       "interfaces": 0,
       "dependencies": [],
       "dependents": null,
-      "cohesion_score": 2.6,
+      "cohesion_score": 4.066666666666666,
       "coupling_score": 0,
       "documentation": {
         "has_comment": false,
@@ -8459,19 +9451,19 @@
         "instances": [
           {
             "file": "dialog",
-            "line": 47,
-            "function": "cm.cleanupRoutine",
-            "is_anonymous": false,
-            "has_defer": false,
-            "context": "cm.cleanupRoutine"
-          },
-          {
-            "file": "dialog",
             "line": 221,
             "function": "anonymous",
             "is_anonymous": true,
             "has_defer": false,
             "context": "anonymous function"
+          },
+          {
+            "file": "dialog",
+            "line": 47,
+            "function": "cm.cleanupRoutine",
+            "is_anonymous": false,
+            "has_defer": false,
+            "context": "cm.cleanupRoutine"
           },
           {
             "file": "dialog",

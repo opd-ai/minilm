@@ -99,11 +99,21 @@ func (c *CharacterAssetIntegrator) IntegrateAll() error {
 		return fmt.Errorf("characters directory not found: %s", charactersPath)
 	}
 
-	var processedFiles []string
-	var skippedFiles []string
-	var errorFiles []string
+	results := c.processAllCharacterFiles(charactersPath)
+	c.printIntegrationSummary(results)
 
-	err := filepath.WalkDir(charactersPath, func(path string, d fs.DirEntry, err error) error {
+	return nil
+}
+
+// processAllCharacterFiles walks through and processes all character.json files
+func (c *CharacterAssetIntegrator) processAllCharacterFiles(charactersPath string) *integrationResults {
+	results := &integrationResults{
+		processedFiles: []string{},
+		skippedFiles:   []string{},
+		errorFiles:     []string{},
+	}
+
+	filepath.WalkDir(charactersPath, func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -112,75 +122,110 @@ func (c *CharacterAssetIntegrator) IntegrateAll() error {
 			return nil
 		}
 
-		fmt.Printf("Processing: %s\n", path)
-
-		err = c.processCharacterFile(path)
-		if err != nil {
-			fmt.Printf("  Error: %v\n", err)
-			errorFiles = append(errorFiles, path)
-		} else {
-			processedFiles = append(processedFiles, path)
-		}
-
+		c.processFileAndTrackResults(path, results)
 		return nil
 	})
 
+	return results
+}
+
+// integrationResults tracks the results of processing character files
+type integrationResults struct {
+	processedFiles []string
+	skippedFiles   []string
+	errorFiles     []string
+}
+
+// processFileAndTrackResults processes a single file and tracks the result
+func (c *CharacterAssetIntegrator) processFileAndTrackResults(path string, results *integrationResults) {
+	fmt.Printf("Processing: %s\n", path)
+
+	err := c.processCharacterFile(path)
 	if err != nil {
-		return fmt.Errorf("failed to walk characters directory: %w", err)
+		fmt.Printf("  Error: %v\n", err)
+		results.errorFiles = append(results.errorFiles, path)
+	} else {
+		results.processedFiles = append(results.processedFiles, path)
 	}
+}
 
-	// Print summary
+// printIntegrationSummary prints a summary of the integration results
+func (c *CharacterAssetIntegrator) printIntegrationSummary(results *integrationResults) {
 	fmt.Printf("\n=== Integration Summary ===\n")
-	fmt.Printf("Processed: %d files\n", len(processedFiles))
-	fmt.Printf("Skipped: %d files\n", len(skippedFiles))
-	fmt.Printf("Errors: %d files\n", len(errorFiles))
+	fmt.Printf("Processed: %d files\n", len(results.processedFiles))
+	fmt.Printf("Skipped: %d files\n", len(results.skippedFiles))
+	fmt.Printf("Errors: %d files\n", len(results.errorFiles))
 
-	if len(errorFiles) > 0 {
+	if len(results.errorFiles) > 0 {
 		fmt.Printf("\nFiles with errors:\n")
-		for _, file := range errorFiles {
+		for _, file := range results.errorFiles {
 			fmt.Printf("  - %s\n", file)
 		}
 	}
-
-	return nil
 }
 
 // processCharacterFile processes a single character.json file
 func (c *CharacterAssetIntegrator) processCharacterFile(filePath string) error {
-	// Read existing file
-	data, err := os.ReadFile(filePath)
+	rawData, originalData, err := c.readAndParseCharacterFile(filePath)
 	if err != nil {
-		return fmt.Errorf("failed to read file: %w", err)
+		return err
 	}
 
-	// Parse as generic JSON to preserve all fields
-	var rawData map[string]interface{}
-	if err := json.Unmarshal(data, &rawData); err != nil {
-		return fmt.Errorf("failed to parse JSON: %w", err)
-	}
-
-	// Check if already has LLM configuration
 	if hasLLMConfig(rawData) {
 		fmt.Printf("  Already has LLM config, skipping\n")
 		return nil
 	}
 
-	// Extract existing personality data for LLM configuration
-	personalityData := extractPersonalityData(rawData)
+	err = c.updateCharacterWithLLMConfig(filePath, rawData, originalData)
+	if err != nil {
+		return err
+	}
 
-	// Add LLM configuration
+	return nil
+}
+
+// readAndParseCharacterFile reads and parses a character JSON file
+func (c *CharacterAssetIntegrator) readAndParseCharacterFile(filePath string) (map[string]interface{}, []byte, error) {
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to read file: %w", err)
+	}
+
+	var rawData map[string]interface{}
+	if err := json.Unmarshal(data, &rawData); err != nil {
+		return nil, nil, fmt.Errorf("failed to parse JSON: %w", err)
+	}
+
+	return rawData, data, nil
+}
+
+// updateCharacterWithLLMConfig adds LLM configuration and updates the file
+func (c *CharacterAssetIntegrator) updateCharacterWithLLMConfig(filePath string, rawData map[string]interface{}, originalData []byte) error {
+	personalityData := extractPersonalityData(rawData)
 	addLLMConfiguration(rawData, personalityData)
 
-	// Create backup if enabled
+	err := c.createBackupIfEnabled(filePath, originalData)
+	if err != nil {
+		return err
+	}
+
+	return c.writeUpdatedCharacterFile(filePath, rawData)
+}
+
+// createBackupIfEnabled creates a backup file if backup is enabled
+func (c *CharacterAssetIntegrator) createBackupIfEnabled(filePath string, originalData []byte) error {
 	if c.backupEnabled && !c.dryRun {
 		backupPath := filePath + ".backup"
-		if err := os.WriteFile(backupPath, data, 0644); err != nil {
+		if err := os.WriteFile(backupPath, originalData, 0644); err != nil {
 			return fmt.Errorf("failed to create backup: %w", err)
 		}
 		fmt.Printf("  Created backup: %s\n", backupPath)
 	}
+	return nil
+}
 
-	// Write updated file
+// writeUpdatedCharacterFile writes the updated character data to file
+func (c *CharacterAssetIntegrator) writeUpdatedCharacterFile(filePath string, rawData map[string]interface{}) error {
 	if !c.dryRun {
 		updatedData, err := json.MarshalIndent(rawData, "", "  ")
 		if err != nil {
@@ -222,78 +267,159 @@ func hasLLMConfig(data map[string]interface{}) bool {
 func extractDialogResponses(data map[string]interface{}) []string {
 	var trainingData []string
 
+	dialogList := getDialogList(data)
+	if dialogList == nil {
+		return trainingData
+	}
+
+	return extractResponsesFromDialogs(dialogList)
+}
+
+// getDialogList retrieves and validates the dialogs array from character data
+func getDialogList(data map[string]interface{}) []interface{} {
 	dialogs, exists := data["dialogs"]
 	if !exists {
-		return trainingData
+		return nil
 	}
 
 	dialogList, ok := dialogs.([]interface{})
 	if !ok {
-		return trainingData
+		return nil
 	}
 
+	return dialogList
+}
+
+// extractResponsesFromDialogs extracts response strings from dialog objects
+func extractResponsesFromDialogs(dialogList []interface{}) []string {
+	var trainingData []string
+
 	for _, dialog := range dialogList {
-		dialogMap, ok := dialog.(map[string]interface{})
-		if !ok {
-			continue
-		}
-
-		responses, exists := dialogMap["responses"]
-		if !exists {
-			continue
-		}
-
-		responseList, ok := responses.([]interface{})
-		if !ok {
-			continue
-		}
-
-		for _, response := range responseList {
-			responseStr, ok := response.(string)
-			if ok && len(responseStr) > 0 {
-				trainingData = append(trainingData, responseStr)
-			}
-		}
+		dialogResponses := extractResponsesFromDialog(dialog)
+		trainingData = append(trainingData, dialogResponses...)
 	}
 
 	return trainingData
+}
+
+// extractResponsesFromDialog extracts response strings from a single dialog object
+func extractResponsesFromDialog(dialog interface{}) []string {
+	var responses []string
+
+	dialogMap, ok := dialog.(map[string]interface{})
+	if !ok {
+		return responses
+	}
+
+	responseList := getResponseList(dialogMap)
+	if responseList == nil {
+		return responses
+	}
+
+	return convertResponsesToStrings(responseList)
+}
+
+// getResponseList retrieves and validates the responses array from dialog
+func getResponseList(dialogMap map[string]interface{}) []interface{} {
+	responses, exists := dialogMap["responses"]
+	if !exists {
+		return nil
+	}
+
+	responseList, ok := responses.([]interface{})
+	if !ok {
+		return nil
+	}
+
+	return responseList
+}
+
+// convertResponsesToStrings converts response interfaces to valid string responses
+func convertResponsesToStrings(responseList []interface{}) []string {
+	var responses []string
+
+	for _, response := range responseList {
+		responseStr, ok := response.(string)
+		if ok && len(responseStr) > 0 {
+			responses = append(responses, responseStr)
+		}
+	}
+
+	return responses
 }
 
 // extractMarkovTrainingData extracts existing Markov training data from dialog backend
 func extractMarkovTrainingData(data map[string]interface{}) []string {
 	var trainingData []string
 
-	dialogBackend, exists := data["dialogBackend"]
+	markovConfig := extractMarkovConfig(data)
+	if markovConfig == nil {
+		return trainingData
+	}
+
+	return extractTrainingDataFromMarkovConfig(markovConfig)
+}
+
+// extractMarkovConfig retrieves the Markov configuration from dialog backend data
+func extractMarkovConfig(data map[string]interface{}) map[string]interface{} {
+	dialogBackend := getDialogBackend(data)
+	if dialogBackend == nil {
+		return nil
+	}
+
+	backends := getBackendsConfig(dialogBackend)
+	if backends == nil {
+		return nil
+	}
+
+	markovConfig, exists := backends["markov_chain"]
 	if !exists {
-		return trainingData
-	}
-
-	backendMap, ok := dialogBackend.(map[string]interface{})
-	if !ok {
-		return trainingData
-	}
-
-	backends, exists := backendMap["backends"]
-	if !exists {
-		return trainingData
-	}
-
-	backendsMap, ok := backends.(map[string]interface{})
-	if !ok {
-		return trainingData
-	}
-
-	markovConfig, exists := backendsMap["markov_chain"]
-	if !exists {
-		return trainingData
+		return nil
 	}
 
 	markovMap, ok := markovConfig.(map[string]interface{})
 	if !ok {
-		return trainingData
+		return nil
 	}
 
-	training, exists := markovMap["trainingData"]
+	return markovMap
+}
+
+// getDialogBackend extracts and validates the dialog backend configuration
+func getDialogBackend(data map[string]interface{}) map[string]interface{} {
+	dialogBackend, exists := data["dialogBackend"]
+	if !exists {
+		return nil
+	}
+
+	backendMap, ok := dialogBackend.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	return backendMap
+}
+
+// getBackendsConfig extracts and validates the backends configuration
+func getBackendsConfig(dialogBackend map[string]interface{}) map[string]interface{} {
+	backends, exists := dialogBackend["backends"]
+	if !exists {
+		return nil
+	}
+
+	backendsMap, ok := backends.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	return backendsMap
+}
+
+// extractTrainingDataFromMarkovConfig extracts training data strings from Markov config
+func extractTrainingDataFromMarkovConfig(markovConfig map[string]interface{}) []string {
+	var trainingData []string
+
+	training, exists := markovConfig["trainingData"]
 	if !exists {
 		return trainingData
 	}
@@ -360,8 +486,22 @@ func extractPersonalityData(data map[string]interface{}) []string {
 
 // addLLMConfiguration adds LLM backend configuration to the character data
 func addLLMConfiguration(data map[string]interface{}, personalityData []string) {
-	// Create LLM backend configuration
-	llmConfig := LLMBackendConfig{
+	llmConfig := createLLMBackendConfig(personalityData)
+	llmConfigJSON, _ := json.Marshal(llmConfig)
+
+	dialogBackend := getOrCreateDialogBackend(data)
+	setDialogBackendDefaults(dialogBackend)
+	
+	backends := getOrCreateBackends(dialogBackend)
+	addLLMBackendToConfig(backends, llmConfigJSON)
+	
+	dialogBackend["backends"] = backends
+	data["dialogBackend"] = dialogBackend
+}
+
+// createLLMBackendConfig creates a new LLM backend configuration with personality data
+func createLLMBackendConfig(personalityData []string) LLMBackendConfig {
+	return LLMBackendConfig{
 		ModelPath:        "/models/tinyllama-1.1b-q4.gguf",
 		MaxTokens:        50,
 		Temperature:      0.8,
@@ -386,11 +526,10 @@ func addLLMConfiguration(data map[string]interface{}, personalityData []string) 
 			},
 		},
 	}
+}
 
-	// Serialize LLM config to RawMessage
-	llmConfigJSON, _ := json.Marshal(llmConfig)
-
-	// Get or create dialog backend configuration
+// getOrCreateDialogBackend retrieves or creates the dialog backend configuration
+func getOrCreateDialogBackend(data map[string]interface{}) map[string]interface{} {
 	var dialogBackend map[string]interface{}
 	if existing, exists := data["dialogBackend"]; exists {
 		if existingMap, ok := existing.(map[string]interface{}); ok {
@@ -401,8 +540,11 @@ func addLLMConfiguration(data map[string]interface{}, personalityData []string) 
 	} else {
 		dialogBackend = make(map[string]interface{})
 	}
+	return dialogBackend
+}
 
-	// Set dialog backend defaults if not present
+// setDialogBackendDefaults sets default values for dialog backend configuration
+func setDialogBackendDefaults(dialogBackend map[string]interface{}) {
 	if _, exists := dialogBackend["enabled"]; !exists {
 		dialogBackend["enabled"] = true
 	}
@@ -421,8 +563,10 @@ func addLLMConfiguration(data map[string]interface{}, personalityData []string) 
 	if _, exists := dialogBackend["learningEnabled"]; !exists {
 		dialogBackend["learningEnabled"] = false
 	}
+}
 
-	// Get or create backends configuration
+// getOrCreateBackends retrieves or creates the backends configuration
+func getOrCreateBackends(dialogBackend map[string]interface{}) map[string]interface{} {
 	var backends map[string]interface{}
 	if existing, exists := dialogBackend["backends"]; exists {
 		if existingMap, ok := existing.(map[string]interface{}); ok {
@@ -433,14 +577,14 @@ func addLLMConfiguration(data map[string]interface{}, personalityData []string) 
 	} else {
 		backends = make(map[string]interface{})
 	}
+	return backends
+}
 
-	// Add LLM backend configuration
+// addLLMBackendToConfig adds the LLM backend configuration to the backends map
+func addLLMBackendToConfig(backends map[string]interface{}, llmConfigJSON []byte) {
 	var llmConfigMap map[string]interface{}
 	json.Unmarshal(llmConfigJSON, &llmConfigMap)
 	backends["llm"] = llmConfigMap
-
-	dialogBackend["backends"] = backends
-	data["dialogBackend"] = dialogBackend
 }
 
 func main() {
