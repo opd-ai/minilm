@@ -130,45 +130,67 @@ func (pb *PromptBuilder) buildCharacterState() string {
 
 	state.WriteString("Current character state:\n")
 
-	// Add mood information
+	pb.addMoodInfo(&state)
+	pb.addTimeInfo(&state)
+	pb.addRelationshipInfo(&state)
+	pb.addPersonalityTraits(&state)
+	pb.addAnimationInfo(&state)
+
+	state.WriteString("\n")
+	return state.String()
+}
+
+// addMoodInfo adds mood information to the character state
+func (pb *PromptBuilder) addMoodInfo(state *strings.Builder) {
 	if pb.context.CurrentMood > 0 {
 		moodDesc := pb.describeMood(pb.context.CurrentMood)
 		state.WriteString(fmt.Sprintf("- Mood: %s (%.1f/100)\n", moodDesc, pb.context.CurrentMood))
 	}
+}
 
-	// Add time context if available
+// addTimeInfo adds time context to the character state
+func (pb *PromptBuilder) addTimeInfo(state *strings.Builder) {
 	if pb.context.TimeOfDay != "" {
 		state.WriteString(fmt.Sprintf("- Time of day: %s\n", pb.context.TimeOfDay))
 	}
+}
 
-	// Add relationship context if available
+// addRelationshipInfo adds relationship context to the character state
+func (pb *PromptBuilder) addRelationshipInfo(state *strings.Builder) {
 	if pb.context.RelationshipLevel != "" {
 		state.WriteString(fmt.Sprintf("- Relationship level: %s\n", pb.context.RelationshipLevel))
 	}
+}
 
-	// Add key personality traits if available
+// addPersonalityTraits adds key personality traits to the character state
+func (pb *PromptBuilder) addPersonalityTraits(state *strings.Builder) {
 	if len(pb.context.PersonalityTraits) > 0 {
 		state.WriteString("- Key traits: ")
-		traits := make([]string, 0, 3) // Limit to top 3 traits
-		for trait, value := range pb.context.PersonalityTraits {
-			if value > 0.6 { // Only include strong traits
-				traits = append(traits, fmt.Sprintf("%s (%.1f)", trait, value))
-				if len(traits) >= 3 {
-					break
-				}
-			}
-		}
+		traits := pb.extractTopTraits()
 		state.WriteString(strings.Join(traits, ", "))
 		state.WriteString("\n")
 	}
+}
 
-	// Add current animation state
+// extractTopTraits extracts the top 3 personality traits above threshold
+func (pb *PromptBuilder) extractTopTraits() []string {
+	traits := make([]string, 0, 3)
+	for trait, value := range pb.context.PersonalityTraits {
+		if value > 0.6 { // Only include strong traits
+			traits = append(traits, fmt.Sprintf("%s (%.1f)", trait, value))
+			if len(traits) >= 3 {
+				break
+			}
+		}
+	}
+	return traits
+}
+
+// addAnimationInfo adds current animation state to the character state
+func (pb *PromptBuilder) addAnimationInfo(state *strings.Builder) {
 	if pb.context.CurrentAnimation != "" {
 		state.WriteString(fmt.Sprintf("- Current animation: %s\n", pb.context.CurrentAnimation))
 	}
-
-	state.WriteString("\n")
-	return state.String()
 }
 
 // buildConversationHistory creates a summary of recent conversation
