@@ -1,0 +1,206 @@
+{
+  "name": "Tamagotchi Pet",
+  "description": "A virtual pet that needs care and attention",
+  
+  "animations": {
+    "idle": "animations/idle.gif",
+    "talking": "animations/talking.gif",
+    "happy": "animations/happy.gif",
+    "sad": "animations/sad.gif",
+    "hungry": "animations/hungry.gif",
+    "eating": "animations/eating.gif"
+  },
+
+  "dialogs": [
+    {
+      "trigger": "click",
+      "responses": [
+        "Hello there!",
+        "How are you doing?",
+        "I'm so glad to see you!",
+        "Pet me more!"
+      ],
+      "animation": "talking",
+      "cooldown": 5
+    },
+    {
+      "trigger": "rightclick",
+      "responses": [
+        "What would you like to do?",
+        "Right-click for options!",
+        "I'm ready for interaction!"
+      ],
+      "animation": "happy",
+      "cooldown": 3
+    }
+  ],
+
+  "behavior": {
+    "idleTimeout": 30,
+    "movementEnabled": true,
+    "defaultSize": 128
+  },
+
+  "stats": {
+    "hunger": {
+      "initial": 100,
+      "max": 100,
+      "degradationRate": 1.0,
+      "criticalThreshold": 20
+    },
+    "happiness": {
+      "initial": 100,
+      "max": 100,
+      "degradationRate": 0.8,
+      "criticalThreshold": 15
+    },
+    "health": {
+      "initial": 100,
+      "max": 100,
+      "degradationRate": 0.3,
+      "criticalThreshold": 10
+    },
+    "energy": {
+      "initial": 100,
+      "max": 100,
+      "degradationRate": 1.5,
+      "criticalThreshold": 25
+    }
+  },
+
+  "gameRules": {
+    "statsDecayInterval": 60,
+    "autoSaveInterval": 300,
+    "criticalStateAnimationPriority": true,
+    "deathEnabled": false,
+    "evolutionEnabled": true,
+    "moodBasedAnimations": true
+  },
+
+  "interactions": {
+    "feed": {
+      "triggers": ["rightclick"],
+      "effects": {"hunger": 25, "happiness": 5},
+      "animations": ["eating", "happy"],
+      "responses": ["Yum! Thank you!", "That was delicious!", "I feel much better now!"],
+      "cooldown": 30,
+      "requirements": {"hunger": {"max": 80}}
+    },
+    "play": {
+      "triggers": ["doubleclick"],
+      "effects": {"happiness": 20, "energy": -15},
+      "animations": ["happy"],
+      "responses": ["This is fun!", "I love playing with you!", "Let's play more!"],
+      "cooldown": 45,
+      "requirements": {"energy": {"min": 20}}
+    },
+    "pet": {
+      "triggers": ["click"],
+      "effects": {"happiness": 10, "health": 2},
+      "animations": ["happy"],
+      "responses": ["That feels nice!", "I love attention!", "Pet me more!"],
+      "cooldown": 15
+    }
+  },
+
+  "progression": {
+    "levels": [
+      {
+        "name": "Baby",
+        "requirement": {"age": 0},
+        "size": 64,
+        "animations": {}
+      },
+      {
+        "name": "Child",
+        "requirement": {"age": 86400},
+        "size": 96,
+        "animations": {}
+      },
+      {
+        "name": "Adult",
+        "requirement": {"age": 259200},
+        "size": 128,
+        "animations": {}
+      }
+    ],
+    "achievements": [
+      {
+        "name": "Well Fed",
+        "requirement": {
+          "hunger": {"maintainAbove": 80},
+          "maintainAbove": {"duration": 86400}
+        },
+        "reward": {
+          "statBoosts": {"hunger": 10}
+        }
+      },
+      {
+        "name": "Happy Pet",
+        "requirement": {
+          "happiness": {"maintainAbove": 90},
+          "maintainAbove": {"duration": 43200}
+        },
+        "reward": {
+          "statBoosts": {"happiness": 10}
+        }
+      },
+      {
+        "name": "Healthy",
+        "requirement": {
+          "health": {"min": 95}
+        }
+      }
+    ]
+  },
+  "dialogBackend": {
+    "enabled": true,
+    "defaultBackend": "markov_chain",
+    "confidenceThreshold": 0.6,
+    "memoryEnabled": true,
+    "learningEnabled": false,
+    "debugMode": false,
+    "backends": {
+      "markov_chain": {
+        "chainOrder": 2,
+        "minWords": 3,
+        "maxWords": 12,
+        "temperatureMin": 0.4,
+        "temperatureMax": 0.7,
+        "usePersonality": true,
+        "trainingData": [
+          "I'm feeling great! Thank you for taking care of me!",
+          "My hunger is satisfied and I'm so happy!",
+          "Playing with you always boosts my energy and mood!",
+          "I love it when you pet me! It makes me feel loved.",
+          "You're such a wonderful caretaker! I'm lucky to have you.",
+          "Thanks for feeding me! That was delicious and filling!",
+          "I feel healthy and strong thanks to your great care!",
+          "Our playtime together is always the highlight of my day!",
+          "Your attention and love means everything to me!",
+          "I'm growing stronger every day because you care for me!",
+          "When you're here with me, I feel truly happy!",
+          "Thank you for keeping me well-fed and entertained!",
+          "I hope I can be a good companion for you too!",
+          "Your kindness and care makes me feel so special!",
+          "I trust you completely to take care of all my needs!"
+        ],
+        "qualityFilters": {
+          "minCoherence": 0.7,
+          "maxRepetition": 0.3,
+          "requireComplete": true,
+          "grammarCheck": false,
+          "minUniqueWords": 3
+        },
+        "fallbackPhrases": [
+          "Thanks for taking care of me!",
+          "I'm feeling great today!",
+          "You're the best caretaker ever!",
+          "I love spending time with you! 😊",
+          "Let's play together!"
+        ]
+      }
+    },
+    "fallbackChain": ["simple_random"]
+  }
+}
