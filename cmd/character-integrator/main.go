@@ -218,76 +218,144 @@ func hasLLMConfig(data map[string]interface{}) bool {
 	return false
 }
 
-// extractPersonalityData extracts training data from existing Markov configuration
-func extractPersonalityData(data map[string]interface{}) []string {
+// extractDialogResponses extracts training data from existing dialog responses
+func extractDialogResponses(data map[string]interface{}) []string {
 	var trainingData []string
 
-	// Check for existing dialog responses
-	if dialogs, exists := data["dialogs"]; exists {
-		if dialogList, ok := dialogs.([]interface{}); ok {
-			for _, dialog := range dialogList {
-				if dialogMap, ok := dialog.(map[string]interface{}); ok {
-					if responses, exists := dialogMap["responses"]; exists {
-						if responseList, ok := responses.([]interface{}); ok {
-							for _, response := range responseList {
-								if responseStr, ok := response.(string); ok && len(responseStr) > 0 {
-									trainingData = append(trainingData, responseStr)
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+	dialogs, exists := data["dialogs"]
+	if !exists {
+		return trainingData
 	}
 
-	// Check for existing Markov training data in dialog backend
-	if dialogBackend, exists := data["dialogBackend"]; exists {
-		if backendMap, ok := dialogBackend.(map[string]interface{}); ok {
-			if backends, exists := backendMap["backends"]; exists {
-				if backendsMap, ok := backends.(map[string]interface{}); ok {
-					if markovConfig, exists := backendsMap["markov_chain"]; exists {
-						if markovMap, ok := markovConfig.(map[string]interface{}); ok {
-							if training, exists := markovMap["trainingData"]; exists {
-								if trainingList, ok := training.([]interface{}); ok {
-									for _, item := range trainingList {
-										if itemStr, ok := item.(string); ok && len(itemStr) > 0 {
-											trainingData = append(trainingData, itemStr)
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+	dialogList, ok := dialogs.([]interface{})
+	if !ok {
+		return trainingData
 	}
 
-	// If no training data found, use default based on character name
-	if len(trainingData) == 0 {
-		name := "Companion"
-		if nameVal, exists := data["name"]; exists {
-			if nameStr, ok := nameVal.(string); ok {
-				name = nameStr
+	for _, dialog := range dialogList {
+		dialogMap, ok := dialog.(map[string]interface{})
+		if !ok {
+			continue
+		}
+
+		responses, exists := dialogMap["responses"]
+		if !exists {
+			continue
+		}
+
+		responseList, ok := responses.([]interface{})
+		if !ok {
+			continue
+		}
+
+		for _, response := range responseList {
+			responseStr, ok := response.(string)
+			if ok && len(responseStr) > 0 {
+				trainingData = append(trainingData, responseStr)
 			}
 		}
-
-		trainingData = []string{
-			fmt.Sprintf("Hello! I'm %s, and I'm happy to see you! 😊", name),
-			"How are you doing today? I hope you're having a wonderful time!",
-			"Thanks for spending time with me! Your company means everything.",
-			"I'm here whenever you need a friend or just want to chat!",
-			"Let's make today amazing together! What would you like to do?",
-		}
-	}
-
-	// Limit to first 5 entries for personality extraction
-	if len(trainingData) > 5 {
-		trainingData = trainingData[:5]
 	}
 
 	return trainingData
+}
+
+// extractMarkovTrainingData extracts existing Markov training data from dialog backend
+func extractMarkovTrainingData(data map[string]interface{}) []string {
+	var trainingData []string
+
+	dialogBackend, exists := data["dialogBackend"]
+	if !exists {
+		return trainingData
+	}
+
+	backendMap, ok := dialogBackend.(map[string]interface{})
+	if !ok {
+		return trainingData
+	}
+
+	backends, exists := backendMap["backends"]
+	if !exists {
+		return trainingData
+	}
+
+	backendsMap, ok := backends.(map[string]interface{})
+	if !ok {
+		return trainingData
+	}
+
+	markovConfig, exists := backendsMap["markov_chain"]
+	if !exists {
+		return trainingData
+	}
+
+	markovMap, ok := markovConfig.(map[string]interface{})
+	if !ok {
+		return trainingData
+	}
+
+	training, exists := markovMap["trainingData"]
+	if !exists {
+		return trainingData
+	}
+
+	trainingList, ok := training.([]interface{})
+	if !ok {
+		return trainingData
+	}
+
+	for _, item := range trainingList {
+		itemStr, ok := item.(string)
+		if ok && len(itemStr) > 0 {
+			trainingData = append(trainingData, itemStr)
+		}
+	}
+
+	return trainingData
+}
+
+// generateDefaultTrainingData creates default training data based on character name
+func generateDefaultTrainingData(data map[string]interface{}) []string {
+	name := "Companion"
+	if nameVal, exists := data["name"]; exists {
+		if nameStr, ok := nameVal.(string); ok {
+			name = nameStr
+		}
+	}
+
+	return []string{
+		fmt.Sprintf("Hello! I'm %s, and I'm happy to see you! 😊", name),
+		"How are you doing today? I hope you're having a wonderful time!",
+		"Thanks for spending time with me! Your company means everything.",
+		"I'm here whenever you need a friend or just want to chat!",
+		"Let's make today amazing together! What would you like to do?",
+	}
+}
+
+// limitTrainingDataSize ensures training data doesn't exceed the specified limit
+func limitTrainingDataSize(trainingData []string, maxSize int) []string {
+	if len(trainingData) > maxSize {
+		return trainingData[:maxSize]
+	}
+	return trainingData
+}
+
+// extractPersonalityData extracts training data from existing Markov configuration
+func extractPersonalityData(data map[string]interface{}) []string {
+	// Try extracting from dialog responses first
+	trainingData := extractDialogResponses(data)
+
+	// If no data found, try extracting from Markov backend
+	if len(trainingData) == 0 {
+		trainingData = extractMarkovTrainingData(data)
+	}
+
+	// If still no data found, generate default training data
+	if len(trainingData) == 0 {
+		trainingData = generateDefaultTrainingData(data)
+	}
+
+	// Limit to first 5 entries for personality extraction
+	return limitTrainingDataSize(trainingData, 5)
 }
 
 // addLLMConfiguration adds LLM backend configuration to the character data
