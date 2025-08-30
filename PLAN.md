@@ -45,15 +45,22 @@ Enable lightweight LLM-powered chatbot dialog as a drop-in replacement for the c
    - Implement a new dialog backend (e.g., `llm_backend.go`) that satisfies the existing dialog interface.
    - Accepts input, recent context, and character personality as prompt.
 3. **Character Extension:**
-   - Add fields to character JSON for LLM prompt templates and personality traits.
+   - **UPDATED**: Reuse existing Markov configuration for personality instead of adding new LLM fields.
+   - Extract personality from Markov training data examples to maintain compatibility.
    - Example:
      ```json
      "dialogBackend": {
        "enabled": true,
        "defaultBackend": "llm",
        "llm": {
-         "promptTemplate": "You are a {personality} desktop pet...",
-         "personality": "cheerful, supportive"
+         "modelPath": "/models/tinyllama-1.1b-q4.gguf",
+         "markovConfig": {
+           "trainingData": [
+             "Hello there! I'm so happy to see you again! 😊",
+             "How are you doing today? I've been thinking about you!",
+             "Thanks for being such a great friend! I appreciate you so much."
+           ]
+         }
        }
      }
      ```
@@ -73,8 +80,8 @@ Enable lightweight LLM-powered chatbot dialog as a drop-in replacement for the c
 
 | Step                | Action                                                      | File/Location                        | Status |
 |---------------------|-------------------------------------------------------------|--------------------------------------|--------|
-| ✅ LLM Backend      | Implement dialog interface via llama.cpp Go bindings       | `internal/dialog/llm_backend.go`     | **COMPLETED** |
-| JSON Extension      | Add LLM config to character cards                           | `assets/characters/*/character.json` | TODO |
+| ✅ LLM Backend      | Implement dialog interface with Markov personality extraction | `internal/dialog/llm_backend.go`     | **COMPLETED** |
+| JSON Extension      | Leverage existing Markov config for LLM personality           | `assets/characters/*/character.json` | TODO |
 | Integration         | Route dialog triggers to LLM backend if enabled             | `internal/character/behavior.go`     | TODO |
 | Performance         | Quantize model, limit context, cap tokens                   | LLM backend config                   | TODO |
 | Fallback            | Use markov backend if LLM unavailable/slow                  | Dialog backend selection logic       | TODO |
@@ -94,14 +101,17 @@ Enable lightweight LLM-powered chatbot dialog as a drop-in replacement for the c
 **Key Features**:
 - ✅ Interface compatibility with existing dialog system
 - ✅ Context-aware responses (personality, mood, history)
+- ✅ **Markov personality integration** - reuses existing character training data
 - ✅ CPU-optimized design (<500ms, <256MB RAM target)
 - ✅ Robust error handling and fallback mechanisms
 - ✅ Comprehensive test suite (89.6% coverage)
 - ✅ Thread-safe concurrent operations
-- ✅ Configurable via JSON (personality, prompts, limits)
+- ✅ **Personality extraction** from existing Markov training examples
 
 **Current State**: 
 - Mock implementation for development/testing
+- **Personality extracted from existing Markov training data**
+- **No duplicate configuration** - reuses existing character personality
 - Ready for llama.cpp integration when CGO issues resolved
 - Production-ready interface and architecture
 
@@ -115,7 +125,14 @@ Enable lightweight LLM-powered chatbot dialog as a drop-in replacement for the c
 - `docs/LLM_BACKEND_IMPLEMENTATION.md` - Detailed documentation
 
 ### Next Priority
-**JSON Extension** - Add LLM configuration fields to character cards while preserving all existing functionality.
+**JSON Extension** - Leverage existing Markov configuration for LLM personality while preserving all existing functionality. Characters with Markov training data already work with LLM backend.
+
+**Benefits of Markov Integration**:
+- **Zero Configuration Duplication**: Single source of truth for character personality
+- **Immediate Compatibility**: All existing characters work with LLM backend out of the box
+- **Automatic Personality Extraction**: First 3-5 training examples become personality context
+- **Maintainability**: Updates to character personality automatically apply to both backends
+- **Consistency**: Same personality data drives both Markov and LLM responses
 
 ---
 
