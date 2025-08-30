@@ -174,9 +174,9 @@ section h2 {
         <header>
             <h1>Go Source Code Complexity Diff Report</h1>
             <div class="metadata">
-                <p><strong>Baseline:</strong> baseline (2025-08-30 19:14:10)</p>
-                <p><strong>Current:</strong> current (2025-08-30 19:15:14)</p>
-                <p><strong>Comparison:</strong> 2025-08-30 19:15:26</p>
+                <p><strong>Baseline:</strong> baseline (2025-08-30 19:16:45)</p>
+                <p><strong>Current:</strong> current (2025-08-30 19:20:33)</p>
+                <p><strong>Comparison:</strong> 2025-08-30 19:20:58</p>
             </div>
         </header>
 
@@ -184,7 +184,7 @@ section h2 {
             <h2>Summary</h2>
             <div class="summary-grid">
                 <div class="summary-card">
-                    <h3>7</h3>
+                    <h3>35</h3>
                     <p>Total Changes</p>
                 </div>
                 <div class="summary-card regressions">
@@ -192,7 +192,7 @@ section h2 {
                     <p>Regressions</p>
                 </div>
                 <div class="summary-card improvements">
-                    <h3>2</h3>
+                    <h3>12</h3>
                     <p>Improvements</p>
                 </div>
                 <div class="summary-card trend-improving">
@@ -223,10 +223,10 @@ section h2 {
                         <td>cohesion_decrease</td>
                         <td>main</td>
                         <td>Package cohesion changed</td>
-                        <td>2.33</td>
                         <td>2.60</td>
-                        <td class="increase">&#43;11.4%</td>
-                        <td class="severity-warning">warning</td>
+                        <td>4.07</td>
+                        <td class="increase">&#43;56.4%</td>
+                        <td class="severity-critical">critical</td>
                     </tr>
                     
                 </tbody>
@@ -236,7 +236,7 @@ section h2 {
 
         
         <section class="improvements">
-            <h2>Improvements (2)</h2>
+            <h2>Improvements (12)</h2>
             <table class="data-table">
                 <thead>
                     <tr>
@@ -253,21 +253,121 @@ section h2 {
                     
                     <tr class="improvement-row">
                         <td>complexity_decrease</td>
-                        <td>main.extractPersonalityData</td>
+                        <td>main.setupDialogSystem</td>
                         <td>Cyclomatic complexity changed</td>
-                        <td>23</td>
-                        <td>3</td>
-                        <td class="increase">&#43;87.0%</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td class="increase">&#43;75.0%</td>
                         <td>low</td>
                     </tr>
                     
                     <tr class="improvement-row">
                         <td>complexity_decrease</td>
-                        <td>main.extractPersonalityData</td>
+                        <td>main.setupDialogSystem</td>
                         <td>Overall function complexity changed</td>
-                        <td>34.90</td>
-                        <td>4.40</td>
-                        <td class="increase">&#43;87.4%</td>
+                        <td>5.70</td>
+                        <td>1.30</td>
+                        <td class="increase">&#43;77.2%</td>
+                        <td>critical</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.addLLMConfiguration</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>11</td>
+                        <td>1</td>
+                        <td class="increase">&#43;90.9%</td>
+                        <td>low</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.addLLMConfiguration</td>
+                        <td>Overall function complexity changed</td>
+                        <td>15.30</td>
+                        <td>1.30</td>
+                        <td class="increase">&#43;91.5%</td>
+                        <td>critical</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.extractDialogResponses</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td class="increase">&#43;77.8%</td>
+                        <td>low</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.extractDialogResponses</td>
+                        <td>Overall function complexity changed</td>
+                        <td>13.20</td>
+                        <td>3.10</td>
+                        <td class="increase">&#43;76.5%</td>
+                        <td>critical</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.extractMarkovTrainingData</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>11</td>
+                        <td>2</td>
+                        <td class="increase">&#43;81.8%</td>
+                        <td>low</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.extractMarkovTrainingData</td>
+                        <td>Overall function complexity changed</td>
+                        <td>15.30</td>
+                        <td>3.10</td>
+                        <td class="increase">&#43;79.7%</td>
+                        <td>critical</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.processCharacterFile</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>9</td>
+                        <td>4</td>
+                        <td class="increase">&#43;55.6%</td>
+                        <td>low</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.processCharacterFile</td>
+                        <td>Overall function complexity changed</td>
+                        <td>12.70</td>
+                        <td>5.70</td>
+                        <td class="increase">&#43;55.1%</td>
+                        <td>critical</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.IntegrateAll</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>8</td>
+                        <td>2</td>
+                        <td class="increase">&#43;75.0%</td>
+                        <td>low</td>
+                    </tr>
+                    
+                    <tr class="improvement-row">
+                        <td>complexity_decrease</td>
+                        <td>main.IntegrateAll</td>
+                        <td>Overall function complexity changed</td>
+                        <td>11.40</td>
+                        <td>3.10</td>
+                        <td class="increase">&#43;72.8%</td>
                         <td>critical</td>
                     </tr>
                     
@@ -278,7 +378,7 @@ section h2 {
 
         
         <section class="all-changes">
-            <h2>All Changes (7)</h2>
+            <h2>All Changes (35)</h2>
             <table class="data-table">
                 <thead>
                     <tr>
@@ -294,8 +394,44 @@ section h2 {
                 <tbody>
                     
                     <tr>
+                        <td>function_complexity</td>
+                        <td>setupDialogSystem</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td class="increase">&#43;75.0%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_overall_complexity</td>
+                        <td>setupDialogSystem</td>
+                        <td>Overall function complexity changed</td>
+                        <td>5.70</td>
+                        <td>1.30</td>
+                        <td class="increase">&#43;77.2%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
                         <td>function</td>
-                        <td>generateDefaultTrainingData</td>
+                        <td>writeUpdatedCharacterFile</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>6.20</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>printIntegrationSummary</td>
                         <td>Function added</td>
                         <td>N/A</td>
                         <td>4.90</td>
@@ -307,7 +443,79 @@ section h2 {
                     
                     <tr>
                         <td>function</td>
-                        <td>limitTrainingDataSize</td>
+                        <td>getBackendsConfig</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.40</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_complexity</td>
+                        <td>addLLMConfiguration</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>11</td>
+                        <td>1</td>
+                        <td class="increase">&#43;90.9%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_overall_complexity</td>
+                        <td>addLLMConfiguration</td>
+                        <td>Overall function complexity changed</td>
+                        <td>15.30</td>
+                        <td>1.30</td>
+                        <td class="increase">&#43;91.5%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>setDialogBackendDefaults</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>9.60</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>getDialogList</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.40</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>getDialogBackend</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.40</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>processFileAndTrackResults</td>
                         <td>Function added</td>
                         <td>N/A</td>
                         <td>3.10</td>
@@ -319,22 +527,10 @@ section h2 {
                     
                     <tr>
                         <td>function</td>
-                        <td>extractDialogResponses</td>
+                        <td>processAllCharacterFiles</td>
                         <td>Function added</td>
                         <td>N/A</td>
-                        <td>13.20</td>
-                        <td class="neutral">0.0%</td>
-                        <td class="threshold-ok">
-                            OK
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>function</td>
-                        <td>extractMarkovTrainingData</td>
-                        <td>Function added</td>
-                        <td>N/A</td>
-                        <td>15.30</td>
+                        <td>4.40</td>
                         <td class="neutral">0.0%</td>
                         <td class="threshold-ok">
                             OK
@@ -343,11 +539,11 @@ section h2 {
                     
                     <tr>
                         <td>function_complexity</td>
-                        <td>extractPersonalityData</td>
+                        <td>extractDialogResponses</td>
                         <td>Cyclomatic complexity changed</td>
-                        <td>23</td>
-                        <td>3</td>
-                        <td class="increase">&#43;87.0%</td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td class="increase">&#43;77.8%</td>
                         <td class="threshold-exceeded">
                             Exceeded
                         </td>
@@ -355,13 +551,253 @@ section h2 {
                     
                     <tr>
                         <td>function_overall_complexity</td>
-                        <td>extractPersonalityData</td>
+                        <td>extractDialogResponses</td>
                         <td>Overall function complexity changed</td>
-                        <td>34.90</td>
-                        <td>4.40</td>
-                        <td class="increase">&#43;87.4%</td>
+                        <td>13.20</td>
+                        <td>3.10</td>
+                        <td class="increase">&#43;76.5%</td>
                         <td class="threshold-exceeded">
                             Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>extractTrainingDataFromMarkovConfig</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>7.50</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>readAndParseCharacterFile</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.40</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>getOrCreateDialogBackend</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.90</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>createBackupIfEnabled</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.90</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_complexity</td>
+                        <td>extractMarkovTrainingData</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>11</td>
+                        <td>2</td>
+                        <td class="increase">&#43;81.8%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_overall_complexity</td>
+                        <td>extractMarkovTrainingData</td>
+                        <td>Overall function complexity changed</td>
+                        <td>15.30</td>
+                        <td>3.10</td>
+                        <td class="increase">&#43;79.7%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>updateCharacterWithLLMConfig</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>3.10</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>extractResponsesFromDialog</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.40</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_complexity</td>
+                        <td>processCharacterFile</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>9</td>
+                        <td>4</td>
+                        <td class="increase">&#43;55.6%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_overall_complexity</td>
+                        <td>processCharacterFile</td>
+                        <td>Overall function complexity changed</td>
+                        <td>12.70</td>
+                        <td>5.70</td>
+                        <td class="increase">&#43;55.1%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>getOrCreateBackends</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.90</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>extractMarkovConfig</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>7.00</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>convertResponsesToStrings</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.90</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_complexity</td>
+                        <td>IntegrateAll</td>
+                        <td>Cyclomatic complexity changed</td>
+                        <td>8</td>
+                        <td>2</td>
+                        <td class="increase">&#43;75.0%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function_overall_complexity</td>
+                        <td>IntegrateAll</td>
+                        <td>Overall function complexity changed</td>
+                        <td>11.40</td>
+                        <td>3.10</td>
+                        <td class="increase">&#43;72.8%</td>
+                        <td class="threshold-exceeded">
+                            Exceeded
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>createLLMBackendConfig</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>1.30</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>getResponseList</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>4.40</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>extractResponsesFromDialogs</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>3.10</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>function</td>
+                        <td>addLLMBackendToConfig</td>
+                        <td>Function added</td>
+                        <td>N/A</td>
+                        <td>1.30</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>struct</td>
+                        <td>integrationResults</td>
+                        <td>Struct added</td>
+                        <td>N/A</td>
+                        <td>3</td>
+                        <td class="neutral">0.0%</td>
+                        <td class="threshold-ok">
+                            OK
                         </td>
                     </tr>
                     
@@ -369,9 +805,9 @@ section h2 {
                         <td>package_cohesion</td>
                         <td>main</td>
                         <td>Package cohesion changed</td>
-                        <td>2.33</td>
                         <td>2.60</td>
-                        <td class="increase">&#43;11.4%</td>
+                        <td>4.07</td>
+                        <td class="increase">&#43;56.4%</td>
                         <td class="threshold-exceeded">
                             Exceeded
                         </td>

@@ -491,10 +491,10 @@ func addLLMConfiguration(data map[string]interface{}, personalityData []string) 
 
 	dialogBackend := getOrCreateDialogBackend(data)
 	setDialogBackendDefaults(dialogBackend)
-	
+
 	backends := getOrCreateBackends(dialogBackend)
 	addLLMBackendToConfig(backends, llmConfigJSON)
-	
+
 	dialogBackend["backends"] = backends
 	data["dialogBackend"] = dialogBackend
 }
