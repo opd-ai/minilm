@@ -189,12 +189,27 @@ func (llm *LLMBackend) Initialize(config json.RawMessage) error {
 
 // applyConfig applies the provided configuration with sensible defaults
 func (llm *LLMBackend) applyConfig(cfg LLMConfig) error {
-	if cfg.ModelPath == "" {
+	if err := llm.validateAndSetModelPath(cfg.ModelPath); err != nil {
+		return err
+	}
+
+	llm.applyOptionalParameters(cfg)
+	llm.configureMarkovSettings(cfg)
+
+	return nil
+}
+
+// validateAndSetModelPath validates the model path and sets it on the backend
+func (llm *LLMBackend) validateAndSetModelPath(modelPath string) error {
+	if modelPath == "" {
 		return fmt.Errorf("modelPath is required")
 	}
-	llm.modelPath = cfg.ModelPath
+	llm.modelPath = modelPath
+	return nil
+}
 
-	// Apply defaults for optional parameters
+// applyOptionalParameters applies optional configuration parameters with defaults
+func (llm *LLMBackend) applyOptionalParameters(cfg LLMConfig) {
 	if cfg.MaxTokens > 0 {
 		llm.maxTokens = cfg.MaxTokens
 	}
@@ -217,14 +232,14 @@ func (llm *LLMBackend) applyConfig(cfg LLMConfig) error {
 	if cfg.TimeoutMs > 0 {
 		llm.timeout = time.Duration(cfg.TimeoutMs) * time.Millisecond
 	}
+}
 
-	// Markov-based personality configuration
+// configureMarkovSettings configures Markov-based personality settings
+func (llm *LLMBackend) configureMarkovSettings(cfg LLMConfig) {
 	llm.markovConfig = cfg.MarkovConfig
 	llm.trainingData = cfg.MarkovConfig.TrainingData
 	llm.fallbackPhrases = cfg.MarkovConfig.FallbackPhrases
 	llm.fallbackEnabled = cfg.FallbackEnabled
-
-	return nil
 }
 
 // loadModel initializes the mock LLM model
