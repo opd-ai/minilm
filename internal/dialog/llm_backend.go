@@ -66,12 +66,16 @@ func (m *MockLLMModel) Predict(prompt string) (string, error) {
 	switch {
 	case strings.Contains(prompt, "hello") || strings.Contains(prompt, "hi"):
 		return "Hi there! How are you doing today? 😊", nil
-	case strings.Contains(prompt, "feed") || strings.Contains(prompt, "food"):
+	case strings.Contains(prompt, "fed you") || strings.Contains(prompt, "feed") || strings.Contains(prompt, "food"):
 		return "Thanks for the meal! *nom nom* 😋", nil
-	case strings.Contains(prompt, "pet") || strings.Contains(prompt, "pat"):
+	case strings.Contains(prompt, "petted you") || strings.Contains(prompt, "pet") || strings.Contains(prompt, "pat"):
 		return "That feels wonderful! *purrs happily* 😊", nil
-	case strings.Contains(prompt, "talk") || strings.Contains(prompt, "chat"):
+	case strings.Contains(prompt, "wants to talk") || strings.Contains(prompt, "talk") || strings.Contains(prompt, "chat"):
 		return "I love chatting with you! What's on your mind? 💭", nil
+	case strings.Contains(prompt, "clicked on you") || strings.Contains(prompt, "click"):
+		return "Oh! You got my attention! 👀✨", nil
+	case strings.Contains(prompt, "idle") || strings.Contains(prompt, "been idle"):
+		return "I was just thinking about you! Miss me? 🤔💕", nil
 	case strings.Contains(prompt, "sad") || strings.Contains(prompt, "down"):
 		return "Aww, I'm here for you! *gentle hug* 🤗", nil
 	case strings.Contains(prompt, "happy") || strings.Contains(prompt, "joy"):
