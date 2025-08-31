@@ -332,19 +332,33 @@ func (pb *PromptBuilder) safelyTruncatePrompt(prompt string, maxLength int) stri
 		return prompt
 	}
 
-	// Strategy: Try multiple truncation points in order of preference
-	// 1. Try to truncate at a sentence boundary (period + newline or double newline)
-	// 2. Try to truncate at a complete line that ends with punctuation
-	// 3. Try to truncate at a word boundary
-	// 4. As last resort, truncate at character boundary but add ellipsis
+	// Try intelligent truncation strategies in order of preference
+	if result := pb.tryIntelligentTruncation(prompt, maxLength); result != "" {
+		return result
+	}
 
-	// Look for safe truncation points within a reasonable range
+	// Fall back to word boundary truncation
+	if result := pb.tryWordBoundaryTruncation(prompt, maxLength); result != "" {
+		return result
+	}
+
+	// Last resort: safe UTF-8 truncation with ellipsis
+	return pb.applySafeUTF8Truncation(prompt, maxLength)
+}
+
+// calculateSearchBounds determines the safe search range for truncation points
+func (pb *PromptBuilder) calculateSearchBounds(maxLength int) int {
 	searchStart := maxLength - 200
 	if searchStart < 0 {
 		searchStart = 0
 	}
+	return searchStart
+}
 
-	// Try different truncation strategies
+// tryIntelligentTruncation attempts to truncate at sentence or word boundaries within optimal range
+func (pb *PromptBuilder) tryIntelligentTruncation(prompt string, maxLength int) string {
+	searchStart := pb.calculateSearchBounds(maxLength)
+
 	for searchEnd := maxLength; searchEnd > searchStart; searchEnd -= 10 {
 		if searchEnd > len(prompt) {
 			continue
@@ -352,33 +366,52 @@ func (pb *PromptBuilder) safelyTruncatePrompt(prompt string, maxLength int) stri
 
 		candidate := prompt[:searchEnd]
 
-		// 1. Check if it ends with sentence-ending punctuation followed by whitespace
-		if len(candidate) > 0 {
-			lastChar := candidate[len(candidate)-1]
-			if lastChar == '.' || lastChar == '!' || lastChar == '?' || lastChar == ':' {
-				return candidate
-			}
+		// Try sentence boundary truncation first
+		if pb.endsWithSentencePunctuation(candidate) {
+			return candidate
 		}
 
-		// 2. Check if it ends at a word boundary (space)
-		if len(candidate) > 0 && candidate[len(candidate)-1] == ' ' {
-			trimmed := strings.TrimSpace(candidate)
-			if len(trimmed) > 0 {
-				return trimmed
-			}
+		// Try word boundary truncation
+		if result := pb.tryWordBoundaryAtPosition(candidate); result != "" {
+			return result
 		}
 	}
+	return ""
+}
 
-	// 3. Look for the last space within the limit
+// endsWithSentencePunctuation checks if the text ends with sentence-ending punctuation
+func (pb *PromptBuilder) endsWithSentencePunctuation(text string) bool {
+	if len(text) == 0 {
+		return false
+	}
+	lastChar := text[len(text)-1]
+	return lastChar == '.' || lastChar == '!' || lastChar == '?' || lastChar == ':'
+}
+
+// tryWordBoundaryAtPosition attempts to truncate at a word boundary for the given text
+func (pb *PromptBuilder) tryWordBoundaryAtPosition(candidate string) string {
+	if len(candidate) > 0 && candidate[len(candidate)-1] == ' ' {
+		trimmed := strings.TrimSpace(candidate)
+		if len(trimmed) > 0 {
+			return trimmed
+		}
+	}
+	return ""
+}
+
+// tryWordBoundaryTruncation looks for the last space within acceptable range
+func (pb *PromptBuilder) tryWordBoundaryTruncation(prompt string, maxLength int) string {
 	truncated := prompt[:maxLength]
 	if lastSpace := strings.LastIndex(truncated, " "); lastSpace > maxLength-50 && lastSpace > 0 {
 		return prompt[:lastSpace]
 	}
+	return ""
+}
 
-	// 4. Last resort: truncate at character boundary but add ellipsis to indicate truncation
-	// Ensure we don't break UTF-8 sequences
+// applySafeUTF8Truncation performs character-level truncation while preserving UTF-8 validity
+func (pb *PromptBuilder) applySafeUTF8Truncation(prompt string, maxLength int) string {
 	if maxLength > 3 {
-		truncated = prompt[:maxLength-3] // Leave room for "..."
+		truncated := prompt[:maxLength-3] // Leave room for "..."
 
 		// Find the last valid UTF-8 boundary
 		for len(truncated) > 0 && !utf8.ValidString(truncated) {
