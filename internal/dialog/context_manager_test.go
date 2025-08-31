@@ -1,6 +1,7 @@
 package dialog
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 	"time"
@@ -360,4 +361,93 @@ func TestContextManager_test_bug2_cleanup_race_condition(t *testing.T) {
 		}
 	}
 	cm.mu.RUnlock()
+}
+
+// TestDDS_test_bug8_context_manager_memory_leak_prevention tests for bug #8
+func TestDDS_test_bug8_context_manager_memory_leak_prevention(t *testing.T) {
+	cm := NewContextManager(5)
+	defer cm.Close()
+
+	// Simulate high-traffic scenario with many concurrent conversations
+	// that would accumulate within the 24-hour cleanup window
+	numConversations := 1000
+
+	// Create many conversations with recent timestamps (all within 24 hours)
+	for i := 0; i < numConversations; i++ {
+		conversationID := fmt.Sprintf("user_%d", i)
+
+		// Use the actual AddExchange method with trigger and response
+		cm.AddExchange(conversationID, "user_message", fmt.Sprintf("Hello user %d", i))
+	}
+
+	// Bug #8: All conversations remain in memory because they're within 24-hour window
+	activeCount := cm.GetActiveConversations()
+	t.Logf("Active conversations after creating %d recent conversations: %d", numConversations, activeCount)
+
+	if activeCount != numConversations {
+		t.Errorf("Expected %d active conversations, got %d", numConversations, activeCount)
+	}
+
+	// The issue: No mechanism to limit memory usage when all conversations are "recent"
+	// In a real high-traffic scenario, this could lead to unlimited memory growth
+	// until the 24-hour cleanup threshold is reached
+
+	// Simulate what would happen with real memory pressure
+	// Even with thousands of active conversations, there's no LRU or count-based eviction
+	expectedMemoryIssue := activeCount >= 500 // Arbitrary threshold for "too many"
+	if expectedMemoryIssue {
+		t.Logf("Bug #8 demonstrated: %d active conversations could cause memory pressure in production", activeCount)
+		t.Logf("Current implementation has no conversation count limits or LRU eviction")
+
+		// The fix should provide:
+		// 1. Configurable cleanup intervals (not fixed at 1 hour)
+		// 2. Configurable retention periods (not fixed at 24 hours)
+		// 3. Maximum conversation count limits with LRU eviction
+		// 4. Memory-aware cleanup policies
+	}
+}
+
+// TestDDS_test_bug8_context_manager_lru_eviction_fix tests the fix for bug #8
+func TestDDS_test_bug8_context_manager_lru_eviction_fix(t *testing.T) {
+	// Test the enhanced ContextManager with conversation limits and LRU eviction
+	maxConversations := 100
+	cm := NewContextManagerWithConfig(5, maxConversations, 1*time.Minute, 30*time.Minute)
+	defer cm.Close()
+
+	// Create more conversations than the limit to trigger LRU eviction
+	numConversations := 150
+
+	for i := 0; i < numConversations; i++ {
+		conversationID := fmt.Sprintf("user_%d", i)
+		cm.AddExchange(conversationID, "user_message", fmt.Sprintf("Hello user %d", i))
+	}
+
+	// After the fix: Should not exceed the conversation limit due to LRU eviction
+	activeCount := cm.GetActiveConversations()
+	t.Logf("Active conversations after creating %d conversations with limit %d: %d", numConversations, maxConversations, activeCount)
+
+	if activeCount > maxConversations {
+		t.Errorf("Expected at most %d active conversations due to LRU eviction, got %d", maxConversations, activeCount)
+	}
+
+	// Verify that the most recent conversations are kept (LRU behavior)
+	// The last maxConversations should still be present
+	for i := numConversations - maxConversations; i < numConversations; i++ {
+		recentID := fmt.Sprintf("user_%d", i)
+		history := cm.GetHistory(recentID, 10)
+		if len(history) == 0 {
+			t.Errorf("Expected recent conversation %s to be preserved by LRU", recentID)
+		}
+	}
+
+	// Verify that old conversations were evicted
+	for i := 0; i < numConversations-maxConversations; i++ {
+		oldID := fmt.Sprintf("user_%d", i)
+		history := cm.GetHistory(oldID, 10)
+		if len(history) > 0 {
+			t.Errorf("Expected old conversation %s to be evicted by LRU", oldID)
+		}
+	}
+
+	t.Logf("Bug #8 FIXED: LRU eviction successfully limits memory usage to %d conversations", activeCount)
 }

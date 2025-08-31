@@ -191,31 +191,36 @@ func UpdateBackendMemory(dm *DialogManager, context DialogContext, response Dial
 ```
 ````
 
-### EDGE CASE BUG: Prompt Builder Token Estimation Unsafe
+### EDGE CASE BUG: Prompt Builder Token Estimation Unsafe - **RESOLVED**
 ````
 **File:** internal/dialog/prompt_builder.go:85-95
 **Severity:** Low
+**Status:** RESOLVED (commit 92b7cd0, 2025-08-31)
 **Description:** The Build() method truncates prompts based on rough token estimation (4 chars = 1 token) without considering that the truncation might break in the middle of important context, potentially creating malformed prompts.
 **Expected Behavior:** Intelligent truncation that preserves prompt structure and important context
 **Actual Behavior:** Blind character-based truncation that can break mid-sentence or remove critical instructions
 **Impact:** Malformed prompts leading to poor LLM responses or generation failures
 **Reproduction:** Create a DialogContext with very long personality traits and history to trigger truncation
+**Fix Applied:** Implemented safe truncation with intelligent boundary detection
 **Code Reference:**
 ```go
+// Fixed: Replaced unsafe truncation with safelyTruncatePrompt method
 func (pb *PromptBuilder) Build() string {
 	// ... build prompt
 	result := prompt.String()
 
 	// Truncate if too long (rough token estimation: 1 token ≈ 4 characters)
 	if len(result) > pb.maxTokens*4 {
-		result = result[:pb.maxTokens*4] // Unsafe truncation
-		// Try to end at a reasonable point
-		if lastNewline := strings.LastIndex(result, "\n"); lastNewline > len(result)-100 {
-			result = result[:lastNewline]
-		}
+		result = pb.safelyTruncatePrompt(result, pb.maxTokens*4) // Safe truncation
 	}
 	return result
 }
+
+// New safe truncation method tries multiple strategies:
+// 1. Sentence boundaries (punctuation)
+// 2. Word boundaries (spaces)  
+// 3. UTF-8 safe character truncation with ellipsis indication
+// Prevents mid-word breaks and preserves prompt structure
 ```
 ````
 

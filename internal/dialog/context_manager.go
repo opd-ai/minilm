@@ -25,25 +25,46 @@ type ConversationHistory struct {
 // ContextManager handles conversation history and context for dialog generation
 // Maintains a rolling window of recent exchanges to provide context for LLM prompts
 type ContextManager struct {
-	conversations map[string]*ConversationHistory
-	maxHistory    int
-	cleanupTicker *time.Ticker
-	mu            sync.RWMutex
+	conversations    map[string]*ConversationHistory
+	maxHistory       int
+	maxConversations int           // Maximum number of concurrent conversations (0 = unlimited)
+	cleanupInterval  time.Duration // How often to run cleanup
+	retentionPeriod  time.Duration // How long to keep conversations
+	cleanupTicker    *time.Ticker
+	mu               sync.RWMutex
 }
 
 // NewContextManager creates a new context manager with specified history length
 func NewContextManager(maxHistory int) *ContextManager {
+	return NewContextManagerWithConfig(maxHistory, 0, 1*time.Hour, 24*time.Hour)
+}
+
+// NewContextManagerWithConfig creates a new context manager with full configuration
+// maxHistory: Maximum exchanges per conversation (0 = unlimited)
+// maxConversations: Maximum concurrent conversations (0 = unlimited)
+// cleanupInterval: How often to run cleanup (e.g., 5*time.Minute)
+// retentionPeriod: How long to keep conversations (e.g., 2*time.Hour)
+func NewContextManagerWithConfig(maxHistory, maxConversations int, cleanupInterval, retentionPeriod time.Duration) *ContextManager {
 	if maxHistory <= 0 {
 		maxHistory = 10 // Default to 10 exchanges
 	}
-
-	cm := &ContextManager{
-		conversations: make(map[string]*ConversationHistory),
-		maxHistory:    maxHistory,
+	if cleanupInterval <= 0 {
+		cleanupInterval = 1 * time.Hour // Default to 1 hour
+	}
+	if retentionPeriod <= 0 {
+		retentionPeriod = 24 * time.Hour // Default to 24 hours
 	}
 
-	// Start cleanup routine to remove old conversations (runs every hour)
-	cm.cleanupTicker = time.NewTicker(1 * time.Hour)
+	cm := &ContextManager{
+		conversations:    make(map[string]*ConversationHistory),
+		maxHistory:       maxHistory,
+		maxConversations: maxConversations,
+		cleanupInterval:  cleanupInterval,
+		retentionPeriod:  retentionPeriod,
+	}
+
+	// Start cleanup routine with configurable interval
+	cm.cleanupTicker = time.NewTicker(cleanupInterval)
 	go cm.cleanupRoutine()
 
 	return cm
@@ -57,6 +78,11 @@ func (cm *ContextManager) AddExchange(interactionID, trigger, response string) {
 	// Get or create conversation history
 	history, exists := cm.conversations[interactionID]
 	if !exists {
+		// Check if we need to evict old conversations to stay within limits
+		if cm.maxConversations > 0 && len(cm.conversations) >= cm.maxConversations {
+			cm.evictOldestConversation()
+		}
+
 		history = &ConversationHistory{
 			InteractionID: interactionID,
 			Exchanges:     make([]ConversationExchange, 0, cm.maxHistory),
@@ -206,6 +232,32 @@ func (cm *ContextManager) GetActiveConversations() int {
 	return len(cm.conversations)
 }
 
+// evictOldestConversation removes the least recently updated conversation (LRU eviction)
+// This method assumes the caller already holds the write lock
+func (cm *ContextManager) evictOldestConversation() {
+	if len(cm.conversations) == 0 {
+		return
+	}
+
+	var oldestID string
+	var oldestTime time.Time
+	first := true
+
+	// Find the conversation with the oldest LastUpdated time
+	for id, history := range cm.conversations {
+		if first || history.LastUpdated.Before(oldestTime) {
+			oldestID = id
+			oldestTime = history.LastUpdated
+			first = false
+		}
+	}
+
+	// Remove the oldest conversation
+	if oldestID != "" {
+		delete(cm.conversations, oldestID)
+	}
+}
+
 // cleanupRoutine periodically removes old conversations to prevent memory leaks
 func (cm *ContextManager) cleanupRoutine() {
 	for range cm.cleanupTicker.C {
@@ -218,7 +270,7 @@ func (cm *ContextManager) cleanupOldConversations() {
 	cm.mu.Lock()
 	defer cm.mu.Unlock()
 
-	cutoff := time.Now().Add(-24 * time.Hour) // Remove conversations older than 24 hours
+	cutoff := time.Now().Add(-cm.retentionPeriod) // Use configurable retention period
 
 	// Collect IDs to delete first to avoid modifying map during iteration
 	var toDelete []string

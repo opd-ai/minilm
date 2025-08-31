@@ -349,9 +349,9 @@ func (pb *PromptBuilder) safelyTruncatePrompt(prompt string, maxLength int) stri
 		if searchEnd > len(prompt) {
 			continue
 		}
-		
+
 		candidate := prompt[:searchEnd]
-		
+
 		// 1. Check if it ends with sentence-ending punctuation followed by whitespace
 		if len(candidate) > 0 {
 			lastChar := candidate[len(candidate)-1]
@@ -359,7 +359,7 @@ func (pb *PromptBuilder) safelyTruncatePrompt(prompt string, maxLength int) stri
 				return candidate
 			}
 		}
-		
+
 		// 2. Check if it ends at a word boundary (space)
 		if len(candidate) > 0 && candidate[len(candidate)-1] == ' ' {
 			trimmed := strings.TrimSpace(candidate)
@@ -379,14 +379,14 @@ func (pb *PromptBuilder) safelyTruncatePrompt(prompt string, maxLength int) stri
 	// Ensure we don't break UTF-8 sequences
 	if maxLength > 3 {
 		truncated = prompt[:maxLength-3] // Leave room for "..."
-		
+
 		// Find the last valid UTF-8 boundary
 		for len(truncated) > 0 && !utf8.ValidString(truncated) {
 			truncated = truncated[:len(truncated)-1]
 		}
-		
+
 		return truncated + "..."
 	}
-	
+
 	return prompt[:maxLength]
 }
