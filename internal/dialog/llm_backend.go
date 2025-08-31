@@ -366,6 +366,7 @@ func (llm *LLMBackend) loadModel() error {
 }
 
 // tryLoadProductionModel attempts to load a production LLM model
+// NOTE: Currently always returns mock implementation - real llama.cpp integration planned
 func (llm *LLMBackend) tryLoadProductionModel() (ProductionLLMModel, error) {
 	config := LlamaConfig{
 		ModelPath:   llm.modelPath,
@@ -375,6 +376,8 @@ func (llm *LLMBackend) tryLoadProductionModel() (ProductionLLMModel, error) {
 		TopP:        llm.topP,
 	}
 
+	// NOTE: This creates a mock model, not a real llama.cpp model
+	// Real implementation would use llama.cpp bindings here
 	model, err := NewLlamaModel(config)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create production model: %w", err)

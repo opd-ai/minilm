@@ -4,11 +4,11 @@ A high-performance, CPU-optimized dialog system for character-based applications
 
 ## Features
 
-- **Complete dialog backend** using small, efficient language models with mock implementation ready for production LLM bindings
+- **Complete dialog backend** with mock LLM implementation (production llama.cpp integration planned)
 - **Multi-backend support** with automatic fallback mechanisms
 - **Context-aware conversation management** with personality-driven responses
 - **Character Asset Integration** with automated tooling for adding LLM configuration to existing character files
-- **Production-ready CPU inference** optimized for consumer hardware (4-8 cores, 8-16GB RAM)
+- **CPU-optimized architecture** ready for production LLM integration (currently uses intelligent mock responses)
 
 ## Quick Start
 
@@ -89,7 +89,11 @@ The system follows a clean layered architecture:
 
 ## Model Support
 
-Optimized for small, permissively licensed models that run efficiently on CPU:
+**Current Status: Mock Implementation**
+
+The system currently uses intelligent mock responses that simulate LLM behavior for development and testing. Production llama.cpp integration is planned for future releases.
+
+**Planned Support** for small, permissively licensed models that will run efficiently on CPU:
 
 - **Llama 2** (7B and smaller variants)
 - **Mistral 7B** 
@@ -97,11 +101,15 @@ Optimized for small, permissively licensed models that run efficiently on CPU:
 - **TinyLlama** (1.1B)
 - **RWKV** models
 
-All models support GGUF quantization (Q4, Q8) for optimal CPU performance.
+All models will support GGUF quantization (Q4, Q8) for optimal CPU performance when implemented.
 
 ## Performance
 
-Typical performance on consumer hardware:
+**Current Status: Mock Implementation**
+
+The system currently provides instant mock responses for development and testing.
+
+**Planned Performance** on consumer hardware with real LLM integration:
 
 - **4-core CPU (2018+)**: 2-5 tokens/second with Q4 quantization
 - **8-core CPU (2020+)**: 5-10 tokens/second with Q4 quantization

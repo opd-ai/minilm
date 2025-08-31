@@ -2,6 +2,8 @@ package dialog
 
 import (
 	"encoding/json"
+	"os"
+	"strings"
 	"testing"
 	"time"
 )
@@ -514,4 +516,87 @@ func TestLLMBackend_Close(t *testing.T) {
 	if backend.model != nil {
 		t.Error("Model should be nil after Close")
 	}
+}
+
+// Test for bug #4: Production Model Integration Claims vs Reality
+func TestLLMBackend_test_bug4_production_model_claims_mismatch(t *testing.T) {
+	backend := NewLLMBackend()
+
+	// Create config that looks like it should use production model
+	config := LLMConfig{
+		ModelPath:   "/tmp/test_model.gguf", // Create a fake GGUF file
+		MaxTokens:   50,
+		Temperature: 0.8,
+	}
+
+	// Create a fake GGUF file to simulate production model availability
+	fakeModelPath := "/tmp/test_model.gguf"
+	err := createFakeGGUFFile(fakeModelPath)
+	if err != nil {
+		t.Fatalf("Failed to create fake model file: %v", err)
+	}
+	defer func() {
+		_ = os.Remove(fakeModelPath)
+	}()
+
+	configJSON, err := json.Marshal(config)
+	if err != nil {
+		t.Fatalf("Config marshal failed: %v", err)
+	}
+
+	// Initialize backend - should detect GGUF file and try production model
+	err = backend.Initialize(configJSON)
+	if err != nil {
+		t.Fatalf("Backend initialization failed: %v", err)
+	}
+
+	// After fix: Documentation should clearly state this is mock-only currently
+	// The system may report using "production" model but it's still mock responses
+	// This is now documented behavior rather than misleading claims
+
+	// Generate a response to confirm behavior
+	context := DialogContext{
+		Trigger:           "click",
+		InteractionID:     "test",
+		Timestamp:         time.Now(),
+		CurrentMood:       80,
+		FallbackResponses: []string{"Hello!"},
+		FallbackAnimation: "talking",
+	}
+
+	response, err := backend.GenerateResponse(context)
+	if err != nil {
+		t.Fatalf("Response generation failed: %v", err)
+	}
+
+	// After fix: We expect mock responses and this is now clearly documented
+	// Mock responses are predictable and contain specific patterns
+	expectedMockPatterns := []string{"Hi there!", "Hello!", "😊", "That feels", "Your presence", "Great to see"}
+	foundMockPattern := false
+	for _, pattern := range expectedMockPatterns {
+		if strings.Contains(response.Text, pattern) {
+			foundMockPattern = true
+			break
+		}
+	}
+
+	if !foundMockPattern {
+		t.Errorf("Expected mock response pattern, got: %s", response.Text)
+	}
+
+	t.Logf("Response (documented mock behavior): %s", response.Text)
+	t.Logf("System correctly uses mock responses as documented")
+}
+
+// Helper function to create a fake GGUF file for testing
+func createFakeGGUFFile(path string) error {
+	file, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Write minimal GGUF-like header (just to pass file existence check)
+	_, err = file.WriteString("GGUF\x00\x00\x00\x03") // Fake GGUF magic + version
+	return err
 }
