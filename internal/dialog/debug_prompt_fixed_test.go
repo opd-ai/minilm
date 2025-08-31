@@ -26,21 +26,21 @@ Response guidelines:
 Your response:`
 
 	prompt := strings.ToLower(fullPrompt)
-	
+
 	t.Logf("Full prompt (lowercase): %s", prompt)
-	
-	// Check each condition
-	conditions := []struct{
-		name string
+
+	// Check each condition (updated to match the fixed code)
+	conditions := []struct {
+		name  string
 		check bool
 	}{
 		{"hello|hi", strings.Contains(prompt, "hello") || strings.Contains(prompt, "hi")},
 		{"fed you|feed|food", strings.Contains(prompt, "fed you") || strings.Contains(prompt, "feed") || strings.Contains(prompt, "food")},
-		{"petted you|pet|pat", strings.Contains(prompt, "petted you") || strings.Contains(prompt, "pet") || strings.Contains(prompt, "pat")},
+		{"petted you|pat", strings.Contains(prompt, "petted you") || strings.Contains(prompt, "pat")},
 		{"wants to talk|talk|chat", strings.Contains(prompt, "wants to talk") || strings.Contains(prompt, "talk") || strings.Contains(prompt, "chat")},
 		{"clicked on you|click", strings.Contains(prompt, "clicked on you") || strings.Contains(prompt, "click")},
 	}
-	
+
 	for _, cond := range conditions {
 		if cond.check {
 			t.Logf("MATCH: %s", cond.name)
