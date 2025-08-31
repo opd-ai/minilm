@@ -168,7 +168,7 @@ func (dm *DialogManager) tryDefaultBackend(context DialogContext) (DialogRespons
 	}
 
 	backend, exists := dm.backends[dm.defaultBackend]
-	if !exists {
+	if !exists || backend == nil {
 		return DialogResponse{}, false
 	}
 
@@ -197,7 +197,7 @@ func (dm *DialogManager) tryFallbackChain(context DialogContext) (DialogResponse
 // tryFallbackBackend attempts to generate response using a specific fallback backend
 func (dm *DialogManager) tryFallbackBackend(backendName string, context DialogContext) (DialogResponse, bool) {
 	backend, exists := dm.backends[backendName]
-	if !exists {
+	if !exists || backend == nil {
 		return DialogResponse{}, false
 	}
 

@@ -437,3 +437,78 @@ func TestUserFeedback(t *testing.T) {
 		t.Errorf("Expected engagement %f, got %f", feedback.Engagement, unmarshaled.Engagement)
 	}
 }
+
+// Test for bug #1: Nil Pointer Dereference in Dialog Manager
+func TestDialogManager_test_bug1_nil_pointer_dereference(t *testing.T) {
+	dm := NewDialogManager(false)
+
+	// Manually corrupt the backend map by setting a nil backend
+	// This simulates the scenario described in the bug report
+	dm.backends["corrupted_backend"] = nil
+	dm.SetDefaultBackend("corrupted_backend")
+
+	context := DialogContext{
+		Trigger:           "click",
+		InteractionID:     "test_interaction",
+		Timestamp:         time.Now(),
+		CurrentStats:      map[string]float64{"mood": 50.0},
+		PersonalityTraits: map[string]float64{"friendly": 0.8},
+		CurrentMood:       50.0,
+		CurrentAnimation:  "idle",
+		ConversationTurn:  1,
+		FallbackResponses: []string{"Hello!"},
+		FallbackAnimation: "talking",
+	}
+
+	// After fix: should not panic and should gracefully fallback
+	response, err := dm.GenerateDialog(context)
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	// Should fallback to createFallbackResponse since backend is nil
+	if response.Text == "" {
+		t.Error("Expected fallback response, got empty text")
+	}
+
+	if response.Animation == "" {
+		t.Error("Expected fallback animation, got empty animation")
+	}
+}
+
+// Test for fallback chain nil pointer dereference
+func TestDialogManager_test_bug1_fallback_nil_pointer_dereference(t *testing.T) {
+	dm := NewDialogManager(false)
+
+	// Set up a corrupted fallback chain with nil backend
+	dm.backends["corrupted_fallback"] = nil
+	dm.SetFallbackChain([]string{"corrupted_fallback"})
+
+	context := DialogContext{
+		Trigger:           "click",
+		InteractionID:     "test_interaction",
+		Timestamp:         time.Now(),
+		CurrentStats:      map[string]float64{"mood": 50.0},
+		PersonalityTraits: map[string]float64{"friendly": 0.8},
+		CurrentMood:       50.0,
+		CurrentAnimation:  "idle",
+		ConversationTurn:  1,
+		FallbackResponses: []string{"Hello!"},
+		FallbackAnimation: "talking",
+	}
+
+	// After fix: should not panic and should gracefully fallback
+	response, err := dm.GenerateDialog(context)
+	if err != nil {
+		t.Errorf("Unexpected error: %v", err)
+	}
+
+	// Should fallback to createFallbackResponse since fallback backend is nil
+	if response.Text == "" {
+		t.Error("Expected fallback response, got empty text")
+	}
+
+	if response.Animation == "" {
+		t.Error("Expected fallback animation, got empty animation")
+	}
+}
