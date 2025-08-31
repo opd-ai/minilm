@@ -3,8 +3,8 @@
 ## AUDIT SUMMARY
 ````
 **Total Findings:** 8
-**Critical Bugs:** 1 (1 resolved)
-**Functional Mismatches:** 2
+**Critical Bugs:** 0 (2 resolved)
+**Functional Mismatches:** 1 (1 resolved)
 **Missing Features:** 2
 **Edge Case Bugs:** 1
 **Performance Issues:** 1
@@ -58,15 +58,17 @@ func (dm *DialogManager) tryDefaultBackend(context DialogContext) (DialogRespons
 ```
 ````
 
-### CRITICAL BUG: Race Condition in Context Manager Cleanup
+### CRITICAL BUG: Race Condition in Context Manager Cleanup - **RESOLVED**
 ````
 **File:** internal/dialog/context_manager.go:208-218
 **Severity:** High
+**Status:** RESOLVED (commit e16af77, 2025-08-31)
 **Description:** The cleanupOldConversations method modifies the conversations map while holding a write lock, but the range iteration can panic if the map is modified concurrently by other goroutines that may have acquired the lock between iterations.
 **Expected Behavior:** Safe concurrent access to conversation cleanup without race conditions
 **Actual Behavior:** Potential map iteration panic under high concurrency
 **Impact:** Application crash during conversation cleanup in multi-user scenarios
 **Reproduction:** Create multiple concurrent dialog sessions while cleanup routine runs
+**Fix Applied:** Implemented two-phase deletion pattern: collect keys to delete first, then delete them safely
 **Code Reference:**
 ```go
 func (cm *ContextManager) cleanupOldConversations() {
@@ -75,33 +77,44 @@ func (cm *ContextManager) cleanupOldConversations() {
 
 	cutoff := time.Now().Add(-24 * time.Hour)
 
-	for id, history := range cm.conversations { // Unsafe concurrent map iteration
+	// Fixed: Collect IDs to delete first to avoid modifying map during iteration
+	var toDelete []string
+	for id, history := range cm.conversations {
 		if history.LastUpdated.Before(cutoff) {
-			delete(cm.conversations, id) // Modifying map during iteration
+			toDelete = append(toDelete, id)
 		}
+	}
+
+	// Now safely delete the collected IDs
+	for _, id := range toDelete {
+		delete(cm.conversations, id)
 	}
 }
 ```
 ````
 
-### FUNCTIONAL MISMATCH: README Example Code Doesn't Match Implementation
+### FUNCTIONAL MISMATCH: README Example Code Doesn't Match Implementation - **RESOLVED**
 ````
 **File:** README.md:71-91 vs cmd/example/main.go:1-60
-**Severity:** Medium  
+**Severity:** Medium
+**Status:** RESOLVED (commit 79b0105, 2025-08-31)
 **Description:** The README shows example code importing "minilm/dialog" but the actual example imports "minilm/internal/dialog", indicating a discrepancy between documented public API usage and implementation.
 **Expected Behavior:** README example should use public API: import "minilm/dialog"
 **Actual Behavior:** Working example uses internal package: import "minilm/internal/dialog"
 **Impact:** Users following README documentation cannot compile their code
 **Reproduction:** Copy README example code exactly and attempt to compile
+**Fix Applied:** Updated example to use public API and created comprehensive README with working code examples
 **Code Reference:**
 ```go
-// README.md shows:
+// Fixed: Both README.md and cmd/example/main.go now use:
 import "minilm/dialog"
 manager := dialog.NewDialogManager(false)
 
-// But cmd/example/main.go actually uses:
-import "minilm/internal/dialog"
-manager := dialog.NewDialogManager(true)
+// Public API exports properly from internal package
+type DialogManager = dialog.DialogManager
+func NewDialogManager(debug bool) *DialogManager {
+    return dialog.NewDialogManager(debug)
+}
 ```
 ````
 
