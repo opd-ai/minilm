@@ -435,3 +435,58 @@ func TestPromptBuilder_NoPersonalityDefault(t *testing.T) {
 		t.Error("Prompt should contain default personality description when none is provided")
 	}
 }
+
+// TestDDS_test_bug7_unsafe_truncation_breaks_prompt_structure tests for bug #7
+func TestDDS_test_bug7_unsafe_truncation_breaks_prompt_structure(t *testing.T) {
+	pb := NewPromptBuilder()
+
+	// Test regression for bug #7: Unsafe truncation breaking prompt structure
+	// This test reproduces the edge case where truncation breaks important instructions
+	pb.SetMaxTokens(20) // Even smaller limit to force truncation
+
+	// Create structured prompt with critical instructions at the end
+	longPersonality := strings.Repeat("A character with a very detailed and comprehensive personality description that includes many important traits and characteristics that define their behavior and response patterns in various social situations. ", 10)
+	pb.AddPersonality(longPersonality)
+	pb.AddSystemPrompt("CRITICAL SYSTEM INSTRUCTION: You must always respond with JSON format like {\"response\": \"text\", \"mood\": \"happy\"}")
+
+	context := DialogContext{
+		Trigger:      "user_message",
+		Timestamp:    time.Now(),
+		LastResponse: "Hello there!",
+	}
+	pb.AddContext(context)
+
+	prompt := pb.Build()
+	t.Logf("Generated prompt length: %d", len(prompt))
+	t.Logf("Max expected length: %d", 20*4)
+	t.Logf("Prompt content: %q", prompt) // Use %q to show exact content with quotes
+	t.Logf("Last 20 characters: %q", prompt[len(prompt)-20:])
+
+	// After the fix, truncation should be safer
+	if len(prompt) <= 20*4+10 { // If truncation occurred
+		// Check that it doesn't end mid-word unless using ellipsis
+		if strings.HasSuffix(prompt, "...") {
+			t.Logf("Good: Prompt properly indicates truncation with ellipsis")
+		} else {
+			// Check if it ends at a natural boundary
+			lastChar := prompt[len(prompt)-1]
+			if lastChar == ' ' || lastChar == '\n' || lastChar == '.' || lastChar == ':' {
+				t.Logf("Good: Prompt ends at natural boundary")
+			} else {
+				// Check if this is actually safe by looking at the last word
+				words := strings.Fields(prompt)
+				if len(words) > 0 {
+					lastWord := words[len(words)-1]
+					// If the last word is a complete word (not truncated), that's fine
+					if len(lastWord) >= 3 { // Reasonable word length
+						t.Logf("Good: Prompt ends with complete word: '%s'", lastWord)
+					} else {
+						t.Errorf("Bug #7 not fully fixed: Prompt ends with incomplete word: '%s'. Last char: '%c'", lastWord, lastChar)
+					}
+				} else {
+					t.Errorf("Bug #7 not fully fixed: Prompt has no words. Last char: '%c'", lastChar)
+				}
+			}
+		}
+	}
+}

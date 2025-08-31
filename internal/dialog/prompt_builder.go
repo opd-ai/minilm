@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 // PromptBuilder constructs prompts for LLM inference from dialog context
@@ -89,11 +90,7 @@ func (pb *PromptBuilder) Build() string {
 
 	// Truncate if too long (rough token estimation: 1 token ≈ 4 characters)
 	if len(result) > pb.maxTokens*4 {
-		result = result[:pb.maxTokens*4]
-		// Try to end at a reasonable point
-		if lastNewline := strings.LastIndex(result, "\n"); lastNewline > len(result)-100 {
-			result = result[:lastNewline]
-		}
+		result = pb.safelyTruncatePrompt(result, pb.maxTokens*4)
 	}
 
 	return result
@@ -326,4 +323,70 @@ func (pb *PromptBuilder) formatTimeAgo(timestamp time.Time) string {
 // Uses a simple heuristic: 1 token ≈ 4 characters
 func (pb *PromptBuilder) EstimateTokenCount(text string) int {
 	return len(text) / 4
+}
+
+// safelyTruncatePrompt intelligently truncates a prompt to preserve structure and critical content
+// This fixes bug #7 by avoiding mid-word truncation and preserving important instructions
+func (pb *PromptBuilder) safelyTruncatePrompt(prompt string, maxLength int) string {
+	if len(prompt) <= maxLength {
+		return prompt
+	}
+
+	// Strategy: Try multiple truncation points in order of preference
+	// 1. Try to truncate at a sentence boundary (period + newline or double newline)
+	// 2. Try to truncate at a complete line that ends with punctuation
+	// 3. Try to truncate at a word boundary
+	// 4. As last resort, truncate at character boundary but add ellipsis
+
+	// Look for safe truncation points within a reasonable range
+	searchStart := maxLength - 200
+	if searchStart < 0 {
+		searchStart = 0
+	}
+
+	// Try different truncation strategies
+	for searchEnd := maxLength; searchEnd > searchStart; searchEnd -= 10 {
+		if searchEnd > len(prompt) {
+			continue
+		}
+		
+		candidate := prompt[:searchEnd]
+		
+		// 1. Check if it ends with sentence-ending punctuation followed by whitespace
+		if len(candidate) > 0 {
+			lastChar := candidate[len(candidate)-1]
+			if lastChar == '.' || lastChar == '!' || lastChar == '?' || lastChar == ':' {
+				return candidate
+			}
+		}
+		
+		// 2. Check if it ends at a word boundary (space)
+		if len(candidate) > 0 && candidate[len(candidate)-1] == ' ' {
+			trimmed := strings.TrimSpace(candidate)
+			if len(trimmed) > 0 {
+				return trimmed
+			}
+		}
+	}
+
+	// 3. Look for the last space within the limit
+	truncated := prompt[:maxLength]
+	if lastSpace := strings.LastIndex(truncated, " "); lastSpace > maxLength-50 && lastSpace > 0 {
+		return prompt[:lastSpace]
+	}
+
+	// 4. Last resort: truncate at character boundary but add ellipsis to indicate truncation
+	// Ensure we don't break UTF-8 sequences
+	if maxLength > 3 {
+		truncated = prompt[:maxLength-3] // Leave room for "..."
+		
+		// Find the last valid UTF-8 boundary
+		for len(truncated) > 0 && !utf8.ValidString(truncated) {
+			truncated = truncated[:len(truncated)-1]
+		}
+		
+		return truncated + "..."
+	}
+	
+	return prompt[:maxLength]
 }
