@@ -356,3 +356,74 @@ func TestConcurrentAccess(t *testing.T) {
 		<-done
 	}
 }
+
+// Test for bug #3: README example should work with public API
+func TestREADME_test_bug3_example_code_works(t *testing.T) {
+	// This test validates that the README example code actually works
+	// It reproduces the exact code shown in README.md
+
+	// Create dialog manager
+	manager := NewDialogManager(false)
+
+	// Create and configure LLM backend
+	backend := NewLLMBackend()
+
+	config := LLMConfig{
+		ModelPath:   "/path/to/model.gguf",
+		MaxTokens:   50,
+		Temperature: 0.8,
+		TopP:        0.9,
+		ContextSize: 2048,
+		Threads:     4,
+	}
+
+	configJSON, err := json.Marshal(config)
+	if err != nil {
+		t.Fatalf("Config marshal failed: %v", err)
+	}
+
+	err = backend.Initialize(configJSON)
+	if err != nil {
+		t.Fatalf("Backend initialization failed: %v", err)
+	}
+
+	// Register backend
+	manager.RegisterBackend("llm", backend)
+	manager.SetDefaultBackend("llm")
+
+	// Create dialog context
+	context := DialogContext{
+		Trigger:       "click",
+		InteractionID: "session-1",
+		CurrentMood:   80,
+		PersonalityTraits: map[string]float64{
+			"friendly": 0.8,
+			"playful":  0.6,
+		},
+		FallbackResponses: []string{"Hello!"},
+		FallbackAnimation: "talking",
+	}
+
+	// Generate dialog
+	response, err := manager.GenerateDialog(context)
+	if err != nil {
+		t.Fatalf("Dialog generation failed: %v", err)
+	}
+
+	// Verify response
+	if response.Text == "" {
+		t.Error("Expected non-empty response text")
+	}
+
+	if response.Animation == "" {
+		t.Error("Expected non-empty animation")
+	}
+
+	if response.Confidence <= 0 {
+		t.Error("Expected positive confidence score")
+	}
+
+	t.Logf("Generated response: %s", response.Text)
+	t.Logf("Animation: %s", response.Animation)
+	t.Logf("Confidence: %.2f", response.Confidence)
+}

@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"minilm/internal/dialog"
+	"minilm/dialog"
 )
 
 // Example demonstrates how to use the LLM-powered dialog system
