@@ -178,6 +178,23 @@ func LoadDialogBackendConfig(data []byte) (DialogBackendConfig, error) {
 	return dialog.LoadDialogBackendConfig(data)
 }
 
+// UpdateBackendMemory records interaction outcomes for backend learning.
+// This enables backends to adapt based on user interactions and feedback.
+//
+// The method finds the backend that can handle the given context and
+// updates its memory with the interaction outcome.
+//
+// Example:
+//
+//	feedback := &UserFeedback{
+//		Positive: true,
+//		Engagement: 0.9,
+//	}
+//	UpdateBackendMemory(manager, context, response, feedback)
+func UpdateBackendMemory(dm *DialogManager, context DialogContext, response DialogResponse, feedback *UserFeedback) {
+	dm.UpdateBackendMemory(context, response, feedback)
+}
+
 // Version and metadata
 
 const (

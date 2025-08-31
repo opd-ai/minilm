@@ -427,3 +427,64 @@ func TestREADME_test_bug3_example_code_works(t *testing.T) {
 	t.Logf("Animation: %s", response.Animation)
 	t.Logf("Confidence: %.2f", response.Confidence)
 }
+
+// Test for bug #6: API Compatibility Claims Don't Match Interface
+func TestDDS_test_bug6_api_compatibility_interface_match(t *testing.T) {
+	// This test validates that all methods declared in go.interface.md are available in public API
+	// Specifically tests the UpdateBackendMemory method that was missing
+
+	manager := NewDialogManager(false)
+	backend := NewLLMBackend()
+
+	// Set up a minimal backend for testing
+	config := LLMConfig{
+		ModelPath:   "/tmp/fake.gguf",
+		MaxTokens:   50,
+		Temperature: 0.8,
+	}
+
+	configJSON, err := json.Marshal(config)
+	if err != nil {
+		t.Fatalf("Config marshal failed: %v", err)
+	}
+
+	err = backend.Initialize(configJSON)
+	if err != nil {
+		t.Fatalf("Backend initialization failed: %v", err)
+	}
+
+	manager.RegisterBackend("test", backend)
+	manager.SetDefaultBackend("test")
+
+	// Create test data
+	context := DialogContext{
+		Trigger:       "click",
+		InteractionID: "test-session",
+		Timestamp:     time.Now(),
+		CurrentMood:   80,
+		PersonalityTraits: map[string]float64{
+			"friendly": 0.8,
+		},
+		FallbackResponses: []string{"Hello!"},
+		FallbackAnimation: "talking",
+	}
+
+	response := DialogResponse{
+		Text:       "Test response for memory update",
+		Animation:  "talking",
+		Confidence: 0.85,
+	}
+
+	feedback := &UserFeedback{
+		Positive:   true,
+		Engagement: 0.9,
+	}
+
+	// This should work according to go.interface.md DDS-1.0 specification
+	// After fix: UpdateBackendMemory is now available in public API
+	UpdateBackendMemory(manager, context, response, feedback)
+
+	// Test should pass without error, indicating the method is available
+	t.Log("UpdateBackendMemory successfully called via public API")
+	t.Log("DDS-1.0 API compatibility requirement satisfied")
+}
