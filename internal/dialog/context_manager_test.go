@@ -1,6 +1,7 @@
 package dialog
 
 import (
+	"strings"
 	"testing"
 	"time"
 )
@@ -306,4 +307,57 @@ func TestContextManager_ConcurrentAccess(t *testing.T) {
 	if len(history) == 0 {
 		t.Error("Expected some exchanges after concurrent operations")
 	}
+}
+
+// Test for bug #2: Race Condition in Context Manager Cleanup
+func TestContextManager_test_bug2_cleanup_race_condition(t *testing.T) {
+	cm := NewContextManager(100)
+	defer cm.Close()
+
+	// Test the cleanup function with many items to ensure the fix works correctly
+	cutoff := time.Now().Add(-25 * time.Hour) // Older than 24 hour cleanup threshold
+
+	// Manually populate conversations with old timestamps
+	cm.mu.Lock()
+	for i := 0; i < 1000; i++ {
+		interactionID := "old_" + string(rune('a'+i%26)) + string(rune('a'+(i/26)%26)) + string(rune('a'+(i/676)%26))
+		cm.conversations[interactionID] = &ConversationHistory{
+			Exchanges:   []ConversationExchange{},
+			LastUpdated: cutoff,
+		}
+	}
+	// Add some new conversations that should NOT be cleaned up
+	for i := 0; i < 100; i++ {
+		interactionID := "new_" + string(rune('a'+i%26)) + string(rune('a'+(i/26)%26))
+		cm.conversations[interactionID] = &ConversationHistory{
+			Exchanges:   []ConversationExchange{},
+			LastUpdated: time.Now(),
+		}
+	}
+	cm.mu.Unlock()
+
+	initialCount := cm.GetActiveConversations()
+	if initialCount != 1100 {
+		t.Errorf("Expected 1100 initial conversations, got %d", initialCount)
+	}
+
+	// Run cleanup - should remove old conversations safely
+	// After fix: should use two-phase deletion (collect keys, then delete)
+	cm.cleanupOldConversations()
+
+	finalCount := cm.GetActiveConversations()
+
+	// Should have removed 1000 old conversations, keeping 100 new ones
+	if finalCount != 100 {
+		t.Errorf("Expected 100 conversations after cleanup, got %d", finalCount)
+	}
+
+	// Verify that only new conversations remain
+	cm.mu.RLock()
+	for id := range cm.conversations {
+		if !strings.HasPrefix(id, "new_") {
+			t.Errorf("Found unexpected old conversation after cleanup: %s", id)
+		}
+	}
+	cm.mu.RUnlock()
 }

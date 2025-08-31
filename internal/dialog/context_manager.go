@@ -220,10 +220,17 @@ func (cm *ContextManager) cleanupOldConversations() {
 
 	cutoff := time.Now().Add(-24 * time.Hour) // Remove conversations older than 24 hours
 
+	// Collect IDs to delete first to avoid modifying map during iteration
+	var toDelete []string
 	for id, history := range cm.conversations {
 		if history.LastUpdated.Before(cutoff) {
-			delete(cm.conversations, id)
+			toDelete = append(toDelete, id)
 		}
+	}
+
+	// Now safely delete the collected IDs
+	for _, id := range toDelete {
+		delete(cm.conversations, id)
 	}
 }
 
