@@ -60,25 +60,26 @@ func (m *MockLLMModel) Predict(prompt string) (string, error) {
 	// Simulate processing delay
 	time.Sleep(m.delay)
 
+	// Extract only the current situation to avoid contamination from conversation history
+	currentSituation := m.extractCurrentSituation(prompt)
+
 	// Simple keyword-based response selection for more realistic behavior
-	prompt = strings.ToLower(prompt)
+	currentSituation = strings.ToLower(currentSituation)
 
 	switch {
-	case strings.Contains(prompt, "hello") || strings.Contains(prompt, "hi"):
-		return "Hi there! How are you doing today? 😊", nil
-	case strings.Contains(prompt, "fed you") || strings.Contains(prompt, "feed") || strings.Contains(prompt, "food"):
+	case strings.Contains(currentSituation, "fed you") || strings.Contains(currentSituation, "feed") || strings.Contains(currentSituation, "food"):
 		return "Thanks for the meal! *nom nom* 😋", nil
-	case strings.Contains(prompt, "petted you") || strings.Contains(prompt, "pat"):
+	case strings.Contains(currentSituation, "petted you") || strings.Contains(currentSituation, "pat"):
 		return "That feels wonderful! *purrs happily* 😊", nil
-	case strings.Contains(prompt, "wants to talk") || strings.Contains(prompt, "talk") || strings.Contains(prompt, "chat"):
+	case strings.Contains(currentSituation, "wants to talk") || strings.Contains(currentSituation, "talk") || strings.Contains(currentSituation, "chat"):
 		return "I love chatting with you! What's on your mind? 💭", nil
-	case strings.Contains(prompt, "clicked on you") || strings.Contains(prompt, "click"):
+	case strings.Contains(currentSituation, "clicked on you") || strings.Contains(currentSituation, "click"):
 		return "Oh! You got my attention! 👀✨", nil
-	case strings.Contains(prompt, "idle") || strings.Contains(prompt, "been idle"):
+	case strings.Contains(currentSituation, "idle") || strings.Contains(currentSituation, "been idle"):
 		return "I was just thinking about you! Miss me? 🤔💕", nil
-	case strings.Contains(prompt, "sad") || strings.Contains(prompt, "down"):
+	case strings.Contains(currentSituation, "sad") || strings.Contains(currentSituation, "down"):
 		return "Aww, I'm here for you! *gentle hug* 🤗", nil
-	case strings.Contains(prompt, "happy") || strings.Contains(prompt, "joy"):
+	case strings.Contains(currentSituation, "happy") || strings.Contains(currentSituation, "joy"):
 		return "Your happiness makes me happy too! 😄✨", nil
 	default:
 		// Return a random response for unmatched prompts
@@ -144,6 +145,35 @@ func (m *MockLLMModel) Free() error {
 	defer m.mu.Unlock()
 	m.initialized = false
 	return nil
+}
+
+// extractCurrentSituation extracts just the "Current situation" section from the prompt
+// to avoid contamination from conversation history when detecting triggers
+func (m *MockLLMModel) extractCurrentSituation(prompt string) string {
+	// Look for the "Current situation:" section
+	lines := strings.Split(prompt, "\n")
+	inCurrentSituation := false
+	var situationLines []string
+
+	for _, line := range lines {
+		if strings.Contains(line, "Current situation:") {
+			inCurrentSituation = true
+			continue
+		}
+		if inCurrentSituation {
+			// Stop when we hit another section
+			if strings.Contains(line, "Response guidelines:") ||
+				strings.Contains(line, "Your response:") ||
+				(strings.TrimSpace(line) != "" && !strings.HasPrefix(strings.TrimSpace(line), "-")) {
+				break
+			}
+			if strings.TrimSpace(line) != "" {
+				situationLines = append(situationLines, line)
+			}
+		}
+	}
+
+	return strings.Join(situationLines, " ")
 }
 
 // LLMBackend implements DialogBackend using LLM inference
