@@ -3,7 +3,7 @@
 ## AUDIT SUMMARY
 ````
 **Total Findings:** 3
-**Critical Bugs:** 1
+**Critical Bugs:** 0 (1 resolved)
 **Functional Mismatches:** 1
 **Missing Features:** 1
 **Edge Case Bugs:** 0
@@ -21,32 +21,20 @@
 
 ## DETAILED FINDINGS
 
-### CRITICAL BUG: Mock Model Returns Same Response for Different Triggers
+### ✅ RESOLVED: Mock Model Returns Same Response for Different Triggers
 ````
 **File:** internal/dialog/llm_backend.go:45-75
-**Severity:** High
-**Description:** The MockLLMModel.Predict() method has context-aware keyword matching but the actual LLM backend implementation isn't utilizing it properly. All different triggers (click, feed, pet, talk, idle) return identical responses when tested via the example application.
-**Expected Behavior:** Different triggers should produce contextually appropriate responses based on the trigger type
-**Actual Behavior:** All interactions return "Hi there! How are you doing today? 😊" regardless of trigger
-**Impact:** Dialog system provides non-contextual responses, breaking user immersion and making interactions feel robotic
-**Reproduction:** Run cmd/example/main.go and observe all 5 different triggers produce identical responses
-**Code Reference:**
-```go
-// The MockLLMModel has proper context awareness:
-func (m *MockLLMModel) Predict(prompt string) (string, error) {
-	prompt = strings.ToLower(prompt)
-	switch {
-	case strings.Contains(prompt, "feed") || strings.Contains(prompt, "food"):
-		return "Thanks for the meal! *nom nom* 😋", nil
-	case strings.Contains(prompt, "pet") || strings.Contains(prompt, "pat"):
-		return "That feels wonderful! *purrs happily* 😊", nil
-	// ... other contextual responses
-	}
-}
-
-// But the actual prompt building doesn't pass trigger info effectively
-// causing all responses to hit the default case
-```
+**Severity:** High  
+**Status:** RESOLVED (Fixed in commit ba3d8eb - 2025-08-31)
+**Description:** The MockLLMModel.Predict() method was contaminated by conversation history when detecting trigger keywords, causing all interactions to return identical responses regardless of trigger type.
+**Root Cause:** Keyword matching was performed on the entire prompt including conversation history, causing false positive matches from previous interactions.
+**Fix Applied:** 
+- Added `extractCurrentSituation()` method to isolate the "Current situation" section from prompts
+- Modified keyword matching to only analyze the current trigger, avoiding contamination from conversation history
+- Removed generic "hello/hi" matching that caused false positives with personality examples
+**Verification:** All 5 trigger types (click, feed, pet, talk, idle) now return contextually appropriate responses
+**Expected Behavior:** ✅ Different triggers produce contextually appropriate responses based on the trigger type
+**Actual Behavior:** ✅ Each trigger returns unique, contextual responses as intended
 ````
 
 ### FUNCTIONAL MISMATCH: Character Integrator Tool Completely Unimplemented
