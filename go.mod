@@ -1,3 +1,3 @@
-module minilm
+module github.com/opd-ai/minilm
 
-go 1.23.2
+go 1.24.5
