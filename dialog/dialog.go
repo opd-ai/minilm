@@ -37,7 +37,7 @@
 package dialog
 
 import (
-	"minilm/internal/dialog"
+	"github.com/opd-ai/minilm/internal/dialog"
 )
 
 // Core interfaces and types - re-export from internal package for public API

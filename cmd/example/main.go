@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"minilm/dialog"
+	"github.com/opd-ai/minilm/dialog"
 )
 
 // Example demonstrates how to use the LLM-powered dialog system
